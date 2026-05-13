@@ -499,6 +499,12 @@
         <li class="toc-item">
           <a href="stage-3.html" class="toc-link">
             <span class="toc-num">03</span>
+            <span class="toc-label">SDLC [IaC + App Deployement on Kubernetes + CI/CD 流程]</span>
+          </a>
+        </li>
+        <!--<li class="toc-item">
+          <a href="stage-3.html" class="toc-link">
+            <span class="toc-num">03</span>
             <span class="toc-label">基礎設施即程式碼</span>
           </a>
         </li>
@@ -519,7 +525,7 @@
             <span class="toc-num">05</span>
             <span class="toc-label">Day-2 SRE 維運</span>
           </a>
-        </li>
+        </li>-->
       </ul>
     </aside>
 
@@ -535,7 +541,7 @@
         <span class="tp-icon">💬</span>
         <span class="tp-label">討論重點 · #1</span>
       </div>
-      本示範展示使用 IBM Bob 完成完整的軟體交付生命週期（SDLC），從單一提示建構支付處理應用程式，經過安全掃描、CI/CD 流水線產生、OpenShift 部署，到驅動日常維運工作的 Day-2 SRE 作業。Bob 智慧地驅動每個階段，產生可立即對實際 OpenShift 叢集執行的生產就緒產出物。
+      本示範展示使用 IBM Bob 完成完整的軟體交付生命週期（SDLC），從單一提示建構支付處理應用程式，經過安全掃描、CI/CD 流水線產生、Kubernetes 部署。Bob 智慧地驅動每個階段，產生可立即對實際 Kubernetes 叢集執行的生產就緒產出物。
     </div>
 
     <div class="section-label">視覺化階段概覽</div>
@@ -568,64 +574,13 @@
         <div class="flow-node" style="--nc:#ffb347">
           <div class="flow-bubble">
             <div class="flow-num">03</div>
-            <div class="flow-label">基礎設施即程式碼</div>
-            <div class="flow-sub">Terraform · Ansible</div>
-          </div>
-          <div class="flow-arrow">→</div>
-        </div>
-        <div class="flow-node" style="--nc:#ff6b9d">
-          <div class="flow-bubble">
-            <div class="flow-num">04</div>
-            <div class="flow-label">部署</div>
-            <div class="flow-sub">手動部署至 OpenShift</div>
-          </div>
-          <div class="flow-arrow">→</div>
-        </div>
-        <div class="flow-node" style="--nc:#50fa7b">
-          <div class="flow-bubble">
-            <div class="flow-num">04b</div>
-            <div class="flow-label">CI/CD 流水線</div>
-            <div class="flow-sub">GitHub Actions · 自動部署</div>
-          </div>
-          <div class="flow-arrow">→</div>
-        </div>
-        <div class="flow-node" style="--nc:#4d94ff">
-          <div class="flow-bubble">
-            <div class="flow-num">05</div>
-            <div class="flow-label">Day-2 SRE 維運</div>
-            <div class="flow-sub">RefreshPOD · 快取 · 憑證 · Vault</div>
+            <div class="flow-label">演示</div>
+            <div class="flow-sub">SDLC [IaC + App Deployement on Kubernetes + CI/CD 流程]</div>
           </div>
         </div>
       </div>
 
-      <div class="kv-grid">
-        <div class="kv-card">
-          <div class="kv-val">60 分鐘</div>
-          <div class="kv-key">總執行時間</div>
-        </div>
-        <div class="kv-card">
-          <div class="kv-val">7 個階段</div>
-          <div class="kv-key">可自由選擇</div>
-        </div>
-        <div class="kv-card">
-          <div class="kv-val">Java 11→17</div>
-          <div class="kv-key">Spring Boot</div>
-        </div>
-        <div class="kv-card">
-          <div class="kv-val">OpenShift</div>
-          <div class="kv-key">目標平台</div>
-        </div>
-        <div class="kv-card">
-          <div class="kv-val">完整 SDLC</div>
-          <div class="kv-key">涵蓋範圍</div>
-        </div>
-        <div class="kv-card">
-          <div class="kv-val">0 → 生產環境</div>
-          <div class="kv-key">Bob 的功能</div>
-        </div>
-      </div>
-
-      <div class="setup-note">
+      <!--<div class="setup-note">
         <span class="setup-icon">⚙</span>
         <strong>設定說明 #3：</strong> 筆記型電腦上的 Bob IDE + Bobshell · 透過 TechZone 存取 OpenShift 叢集
       </div>
@@ -633,10 +588,10 @@
       <div class="tip">
         <span class="tip-icon">💡</span>
         <strong>提示 #2：</strong> 我們今天使用 GitHub Actions 和 OpenShift — 但 Bob 也支援 Jenkins、GitLab CI、Azure DevOps、Tekton、EKS、AKS 等。無論使用何種工具，智慧功能都相同。
-      </div>
+      </div>-->
     </div>
 
-    <div class="section-label">詳細流水線分解</div>
+    <!--<div class="section-label">詳細流水線分解</div>
     <div style="background: linear-gradient(135deg, rgba(0,102,204,0.05), rgba(0,168,150,0.03)); border: 1px solid rgba(0,102,204,0.2); border-radius: 6px; padding: 16px; margin-bottom: 30px;">
       <p style="margin-bottom: 12px; color: var(--text); font-size: 13px; line-height: 1.6;">
         檢視客戶就緒的流水線分解 — 他們將在示範中看到的內容：
@@ -644,7 +599,7 @@
       <a href="../bob-demo-sdlc-cards.html" style="display: inline-block; padding: 10px 18px; background: var(--accent); color: white; text-decoration: none; border-radius: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 600; transition: background 0.2s;">
         檢視完整流水線分解 →
       </a>
-    </div>
+    </div>-->
 
       <div class="nav-buttons">
         <a href="../index.html" class="nav-btn">← 返回索引</a>

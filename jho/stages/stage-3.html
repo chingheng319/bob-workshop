@@ -531,7 +531,13 @@
           </a>
         </li>
         <li class="toc-item">
-          <a href="stage-3.html" class="toc-link active">
+          <a href="stage-3.html" class="toc-link">
+            <span class="toc-num">03</span>
+            <span class="toc-label">SDLC [IaC + App Deployement on Kubernetes + CI/CD 流程]</span>
+          </a>
+        </li>
+        <!--<li class="toc-item">
+          <a href="stage-3.html" class="toc-link">
             <span class="toc-num">03</span>
             <span class="toc-label">基礎設施即程式碼</span>
           </a>
@@ -553,293 +559,20 @@
             <span class="toc-num">05</span>
             <span class="toc-label">Day-2 SRE 維運</span>
           </a>
-        </li>
+        </li>-->
       </ul>
     </aside>
 
     <div class="container">
     <div class="stage-header">
-      <div class="stage-badge">階段 03 · IaC · 5 分鐘</div>
-      <div class="stage-title">基礎設施即程式碼</div>
-      <div class="stage-desc">產生 Terraform 和 Ansible 以佈建和配置 OpenShift 環境</div>
+      <div class="stage-badge">階段 03 · 演示 · 5 分鐘</div>
+      <div class="stage-title">SDLC Video Demo</div>
+      <div class="stage-desc">[IaC + App Deployement on Kubernetes + CI/CD 流程]</div>
     </div>
 
-    <div class="talking-point">
-      <div class="tp-header">
-        <span class="tp-icon">💬</span>
-        <span class="tp-label">談話要點 · #21</span>
-      </div>
-      <ul class="tp-list">
-        <li>在部署任何東西之前，基礎設施需要存在。我們不是透過控制台點擊或執行臨時腳本，而是要求 Bob 產生基礎設施即程式碼 — 可重複、版本控制和可稽核。</li>
-        <li>我們將使用 <strong>Terraform</strong> 來佈建 OpenShift 命名空間和資源，並使用 <strong>Ansible</strong> 來配置環境 — 應用策略、設定服務帳戶，並為支付應用程式準備命名空間。</li>
-      </ul>
-    </div>
-
-    <div class="stage-tip">
-      <div class="tip-header">
-        <span class="tip-icon">💡</span>
-        <span class="tip-label">提示 · #45</span>
-      </div>
-      Bob 僅產生這些檔案 — 我們不會即時執行它們。但輸出是生產就緒的，可以與應用程式程式碼一起提交到儲存庫。
-    </div>
-
-    <div class="section-label">提示</div>
-
-    <div class="stage-note">
-      <div class="note-header">
-        <span class="note-icon">📝</span>
-        <span class="note-label">簡報者備註 · #23</span>
-      </div>
-      在產生基礎設施檔案之前，讓我們要求 Bob 視覺化完整的 IaC 流程 — 這樣觀眾可以看到 Terraform、Ansible 和部署流水線如何連接。
-    </div>
-
-    <div class="prompt-card">
-      <div class="prompt-header" onclick="togglePrompt(this)">
-        <span class="prompt-label">3a · IaC 架構圖</span>
-        <div style="display:flex;gap:8px;align-items:center">
-          <button class="copy-btn" onclick="event.stopPropagation();copyPrompt('prompt0')">複製</button>
-          <span class="prompt-toggle">▼</span>
-        </div>
-      </div>
-      <div class="prompt-body" id="prompt0">Generate a Mermaid diagram showing the full infrastructure and deployment flow for the payment application.
-
-Note: Mermaid does not support `\n` inside node labels — use `<br/>` for line breaks within labels.
-
-Cluster: single OpenShift cluster — 5 worker nodes, 16 vCPU and 64 GB RAM each.
-Two namespaces: bob-demo-staging and bob-demo-prod.
-Image registry: OpenShift internal image registry (image-registry.openshift-image-registry.svc:5000).
-
-The diagram should show:
-
-Infrastructure layer (Terraform):
-- Both namespaces on the same cluster
-- Per namespace: ResourceQuota, NetworkPolicy, ServiceAccount
-- Per namespace: PostgreSQL Deployment + ClusterIP Service (port 5432, internal only) + PersistentVolumeClaim (5Gi)
-- NetworkPolicy rules: payment-service → postgres-service on port 5432 allowed, all other ingress/egress denied by default
-
-Configuration layer (Ansible):
-- PostgreSQL credentials Secret injected per namespace
-- ConfigMap for app configuration
-- PostgreSQL readiness wait before pre-flight health check
-
-CI/CD and deployment flow:
-- CI builds image → pushes to OpenShift internal registry under bob-demo-staging
-- CD auto-deploys payment-service to bob-demo-staging → connects to postgres-service in same namespace
-- Image promoted via oc tag within internal registry to bob-demo-prod
-- Manual approval gates production deployment
-- payment-service in bob-demo-prod connects to its own postgres-service
-
-Output the diagram as a .md file: payment-app-java17/infra/IaCArchitecture.md
-
-Once the file is saved, display the Mermaid diagram directly in the chat so we can see it immediately.</div>
-    </div>
-
-    <div class="stage-note">
-      <div class="note-header">
-        <span class="note-icon">📝</span>
-        <span class="note-label">簡報者備註 · #24</span>
-      </div>
-      逐層向觀眾介紹圖表 — <strong>Terraform</strong>（命名空間、配額、網路策略、PostgreSQL + PVC）、<strong>Ansible</strong>（憑證、配置、就緒檢查）和 <strong>CI/CD 流程</strong>（建構 → staging → oc tag → prod）。
-    </div>
-
-    <div class="stage-tip">
-      <div class="tip-header">
-        <span class="tip-icon">💡</span>
-        <span class="tip-label">提示 · #46</span>
-      </div>
-      如果房間裡有<strong>基礎設施或平台工程師</strong>，這是他們的時刻 — 他們會立即識別 Terraform 結構、NetworkPolicy 規則和 PVC 設定。這個圖表說他們的語言。在繼續之前讓他們反應。
-    </div>
-
-    <div class="stage-tip">
-      <div class="tip-header">
-        <span class="tip-icon">💡</span>
-        <span class="tip-label">提示 · #47</span>
-      </div>
-      成本：<strong>~0.1 bobcoins</strong>。
-    </div>
-
-    <div class="prompt-card">
-      <div class="prompt-header" onclick="togglePrompt(this)">
-        <span class="prompt-label">3b · Terraform — 完整基礎設施 + GitHub Secrets</span>
-        <div style="display:flex;gap:8px;align-items:center">
-          <button class="copy-btn" onclick="event.stopPropagation();copyPrompt('prompt1')">複製</button>
-          <span class="prompt-toggle">▼</span>
-        </div>
-      </div>
-      <div class="prompt-body" id="prompt1">Based on the IaC architecture diagram in payment-app-java17/infra/IaCArchitecture.md, generate a complete Terraform configuration to provision the OpenShift environment and GitHub Actions secrets for the payment application.
-
-## Infrastructure Overview
-
-**Cluster**: Single OpenShift cluster — 5 worker nodes, each with 16 vCPU and 64 GB RAM (80 vCPU / 320 GB RAM total)
-
-**Namespaces**: bob-demo-staging and bob-demo-prod
-
-## Output Files
-
-All files under payment-app-java17/infra/terraform/:
-
-### 1. provider.tf — Provider configuration
-- Kubernetes/OpenShift provider (hashicorp/kubernetes ~> 2.27)
-- GitHub provider (integrations/github ~> 6.0)
-- Null provider for local-exec provisioners
-
-### 2. variables.tf — Input variables
-- OpenShift: cluster URL, token
-- GitHub: token, owner, repository
-- Namespaces: staging/prod names (defaults: bob-demo-staging, bob-demo-prod)
-- ResourceQuota settings
-- PostgreSQL configuration
-- All sensitive values with no defaults (must be supplied via TF_VAR_* at runtime)
-
-### 3. main.tf — OpenShift infrastructure
-
-Provision for **each namespace** (staging and prod):
-
-- **Namespace** with labels and annotations
-- **ResourceQuota**:
-  - requests.cpu: 4, limits.cpu: 8
-  - requests.memory: 8Gi, limits.memory: 16Gi
-- **NetworkPolicy**:
-  - Default-deny all ingress/egress
-  - Allow ingress to payment-service from within namespace only
-  - Allow payment-service to connect to postgres-service on port 5432
-- **ServiceAccount** — payment-service-sa with least-privilege RBAC (Role + RoleBinding)
-- **PostgreSQL** (separate instance per namespace, no sharing):
-  - PersistentVolumeClaim — 5Gi storage
-  - Deployment — postgres:15, single replica, resource limits (1 CPU, 2Gi memory)
-  - Service — postgres-service on port 5432 (ClusterIP, internal only)
-
-### 4. github-secrets.tf — GitHub Actions secrets
-
-Provision five secrets for CI/CD pipeline:
-- OPENSHIFT_SERVER — OpenShift cluster API URL
-- OPENSHIFT_TOKEN — Service account token for authentication
-- OPENSHIFT_REGISTRY — Internal registry URL (from: oc get route default-route -n openshift-image-registry --template='{{ .spec.host }}')
-- NAMESPACE_STAGING — bob-demo-staging
-- NAMESPACE_PROD — bob-demo-prod
-
-All values read from environment variables (TF_VAR_* prefix).
-
-### 5. outputs.tf — Output values
-- Namespace names (staging/prod)
-- Cluster endpoint
-- PostgreSQL service endpoints (staging/prod)
-- PostgreSQL ClusterIPs
-- ServiceAccount names
-- PVC names
-- GitHub secrets status (optional)
-
-### 6. .env.example — Environment variable template
-
-Document all required TF_VAR_* variables with descriptions:
-- TF_VAR_cluster_url — OpenShift API server URL
-- TF_VAR_cluster_token — Service account token
-- TF_VAR_github_token — GitHub PAT with repo scope
-- TF_VAR_github_owner — GitHub organization or user
-- TF_VAR_github_repository — Repository name
-- TF_VAR_openshift_server — OpenShift cluster API URL (for GitHub secrets)
-- TF_VAR_openshift_token — Service account token (for GitHub secrets)
-- TF_VAR_openshift_registry — Internal registry URL
-
-## Requirements
-
-- Use placeholder values for all sensitive data — supplied via environment variables at runtime
-- No hardcoded secrets in .tf files
-- Separate PostgreSQL instance per namespace (no sharing between staging and prod)
-- Single Terraform workspace manages both OpenShift infrastructure and GitHub secrets
-- Do not apply or run any Terraform commands</div>
-    </div>
-
-    <div class="stage-note">
-      <div class="note-header">
-        <span class="note-icon">📝</span>
-        <span class="note-label">簡報者備註 · #25</span>
-      </div>
-      指出<strong>六個檔案</strong> — 這是一個 Terraform 工作區中的完整基礎設施故事：命名空間、配額、網路策略、RBAC、每個命名空間的 PostgreSQL，以及 GitHub Actions secrets 全部連接在一起。強調 <code>.env.example</code> — 任何加入此儲存庫的人都確切知道在執行 <code>terraform apply</code> 之前需要提供什麼。
-    </div>
-
-    <div class="talking-point">
-      <div class="tp-header">
-        <span class="tp-icon">💬</span>
-        <span class="tp-label">談話要點 · #22</span>
-      </div>
-      Ansible 處理配置層 — PostgreSQL 憑證、配置映射和預檢檢查。應用程式在執行時需要注入的所有內容，在第一次部署之前就已連接好。
-    </div>
-
-    <div class="prompt-card">
-      <div class="prompt-header" onclick="togglePrompt(this)">
-        <span class="prompt-label">3c · Ansible — 配置環境</span>
-        <div style="display:flex;gap:8px;align-items:center">
-          <button class="copy-btn" onclick="event.stopPropagation();copyPrompt('prompt2')">複製</button>
-          <span class="prompt-toggle">▼</span>
-        </div>
-      </div>
-      <div class="prompt-body" id="prompt2">Based on the IaC architecture diagram in payment-app-java17/infra/IaCArchitecture.md, generate an Ansible playbook to configure the OpenShift environment after Terraform provisioning.
-
-Single cluster, two namespaces: bob-demo-staging and bob-demo-prod.
-Each namespace has its own PostgreSQL instance provisioned by Terraform.
-
-Output all files under payment-app-java17/infra/ansible/:
-1. playbook.yml — main playbook targeting both namespaces
-2. inventory/hosts.yml — single OpenShift cluster inventory
-3. roles/payment-app/tasks/main.yml — configuration tasks for each namespace:
-   - Create Kubernetes Secret for PostgreSQL credentials:
-     DB_URL: jdbc:postgresql://postgres-service:5432/paymentdb
-     DB_USER: payment_user
-     DB_PASSWORD: <placeholder>
-   - Create ConfigMap for application configuration
-   - Verify service account permissions
-   - Wait for PostgreSQL pod to be ready before proceeding
-   - Run a pre-flight health check to confirm namespace is ready for deployment
-
-Note: No image pull secret needed — OpenShift internal registry automatically grants pull access to the default service account within the same namespace.
-Use placeholder values for all credentials.
-Do not run the playbook.</div>
-    </div>
-
-    <div class="stage-note">
-      <div class="note-header">
-        <span class="note-icon">📝</span>
-        <span class="note-label">簡報者備註 · #26</span>
-      </div>
-      這裡值得強調兩件事：<strong>PostgreSQL 就緒等待</strong> — Ansible 不會繼續，直到資料庫 pod 實際就緒，防止應用程式在沒有資料庫連接的情況下啟動。以及<strong>預檢健康檢查</strong> — 命名空間必須通過，CI/CD 流水線才能部署到其中。
-    </div>
-
-    <div class="stage-tip">
-      <div class="tip-header">
-        <span class="tip-icon">💡</span>
-        <span class="tip-label">提示 · #48</span>
-      </div>
-      談話要點：<em>"Terraform 佈建基礎設施，Ansible 配置它，CI/CD 流水線部署到其中。Bob 產生了這三者。"</em>
-    </div>
-
-    <div class="stage-tip">
-      <div class="tip-header">
-        <span class="tip-icon">💡</span>
-        <span class="tip-label">提示 · #49</span>
-      </div>
-      您不必在真實示範中執行所有三個提示 — 選擇最能引起觀眾共鳴的一個。基礎設施工程師？展示 Terraform。專注於維運？從 Ansible 開始。時間緊迫？僅圖表就能講述完整故事。
-    </div>
-
-    <div class="section-label">Bob 產生</div>
-    <div class="output-list">
-      <div class="output-item"><span class="output-icon">→</span>payment-app-java17/infra/terraform/main.tf — 命名空間、配額、網路策略、RBAC、每個命名空間的 PostgreSQL + PVC</div>
-      <div class="output-item"><span class="output-icon">→</span>payment-app-java17/infra/terraform/provider.tf, variables.tf, outputs.tf</div>
-      <div class="output-item"><span class="output-icon">→</span>payment-app-java17/infra/terraform/github-secrets.tf — GitHub Actions secrets</div>
-      <div class="output-item"><span class="output-icon">→</span>payment-app-java17/infra/terraform/.env.example — 必需的 TF_VAR_* 變數</div>
-      <div class="output-item"><span class="output-icon">→</span>payment-app-java17/infra/ansible/playbook.yml — PostgreSQL 憑證、configmaps、就緒等待、預檢檢查</div>
-      <div class="output-item"><span class="output-icon">→</span>payment-app-java17/infra/ansible/inventory/hosts.yml</div>
-      <div class="output-item"><span class="output-icon">→</span>payment-app-java17/infra/ansible/roles/payment-app/tasks/main.yml</div>
-    </div>
-
-    <div class="section-label">示範準備</div>
-    <div class="stage-prep">
-      如果您想示範部署到即時 OpenShift 叢集，請使用此環境佈建一個具有 <strong>5 個工作節點</strong>的叢集，每個節點配置 <strong>16 vCPU 和 64 GB RAM</strong>，總計 <strong>80 vCPU 和 320 GB RAM</strong>。
-    </div>
 
     <div class="nav-buttons">
       <a href="stage-2b.html" class="nav-btn">← 上一階段</a>
-      <a href="stage-4.html" class="nav-btn">下一步：階段 4 →</a>
     </div>
   </div>
 

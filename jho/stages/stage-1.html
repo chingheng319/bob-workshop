@@ -512,6 +512,12 @@
         <li class="toc-item">
           <a href="stage-3.html" class="toc-link">
             <span class="toc-num">03</span>
+            <span class="toc-label">SDLC [IaC + App Deployement on Kubernetes + CI/CD 流程]</span>
+          </a>
+        </li>
+        <!--<li class="toc-item">
+          <a href="stage-3.html" class="toc-link">
+            <span class="toc-num">03</span>
             <span class="toc-label">基礎設施即程式碼</span>
           </a>
         </li>
@@ -532,7 +538,7 @@
             <span class="toc-num">05</span>
             <span class="toc-label">Day-2 SRE 維運</span>
           </a>
-        </li>
+        </li>-->
       </ul>
     </aside>
 
@@ -608,7 +614,7 @@ Do not run the application. I will run it myself.
 
 Also generate:
 - Dockerfile — multi-stage build, distroless base, non-root user
-- k8s/deployment.yaml — OpenShift deployment manifest with placeholder values:
+- k8s/deployment.yaml — kubernetes deployment manifest with placeholder values:
   - Image: image-registry.openshift-image-registry.svc:5000/${NAMESPACE}/payment-app:${IMAGE_TAG}
   - Namespace: ${NAMESPACE}
   - 3 replicas, resource limits, readiness/liveness probes
@@ -632,7 +638,7 @@ payment-app/
 ├── pom.xml
 ├── Dockerfile
 ├── k8s/
-│   └── deployment.yaml   ← OpenShift manifest with placeholder values
+│   └── deployment.yaml   ← kubernetes manifest with placeholder values
 └── README.md
 ```
 
@@ -643,14 +649,6 @@ payment-app/
 1. **`GenerationType.UUID` requires JPA 3.x** — Spring Boot 2.7 ships with JPA 2.x (Hibernate 5), which does not support `GenerationType.UUID`. Use `UUID.randomUUID()` in a `@PrePersist` hook instead, or upgrade to Spring Boot 3.x.
 
 2. **Lombok requires annotation processing to be active at compile time** — When Lombok is on the classpath but the compiler's annotation processor isn't wired correctly (e.g., missing `-proc:full` flag or IDE misconfiguration), all generated methods (`getters`, `setters`, `builder`, `log`) are invisible to `javac` and produce "cannot find symbol" errors. For a zero-friction demo, replacing Lombok with explicit getters/setters and a hand-written builder is more portable and avoids the dependency entirely.</div>
-    </div>
-
-    <div class="stage-tip">
-      <div class="tip-header">
-        <span class="tip-icon">💡</span>
-        <span class="tip-label">提示 · #35</span>
-      </div>
-      此建構的成本約為 <strong>~0.31 bobcoins</strong>。
     </div>
 
     <div class="talking-point">
@@ -667,7 +665,7 @@ payment-app/
       <div class="output-item"><span class="output-icon">→</span>pom.xml — Maven 相依性（Spring Boot、H2、Caffeine、Actuator）</div>
       <div class="output-item"><span class="output-icon">→</span>application.properties — H2 設定、快取設定、actuator 曝露</div>
       <div class="output-item"><span class="output-icon">→</span>Dockerfile — 多階段建構、distroless 基礎、非 root 使用者</div>
-      <div class="output-item"><span class="output-icon">→</span>k8s/deployment.yaml — 帶有佔位符值的 OpenShift 清單（映像、命名空間、註冊表）</div>
+      <div class="output-item"><span class="output-icon">→</span>k8s/deployment.yaml — 帶有佔位符值的 kubernetes 清單（映像、命名空間、註冊表）</div>
       <div class="output-item"><span class="output-icon">→</span>README.md — 如何建構和執行</div>
     </div>
 

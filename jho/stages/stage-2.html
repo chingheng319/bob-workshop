@@ -497,6 +497,12 @@
         <li class="toc-item">
           <a href="stage-3.html" class="toc-link">
             <span class="toc-num">03</span>
+            <span class="toc-label">SDLC [IaC + App Deployement on Kubernetes + CI/CD 流程]</span>
+          </a>
+        </li>
+        <!--<li class="toc-item">
+          <a href="stage-3.html" class="toc-link">
+            <span class="toc-num">03</span>
             <span class="toc-label">基礎設施即程式碼</span>
           </a>
         </li>
@@ -517,7 +523,7 @@
             <span class="toc-num">05</span>
             <span class="toc-label">Day-2 SRE 維運</span>
           </a>
-        </li>
+        </li>-->
       </ul>
     </aside>
 
@@ -531,10 +537,10 @@
     <div class="talking-point">
       <div class="tp-header">
         <span class="tp-icon">💬</span>
-        <span class="tp-label">TALKING POINT · #13</span>
+        <span class="tp-label">談論重點 · #13</span>
       </div>
       <ul class="tp-list">
-        <li>Testing is a core part of any software delivery lifecycle — industry standards like CI/CD, DevSecOps, and agile all mandate that code is validated before it ships. We'll ask Bob to generate a full test suite covering happy paths, edge cases, and failure scenarios — no manual test writing required.</li>
+        <li>測試是任何軟體交付生命週期中的核心環節 —— 像是持續整合／持續交付（CI/CD）、DevSecOps，以及敏捷開發等業界標準，都要求在程式碼發佈前先完成驗證。我們會讓 Bob 自動生成一套完整的測試案例，涵蓋正常情境、邊界條件與錯誤情境，完全不需要手動撰寫測試。</li>
       </ul>
     </div>
 
@@ -567,14 +573,6 @@ Generate a report with name PaymentApiIntegrationTestCoverageReport.md.</div>
       在編寫任何程式碼之前，Bob 將首先<strong>讀取現有的原始檔案</strong>以收集上下文 — 它需要了解控制器、模型和端點，然後才能編寫有意義的測試。<br><br>
 一旦有足夠的上下文，Bob 將建立一個<strong>待辦清單</strong>並逐項完成 — 檔案逐一建立並標記為完成。<br><br>
 <strong>如何處理報告：</strong>向觀眾介紹摘要 — 強調通過/失敗計數、涵蓋率百分比以及任何標記的邊緣案例。這是開發人員通常需要花費數小時手動產生的輸出類型。
-    </div>
-
-    <div class="stage-tip">
-      <div class="tip-header">
-        <span class="tip-icon">💡</span>
-        <span class="tip-label">提示 · #41</span>
-      </div>
-      您應該期望所有測試都通過 ✅ — 上次執行時，所有 18 個測試都通過了。成本：<strong>~0.17 bobcoins</strong>。
     </div>
 
     <div class="stage-tip">
