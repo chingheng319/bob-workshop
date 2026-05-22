@@ -197,6 +197,172 @@ sudo yum install git</code></pre>
                             </li>
                         </ol>
                     </div>
+
+                    <div class="card highlight">
+                        <h3>4. Java 開發環境配置（Spring Boot 專案必要）</h3>
+                        <p>針對 Workshop 中的 Spring Boot 專案開發</p>
+                        
+                        <h4>📦 必要的 Java Extensions</h4>
+                        <p>在 Bob IDE 中安裝以下 Extensions：</p>
+                        
+                        <h5>核心 Java 支援</h5>
+                        <ul>
+                            <li><strong>Extension Pack for Java</strong>
+                                <ul>
+                                    <li>包含：Language Support for Java, Debugger for Java, Test Runner for Java, Maven for Java, Project Manager for Java, Visual Studio IntelliCode</li>
+                                    <li>提供完整的 Java 開發環境</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        
+                        <h5>Spring Boot 開發</h5>
+                        <ul>
+                            <li><strong>Spring Boot Extension Pack</strong>
+                                <ul>
+                                    <li>包含：Spring Boot Tools, Spring Initializr Java Support, Spring Boot Dashboard</li>
+                                    <li>簡化 Spring Boot 應用程式開發與管理</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        
+                        <h4>🔧 安裝步驟</h4>
+                        <ol>
+                            <li>開啟 Bob IDE</li>
+                            <li>點擊左側活動列的「Extensions」圖示（或按 <code>Ctrl+Shift+X</code> / <code>Cmd+Shift+X</code>）</li>
+                            <li>在搜尋框中輸入 Extension 名稱</li>
+                            <li>點擊「Install」按鈕安裝</li>
+                            <li>安裝完成後，重新載入 Bob IDE（如需要）</li>
+                        </ol>
+                        
+                        <div class="note">
+                            <strong>💡 提示</strong>：Extension Pack 會自動安裝所有相關的 Extensions，建議優先安裝 Pack 版本以節省時間。專案已使用 H2 Console 進行資料庫管理，無需額外安裝資料庫工具。
+                        </div>
+                    </div>
+
+                    <div class="card highlight">
+                        <h3>5. Eclipse 用戶：Bob Shell（選用）</h3>
+                        <p>如果您習慣使用 Eclipse IDE，可以透過 Bob Shell 在終端機中使用 Bob 的 AI 功能</p>
+                        
+                        <h4>📖 什麼是 Bob Shell？</h4>
+                        <p>Bob Shell 是一個命令列工具，讓您可以在任何終端機環境中與 Bob AI 互動，無需使用 Bob IDE。</p>
+                        
+                        <h4>🔧 安裝 Bob Shell</h4>
+                        
+                        <h5>系統需求</h5>
+                        <ul>
+                            <li>Node.js 22.15.0 或更新版本</li>
+                            <li>4 GB RAM（建議 8 GB）</li>
+                            <li>500 MB 可用磁碟空間</li>
+                            <li>穩定的網路連線</li>
+                        </ul>
+                        
+                        <h5>步驟 1：安裝 Node.js</h5>
+                        <p>Bob Shell 需要 Node.js 22.15.0 或更新版本。請依照您的作業系統選擇安裝方式：</p>
+                        
+                        <p style="margin-top: 16px;"><strong>🍎 macOS 安裝 Node.js：</strong></p>
+                        <ul style="margin-left: 24px;">
+                            <li><strong>方式 A：使用官方安裝程式（推薦）</strong>
+                                <ol style="margin-left: 20px; margin-top: 8px;">
+                                    <li>前往 Node.js 官網：<code>https://nodejs.org</code></li>
+                                    <li>下載 LTS 版本（Long Term Support）</li>
+                                    <li>開啟 <code>.pkg</code> 檔案並依照指示安裝</li>
+                                </ol>
+                            </li>
+                            <li style="margin-top: 12px;"><strong>方式 B：使用 Homebrew</strong>
+                                <pre style="margin-top: 8px;"><code>brew install node</code></pre>
+                            </li>
+                        </ul>
+                        
+                        <p style="margin-top: 16px;"><strong>🪟 Windows 安裝 Node.js：</strong></p>
+                        <ul style="margin-left: 24px;">
+                            <li><strong>使用官方安裝程式</strong>
+                                <ol style="margin-left: 20px; margin-top: 8px;">
+                                    <li>前往 Node.js 官網：<code>https://nodejs.org</code></li>
+                                    <li>下載 LTS 版本（Long Term Support）</li>
+                                    <li>執行 <code>.msi</code> 安裝程式</li>
+                                    <li>依照安裝精靈完成安裝（建議勾選「Add to PATH」）</li>
+                                </ol>
+                            </li>
+                        </ul>
+                        
+                        <p style="margin-top: 16px;"><strong>🐧 Linux 安裝 Node.js：</strong></p>
+                        <ul style="margin-left: 24px;">
+                            <li><strong>Ubuntu/Debian</strong>
+                                <pre style="margin-top: 8px;"><code># 安裝 Node.js 22.x
+curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+sudo apt-get install -y nodejs</code></pre>
+                            </li>
+                            <li style="margin-top: 12px;"><strong>Red Hat/Fedora</strong>
+                                <pre style="margin-top: 8px;"><code># 安裝 Node.js 22.x
+curl -fsSL https://rpm.nodesource.com/setup_22.x | sudo bash -
+sudo yum install -y nodejs</code></pre>
+                            </li>
+                        </ul>
+                        
+                        <p style="margin-top: 16px;"><strong>驗證 Node.js 安裝：</strong></p>
+                        <pre><code>node --version
+npm --version</code></pre>
+                        <p style="margin-top: 8px;">預期輸出：<code>v22.x.x</code> 或更新版本</p>
+                        
+                        <h5 style="margin-top: 24px;">步驟 2：安裝 Bob Shell</h5>
+                        
+                        <p><strong>macOS/Linux：</strong></p>
+                        <pre><code>curl -fsSL https://bob.ibm.com/download/bobshell.sh | bash</code></pre>
+                        
+                        <p style="margin-top: 16px;"><strong>Windows：</strong></p>
+                        <pre><code>powershell -ep Bypass 'irm -Uri "https://bob.ibm.com/download/bobshell.ps1" | iex'</code></pre>
+                        
+                        <h4>🚀 基本操作</h4>
+                        
+                        <h5>1. 啟動互動式會話</h5>
+                        <pre><code>bob</code></pre>
+                        <p>首次使用時會提示您使用瀏覽器登入 IBMid 進行認證</p>
+                        
+                        <h5>2. 切換模式</h5>
+                        <p>Bob Shell 支援多種模式，使用 <code>/mode</code> 指令切換：</p>
+                        <ul>
+                            <li><code>/mode ask</code> - 詢問模式（解釋概念、回答問題）</li>
+                            <li><code>/mode plan</code> - 規劃模式（設計架構、制定計劃）</li>
+                            <li><code>/mode code</code> - 編碼模式（撰寫和修改程式碼）</li>
+                        </ul>
+                        
+                        <h5>3. 與 Bob 互動</h5>
+                        <p>範例對話：</p>
+                        <pre><code># 切換到規劃模式
+/mode plan
+
+# 請 Bob 協助規劃
+請協助我設計一個 Spring Boot 的交易監控系統架構
+
+# 切換到編碼模式
+/mode code
+
+# 請 Bob 生成程式碼
+請幫我建立 Transaction Entity 類別</code></pre>
+                        
+                        <h5>4. 常用指令</h5>
+                        <ul>
+                            <li><code>/help</code> - 顯示說明</li>
+                            <li><code>/mode</code> - 切換模式</li>
+                            <li><code>/clear</code> - 清除對話歷史</li>
+                            <li><code>/exit</code> - 退出 Bob Shell</li>
+                        </ul>
+                        
+                        <h4>💡 Eclipse 整合建議</h4>
+                        <ul>
+                            <li>在 Eclipse 中開啟內建終端機（Window → Show View → Terminal）</li>
+                            <li>在終端機中執行 <code>bob</code> 啟動 Bob Shell</li>
+                            <li>使用 Bob Shell 進行程式碼規劃和生成</li>
+                            <li>將生成的程式碼複製到 Eclipse 中進行編輯</li>
+                        </ul>
+                        
+                        <div class="note">
+                            <strong>⚠️ 注意</strong>：Bob Shell 主要用於命令列互動，無法直接整合到 Eclipse IDE 中。建議搭配使用以獲得最佳體驗。
+                        </div>
+                        
+                        <h4>📚 更多資訊</h4>
+                        <p>詳細文件：<a href="https://bob.ibm.com/docs/shell/getting-started/install-and-setup" target="_blank">Bob Shell 官方文件</a></p>
+                    </div>
                 </section>
 
                 <section>
