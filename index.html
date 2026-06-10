@@ -24,32 +24,6 @@
             <!-- 完整版內容 -->
             <div id="full" class="tab-content active">
                 <section>
-                    <h2>📋 活動議程</h2>
-                    
-                    <div class="card">
-                        <h3>Part 1: IBM Bob 介紹（1小時 40分鐘）</h3>
-                        <ul>
-                            <li>Bob 核心概念簡介 20分鐘</li>
-                            <li>主要UI功能巡禮 30分鐘</li>
-                            <li>課間休息與交流 20分鐘</li>
-                            <li>基本操作及AI-SDLC演示 30分鐘</li>
-                        </ul>
-                    </div>
-
-                    <div class="card">
-                        <h3>Part 2: Bobathon 實戰挑戰（1小時 50分鐘）</h3>
-                        <ul>
-                            <li>實際體驗 Bob 的強大功能 1小時 30分鐘</li>
-                            <li>成果分享與交流 15分鐘</li>
-                            <li>長官結語與大合照 5分鐘</li>
-                        </ul>
-                        <div class="note">
-                            <strong>💡 Bobathon 說明</strong>：這是一個實戰編程挑戰活動，您將運用 Bob 完成指定任務，體驗 AI 輔助開發的效率與樂趣！
-                        </div>
-                    </div>
-                </section>
-
-                <section>
                     <h2>🎯 參加者需求</h2>
                     
                     <div class="card">
@@ -58,29 +32,6 @@
                             <li><strong>不需要</strong>具備 AI 工具使用經驗</li>
                             <li><strong>建議</strong>有基礎程式開發經驗（任何語言皆可）</li>
                         </ul>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>🔐 帳號準備</h2>
-                    
-                    <div class="card highlight">
-                        <h3>1. 建立 Bob 帳號（必要）</h3>
-                        <p class="important">⚠️ 請在 Workshop 前完成註冊</p>
-                        
-                        <h4>試用帳號註冊步驟：</h4>
-                        <ol>
-                            <li>前往 Bob 官網：<code>https://bob.ibm.com</code></li>
-                            <li>選擇「取得免費試用」</li>
-                            <li>點選 "使用 Google 開始免費試用" 或建議使用公司 email 申請</li>
-                            <li>完成註冊流程</li>
-                            <li>確認帳號啟用：
-                                <ul>
-                                    <li>檢查信箱收到確認信</li>
-                                    <li>點擊 "Verify Email" 確認帳號</li>
-                                </ul>
-                            </li>
-                        </ol>
                     </div>
                 </section>
 
@@ -126,48 +77,60 @@
                         <h3>2. IBM Bob IDE（必要）</h3>
                         <p class="important">⚠️ 請在 Workshop 前 3 天完成安裝</p>
                         
-                        <h4>🍎 macOS 安裝步驟：</h4>
-                        <ol>
-                            <li>下載安裝檔：<code>https://bob.ibm.com/download</code></li>
-                            <li>開啟下載的 <code>.pkg</code> 檔案</li>
-                            <li>依照安裝精靈步驟：
-                                <ul>
-                                    <li>同意授權條款</li>
-                                    <li>選擇安裝位置（建議使用預設）</li>
-                                    <li>輸入管理員密碼</li>
-                                    <li>完成安裝</li>
-                                </ul>
-                            </li>
-                            <li>從應用程式資料夾啟動 Bob</li>
-                        </ol>
+                        <div style="border: 2px solid rgba(255, 0, 0, 0.4); background-color: rgba(255, 0, 0, 0.05); padding: 16px; border-radius: 8px; margin: 8px 0 16px 0;">
+                            <h4 style="margin-top: 0; background: transparent; padding: 0; border: none; cursor: pointer; user-select: none;" onclick="toggleContent(this)">
+                                <span style="display: inline-block; width: 20px;">▶</span> 🍎 macOS 安裝步驟：
+                            </h4>
+                            <ol style="margin-left: 24px; display: none;" class="toggle-content">
+                                <li>下載安裝檔：<code>https://bob.ibm.com/download</code></li>
+                                <li>開啟下載的 <code>.pkg</code> 檔案</li>
+                                <li>依照安裝精靈步驟：
+                                    <ul>
+                                        <li>同意授權條款</li>
+                                        <li>選擇安裝位置（建議使用預設）</li>
+                                        <li>輸入管理員密碼</li>
+                                        <li>完成安裝</li>
+                                    </ul>
+                                </li>
+                                <li>從應用程式資料夾啟動 Bob</li>
+                            </ol>
+                        </div>
 
-                        <h4>🪟 Windows 安裝步驟：</h4>
-                        <ol>
-                            <li>下載安裝檔：<code>https://bob.ibm.com/download</code></li>
-                            <li>執行下載的 <code>.exe</code> 安裝程式</li>
-                            <li>依照安裝精靈步驟：
-                                <ul>
-                                    <li>同意授權條款</li>
-                                    <li>選擇安裝目錄（建議使用預設）</li>
-                                    <li>選擇開始功能表資料夾</li>
-                                    <li>點擊「完成」</li>
-                                </ul>
-                            </li>
-                            <li>從桌面捷徑或開始功能表啟動 Bob</li>
-                        </ol>
+                        <div style="border: 2px solid rgba(0, 0, 255, 0.4); background-color: rgba(0, 0, 255, 0.05); padding: 16px; border-radius: 8px; margin: 8px 0 16px 0;">
+                            <h4 style="margin-top: 0; background: transparent; padding: 0; border: none; cursor: pointer; user-select: none;" onclick="toggleContent(this)">
+                                <span style="display: inline-block; width: 20px;">▶</span> 🪟 Windows 安裝步驟：
+                            </h4>
+                            <ol style="margin-left: 24px; display: none;" class="toggle-content">
+                                <li>下載安裝檔：<code>https://bob.ibm.com/download</code></li>
+                                <li>執行下載的 <code>.exe</code> 安裝程式</li>
+                                <li>依照安裝精靈步驟：
+                                    <ul>
+                                        <li>同意授權條款</li>
+                                        <li>選擇安裝目錄（建議使用預設）</li>
+                                        <li>選擇開始功能表資料夾</li>
+                                        <li>點擊「完成」</li>
+                                    </ul>
+                                </li>
+                                <li>從桌面捷徑或開始功能表啟動 Bob</li>
+                            </ol>
+                        </div>
 
-                        <h4>🐧 Linux 安裝步驟：</h4>
-                        <ol>
-                            <li>下載對應的安裝包（.deb 或 .rpm）</li>
-                            <li>使用套件管理器安裝：
-                                <pre><code># Debian/Ubuntu
+                        <div style="border: 2px solid rgba(255, 193, 7, 0.4); background-color: rgba(255, 193, 7, 0.05); padding: 16px; border-radius: 8px; margin: 8px 0 16px 0;">
+                            <h4 style="margin-top: 0; background: transparent; padding: 0; border: none; cursor: pointer; user-select: none;" onclick="toggleContent(this)">
+                                <span style="display: inline-block; width: 20px;">▶</span> 🐧 Linux 安裝步驟：
+                            </h4>
+                            <ol style="margin-left: 24px; display: none;" class="toggle-content">
+                                <li>下載對應的安裝包（.deb 或 .rpm）</li>
+                                <li>使用套件管理器安裝：
+                                    <pre><code># Debian/Ubuntu
 sudo dpkg -i bob-installer.deb
 
 # Red Hat/Fedora
 sudo rpm -i bob-installer.rpm</code></pre>
-                            </li>
-                            <li>從應用程式選單啟動 Bob</li>
-                        </ol>
+                                </li>
+                                <li>從應用程式選單啟動 Bob</li>
+                            </ol>
+                        </div>
                     </div>
 
                     <div class="card highlight">
@@ -180,14 +143,29 @@ sudo rpm -i bob-installer.rpm</code></pre>
                             <li>下載對應作業系統的版本</li>
                             <li>安裝 Git：
                                 <ul>
-                                    <li><strong>macOS</strong>: 開啟 <code>.pkg</code> 檔案安裝</li>
-                                    <li><strong>Windows</strong>: 執行 <code>.exe</code> 安裝程式（建議使用預設設定）</li>
-                                    <li><strong>Linux</strong>: 使用套件管理器
-                                        <pre><code># Debian/Ubuntu
+                                    <li>
+                                        <div style="border: 2px solid rgba(255, 0, 0, 0.4); background-color: rgba(255, 0, 0, 0.05); padding: 12px; border-radius: 6px; margin: 8px 0;">
+                                            <strong>macOS</strong>: 開啟 <code>.pkg</code> 檔案安裝
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div style="border: 2px solid rgba(0, 0, 255, 0.4); background-color: rgba(0, 0, 255, 0.05); padding: 12px; border-radius: 6px; margin: 8px 0;">
+                                            <strong>Windows</strong>: 執行 <code>.exe</code> 安裝程式（建議使用預設設定）
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div style="border: 2px solid rgba(255, 193, 7, 0.4); background-color: rgba(255, 193, 7, 0.05); padding: 12px; border-radius: 6px; margin: 8px 0;">
+                                            <h4 style="margin-top: 0; background: transparent; padding: 0; border: none; cursor: pointer; user-select: none;" onclick="toggleContent(this)">
+                                                <span style="display: inline-block; width: 20px;">▶</span> <strong>Linux</strong>: 使用套件管理器
+                                            </h4>
+                                            <div style="display: none;" class="toggle-content">
+                                                <pre><code># Debian/Ubuntu
 sudo apt-get install git
 
 # Red Hat/Fedora
 sudo yum install git</code></pre>
+                                            </div>
+                                        </div>
                                     </li>
                                 </ul>
                             </li>
@@ -200,10 +178,10 @@ sudo yum install git</code></pre>
 
                     <div class="card highlight">
                         <h3>4. Java 開發環境配置（Spring Boot 專案必要）</h3>
-                        <p>針對 Workshop 中的 Spring Boot 專案開發</p>
+                        <p>針對 Workshop 中的 Spring Boot 專案開發，所有參加者都需要安裝 JDK 和 Maven</p>
                         
-                        <h4>📦 必要的 Java Extensions</h4>
-                        <p>在 Bob IDE 中安裝以下 Extensions：</p>
+                        <h4>步驟 1：Bob IDE 使用者 - 安裝 Java Extensions</h4>
+                        <p>如果您使用 Bob IDE，請先安裝以下 Extensions：</p>
                         
                         <h5>核心 Java 支援</h5>
                         <ul>
@@ -225,7 +203,7 @@ sudo yum install git</code></pre>
                             </li>
                         </ul>
                         
-                        <h4>🔧 安裝步驟</h4>
+                        <p style="margin-top: 16px;"><strong>安裝步驟：</strong></p>
                         <ol>
                             <li>開啟 Bob IDE</li>
                             <li>點擊左側活動列的「Extensions」圖示（或按 <code>Ctrl+Shift+X</code> / <code>Cmd+Shift+X</code>）</li>
@@ -237,6 +215,116 @@ sudo yum install git</code></pre>
                         <div class="note">
                             <strong>💡 提示</strong>：Extension Pack 會自動安裝所有相關的 Extensions，建議優先安裝 Pack 版本以節省時間。專案已使用 H2 Console 進行資料庫管理，無需額外安裝資料庫工具。
                         </div>
+                        
+                        <h4 style="margin-top: 24px;">步驟 2：安裝 JDK（Java Development Kit）</h4>
+                        <p>Workshop 專案使用 Spring Boot，需要 Java 17 或更新版本。</p>
+                        
+                        <div style="border: 2px solid rgba(255, 0, 0, 0.4); background-color: rgba(255, 0, 0, 0.05); padding: 16px; border-radius: 8px; margin: 8px 0 16px 0;">
+                            <h4 style="margin-top: 0; background: transparent; padding: 0; border: none; cursor: pointer; user-select: none;" onclick="toggleContent(this)">
+                                <span style="display: inline-block; width: 20px;">▶</span> 🍎 macOS 安裝 JDK：
+                            </h4>
+                            <ul style="margin-left: 24px; display: none;" class="toggle-content">
+                                <li><strong>方式 A：使用 Homebrew（推薦）</strong>
+                                    <pre style="margin-top: 8px;"><code># 安裝 OpenJDK 17
+brew install openjdk@17
+
+# 設定環境變數
+echo 'export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc</code></pre>
+                                </li>
+                                <li style="margin-top: 12px;"><strong>方式 B：使用官方安裝程式</strong>
+                                    <ol style="margin-left: 20px; margin-top: 8px;">
+                                        <li>前往 <code>https://adoptium.net/</code></li>
+                                        <li>下載 Temurin JDK 17（LTS）for macOS</li>
+                                        <li>開啟 <code>.pkg</code> 檔案並依照指示安裝</li>
+                                    </ol>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div style="border: 2px solid rgba(0, 0, 255, 0.4); background-color: rgba(0, 0, 255, 0.05); padding: 16px; border-radius: 8px; margin: 8px 0 16px 0;">
+                            <h4 style="margin-top: 0; background: transparent; padding: 0; border: none; cursor: pointer; user-select: none;" onclick="toggleContent(this)">
+                                <span style="display: inline-block; width: 20px;">▶</span> 🪟 Windows 安裝 JDK：
+                            </h4>
+                            <ol style="margin-left: 24px; display: none;" class="toggle-content">
+                                <li>前往 <code>https://adoptium.net/</code></li>
+                                <li>下載 Temurin JDK 17（LTS）for Windows</li>
+                                <li>執行 <code>.msi</code> 安裝程式</li>
+                                <li>安裝時勾選「Set JAVA_HOME variable」和「Add to PATH」</li>
+                                <li>完成安裝後重新啟動命令提示字元</li>
+                            </ol>
+                        </div>
+                        
+                        <div style="border: 2px solid rgba(255, 193, 7, 0.4); background-color: rgba(255, 193, 7, 0.05); padding: 16px; border-radius: 8px; margin: 8px 0 16px 0;">
+                            <h4 style="margin-top: 0; background: transparent; padding: 0; border: none; cursor: pointer; user-select: none;" onclick="toggleContent(this)">
+                                <span style="display: inline-block; width: 20px;">▶</span> 🐧 Linux 安裝 JDK：
+                            </h4>
+                            <ul style="margin-left: 24px; display: none;" class="toggle-content">
+                                <li><strong>Ubuntu/Debian</strong>
+                                    <pre style="margin-top: 8px;"><code># 安裝 OpenJDK 17
+sudo apt update
+sudo apt install openjdk-17-jdk -y</code></pre>
+                                </li>
+                                <li style="margin-top: 12px;"><strong>Red Hat/Fedora</strong>
+                                    <pre style="margin-top: 8px;"><code># 安裝 OpenJDK 17
+sudo yum install java-17-openjdk-devel -y</code></pre>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <p style="margin-top: 16px;"><strong>驗證 JDK 安裝：</strong></p>
+                        <pre><code>java -version
+javac -version</code></pre>
+                        <p style="margin-top: 8px;">預期輸出：<code>openjdk version "17.x.x"</code> 或更新版本</p>
+                        
+                        <h4 style="margin-top: 24px;">步驟 3：安裝 Maven</h4>
+                        <p>Workshop 專案使用 Maven 進行建置管理。</p>
+                        
+                        <div style="border: 2px solid rgba(255, 0, 0, 0.4); background-color: rgba(255, 0, 0, 0.05); padding: 16px; border-radius: 8px; margin: 8px 0 16px 0;">
+                            <h4 style="margin-top: 0; background: transparent; padding: 0; border: none; cursor: pointer; user-select: none;" onclick="toggleContent(this)">
+                                <span style="display: inline-block; width: 20px;">▶</span> 🍎 macOS 安裝 Maven：
+                            </h4>
+                            <div style="display: none;" class="toggle-content">
+                                <pre><code># 使用 Homebrew
+brew install maven</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div style="border: 2px solid rgba(0, 0, 255, 0.4); background-color: rgba(0, 0, 255, 0.05); padding: 16px; border-radius: 8px; margin: 8px 0 16px 0;">
+                            <h4 style="margin-top: 0; background: transparent; padding: 0; border: none; cursor: pointer; user-select: none;" onclick="toggleContent(this)">
+                                <span style="display: inline-block; width: 20px;">▶</span> 🪟 Windows 安裝 Maven：
+                            </h4>
+                            <ol style="margin-left: 24px; display: none;" class="toggle-content">
+                                <li>前往 <code>https://maven.apache.org/download.cgi</code></li>
+                                <li>下載 Binary zip archive（例如：<code>apache-maven-3.9.x-bin.zip</code>）</li>
+                                <li>解壓縮到 <code>C:\Program Files\Apache\maven</code></li>
+                                <li>設定環境變數：
+                                    <ul style="margin-top: 8px;">
+                                        <li>新增系統變數 <code>MAVEN_HOME</code> = <code>C:\Program Files\Apache\maven</code></li>
+                                        <li>在 <code>Path</code> 變數中新增 <code>%MAVEN_HOME%\bin</code></li>
+                                    </ul>
+                                </li>
+                                <li>重新啟動命令提示字元</li>
+                            </ol>
+                        </div>
+                        
+                        <div style="border: 2px solid rgba(255, 193, 7, 0.4); background-color: rgba(255, 193, 7, 0.05); padding: 16px; border-radius: 8px; margin: 8px 0 16px 0;">
+                            <h4 style="margin-top: 0; background: transparent; padding: 0; border: none; cursor: pointer; user-select: none;" onclick="toggleContent(this)">
+                                <span style="display: inline-block; width: 20px;">▶</span> 🐧 Linux 安裝 Maven：
+                            </h4>
+                            <ul style="margin-left: 24px; display: none;" class="toggle-content">
+                                <li><strong>Ubuntu/Debian</strong>
+                                    <pre style="margin-top: 8px;"><code>sudo apt install maven -y</code></pre>
+                                </li>
+                                <li style="margin-top: 12px;"><strong>Red Hat/Fedora</strong>
+                                    <pre style="margin-top: 8px;"><code>sudo yum install maven -y</code></pre>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <p style="margin-top: 16px;"><strong>驗證 Maven 安裝：</strong></p>
+                        <pre><code>mvn -version</code></pre>
+                        <p style="margin-top: 8px;">預期輸出：<code>Apache Maven 3.x.x</code> 及 Java 版本資訊</p>
                     </div>
 
                     <div class="card highlight">
@@ -248,7 +336,7 @@ sudo yum install git</code></pre>
                         
                         <h4>🔧 安裝 Bob Shell</h4>
                         
-                        <h5>系統需求</h5>
+                        <h4>系統需求</h4>
                         <ul>
                             <li>Node.js 22.15.0 或更新版本</li>
                             <li>4 GB RAM（建議 8 GB）</li>
@@ -256,69 +344,103 @@ sudo yum install git</code></pre>
                             <li>穩定的網路連線</li>
                         </ul>
                         
-                        <h5>步驟 1：安裝 Node.js</h5>
+                        <h4>步驟 1：安裝 Node.js</h4>
                         <p>Bob Shell 需要 Node.js 22.15.0 或更新版本。請依照您的作業系統選擇安裝方式：</p>
                         
-                        <p style="margin-top: 16px;"><strong>🍎 macOS 安裝 Node.js：</strong></p>
-                        <ul style="margin-left: 24px;">
-                            <li><strong>方式 A：使用官方安裝程式（推薦）</strong>
-                                <ol style="margin-left: 20px; margin-top: 8px;">
-                                    <li>前往 Node.js 官網：<code>https://nodejs.org</code></li>
-                                    <li>下載 LTS 版本（Long Term Support）</li>
-                                    <li>開啟 <code>.pkg</code> 檔案並依照指示安裝</li>
-                                </ol>
-                            </li>
-                            <li style="margin-top: 12px;"><strong>方式 B：使用 Homebrew</strong>
-                                <pre style="margin-top: 8px;"><code>brew install node</code></pre>
-                            </li>
-                        </ul>
+                        <div style="border: 2px solid rgba(255, 0, 0, 0.4); background-color: rgba(255, 0, 0, 0.05); padding: 16px; border-radius: 8px; margin: 8px 0 16px 0;">
+                            <h4 style="margin-top: 0; background: transparent; padding: 0; border: none; cursor: pointer; user-select: none;" onclick="toggleContent(this)">
+                                <span style="display: inline-block; width: 20px;">▶</span> 🍎 macOS 安裝 Node.js：
+                            </h4>
+                            <ul style="margin-left: 24px; display: none;" class="toggle-content">
+                                <li><strong>方式 A：使用官方安裝程式（推薦）</strong>
+                                    <ol style="margin-left: 20px; margin-top: 8px;">
+                                        <li>前往 Node.js 官網：<code>https://nodejs.org</code></li>
+                                        <li>下載 LTS 版本（Long Term Support）</li>
+                                        <li>開啟 <code>.pkg</code> 檔案並依照指示安裝</li>
+                                    </ol>
+                                </li>
+                                <li style="margin-top: 12px;"><strong>方式 B：使用 Homebrew</strong>
+                                    <pre style="margin-top: 8px;"><code>brew install node</code></pre>
+                                </li>
+                            </ul>
+                        </div>
                         
-                        <p style="margin-top: 16px;"><strong>🪟 Windows 安裝 Node.js：</strong></p>
-                        <ul style="margin-left: 24px;">
-                            <li><strong>使用官方安裝程式</strong>
-                                <ol style="margin-left: 20px; margin-top: 8px;">
-                                    <li>前往 Node.js 官網：<code>https://nodejs.org</code></li>
-                                    <li>下載 LTS 版本（Long Term Support）</li>
-                                    <li>執行 <code>.msi</code> 安裝程式</li>
-                                    <li>依照安裝精靈完成安裝（建議勾選「Add to PATH」）</li>
-                                </ol>
-                            </li>
-                        </ul>
+                        <div style="border: 2px solid rgba(0, 0, 255, 0.4); background-color: rgba(0, 0, 255, 0.05); padding: 16px; border-radius: 8px; margin: 8px 0 16px 0;">
+                            <h4 style="margin-top: 0; background: transparent; padding: 0; border: none; cursor: pointer; user-select: none;" onclick="toggleContent(this)">
+                                <span style="display: inline-block; width: 20px;">▶</span> 🪟 Windows 安裝 Node.js：
+                            </h4>
+                            <ul style="margin-left: 24px; display: none;" class="toggle-content">
+                                <li><strong>使用官方安裝程式</strong>
+                                    <ol style="margin-left: 20px; margin-top: 8px;">
+                                        <li>前往 Node.js 官網：<code>https://nodejs.org</code></li>
+                                        <li>下載 LTS 版本（Long Term Support）</li>
+                                        <li>執行 <code>.msi</code> 安裝程式</li>
+                                        <li>依照安裝精靈完成安裝（建議勾選「Add to PATH」）</li>
+                                    </ol>
+                                </li>
+                            </ul>
+                        </div>
                         
-                        <p style="margin-top: 16px;"><strong>🐧 Linux 安裝 Node.js：</strong></p>
-                        <ul style="margin-left: 24px;">
-                            <li><strong>Ubuntu/Debian</strong>
-                                <pre style="margin-top: 8px;"><code># 安裝 Node.js 22.x
+                        <div style="border: 2px solid rgba(255, 193, 7, 0.4); background-color: rgba(255, 193, 7, 0.05); padding: 16px; border-radius: 8px; margin: 8px 0 16px 0;">
+                            <h4 style="margin-top: 0; background: transparent; padding: 0; border: none; cursor: pointer; user-select: none;" onclick="toggleContent(this)">
+                                <span style="display: inline-block; width: 20px;">▶</span> 🐧 Linux 安裝 Node.js：
+                            </h4>
+                            <ul style="margin-left: 24px; display: none;" class="toggle-content">
+                                <li><strong>Ubuntu/Debian</strong>
+                                    <pre style="margin-top: 8px;"><code># 安裝 Node.js 22.x
 curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
 sudo apt-get install -y nodejs</code></pre>
-                            </li>
-                            <li style="margin-top: 12px;"><strong>Red Hat/Fedora</strong>
-                                <pre style="margin-top: 8px;"><code># 安裝 Node.js 22.x
+                                </li>
+                                <li style="margin-top: 12px;"><strong>Red Hat/Fedora</strong>
+                                    <pre style="margin-top: 8px;"><code># 安裝 Node.js 22.x
 curl -fsSL https://rpm.nodesource.com/setup_22.x | sudo bash -
 sudo yum install -y nodejs</code></pre>
-                            </li>
-                        </ul>
+                                </li>
+                            </ul>
+                        </div>
                         
                         <p style="margin-top: 16px;"><strong>驗證 Node.js 安裝：</strong></p>
                         <pre><code>node --version
 npm --version</code></pre>
                         <p style="margin-top: 8px;">預期輸出：<code>v22.x.x</code> 或更新版本</p>
                         
-                        <h5 style="margin-top: 24px;">步驟 2：安裝 Bob Shell</h5>
+                        <h4 style="margin-top: 24px;">步驟 2：安裝 Bob Shell</h4>
+                        <p>Bob Shell 使用者請參考第 4 點完成 JDK 和 Maven 的安裝。</p>
                         
-                        <p><strong>macOS/Linux：</strong></p>
-                        <pre><code>curl -fsSL https://bob.ibm.com/download/bobshell.sh | bash</code></pre>
+                        <div style="border: 2px solid rgba(255, 0, 0, 0.4); background-color: rgba(255, 0, 0, 0.05); padding: 16px; border-radius: 8px; margin: 8px 0 16px 0;">
+                            <h4 style="margin-top: 0; background: transparent; padding: 0; border: none; cursor: pointer; user-select: none;" onclick="toggleContent(this)">
+                                <span style="display: inline-block; width: 20px;">▶</span> macOS：
+                            </h4>
+                            <div style="display: none;" class="toggle-content">
+                                <pre><code>curl -fsSL https://bob.ibm.com/download/bobshell.sh | bash</code></pre>
+                            </div>
+                        </div>
                         
-                        <p style="margin-top: 16px;"><strong>Windows：</strong></p>
-                        <pre><code>powershell -ep Bypass 'irm -Uri "https://bob.ibm.com/download/bobshell.ps1" | iex'</code></pre>
+                        <div style="border: 2px solid rgba(0, 0, 255, 0.4); background-color: rgba(0, 0, 255, 0.05); padding: 16px; border-radius: 8px; margin: 8px 0 16px 0;">
+                            <h4 style="margin-top: 0; background: transparent; padding: 0; border: none; cursor: pointer; user-select: none;" onclick="toggleContent(this)">
+                                <span style="display: inline-block; width: 20px;">▶</span> Windows：
+                            </h4>
+                            <div style="display: none;" class="toggle-content">
+                                <pre><code>powershell -ep Bypass 'irm -Uri "https://bob.ibm.com/download/bobshell.ps1" | iex'</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div style="border: 2px solid rgba(255, 193, 7, 0.4); background-color: rgba(255, 193, 7, 0.05); padding: 16px; border-radius: 8px; margin: 8px 0 16px 0;">
+                            <h4 style="margin-top: 0; background: transparent; padding: 0; border: none; cursor: pointer; user-select: none;" onclick="toggleContent(this)">
+                                <span style="display: inline-block; width: 20px;">▶</span> Linux：
+                            </h4>
+                            <div style="display: none;" class="toggle-content">
+                                <pre><code>curl -fsSL https://bob.ibm.com/download/bobshell.sh | bash</code></pre>
+                            </div>
+                        </div>
                         
                         <h4>🚀 基本操作</h4>
                         
-                        <h5>1. 啟動互動式會話</h5>
+                        <h4>1. 啟動互動式會話</h4>
                         <pre><code>bob</code></pre>
                         <p>首次使用時會提示您使用瀏覽器登入 IBMid 進行認證</p>
                         
-                        <h5>2. 切換模式</h5>
+                        <h4>2. 切換模式</h4>
                         <p>Bob Shell 支援多種模式，使用 <code>/mode</code> 指令切換：</p>
                         <ul>
                             <li><code>/mode ask</code> - 詢問模式（解釋概念、回答問題）</li>
@@ -326,7 +448,7 @@ npm --version</code></pre>
                             <li><code>/mode code</code> - 編碼模式（撰寫和修改程式碼）</li>
                         </ul>
                         
-                        <h5>3. 與 Bob 互動</h5>
+                        <h4>3. 與 Bob 互動</h4>
                         <p>範例對話：</p>
                         <pre><code># 切換到規劃模式
 /mode plan
@@ -340,7 +462,7 @@ npm --version</code></pre>
 # 請 Bob 生成程式碼
 請幫我建立 Transaction Entity 類別</code></pre>
                         
-                        <h5>4. 常用指令</h5>
+                        <h4>4. 常用指令</h4>
                         <ul>
                             <li><code>/help</code> - 顯示說明</li>
                             <li><code>/mode</code> - 切換模式</li>
@@ -641,5 +763,19 @@ npm --version</code></pre>
     </div>
 
     <script src="script.js"></script>
+    <script>
+        function toggleContent(header) {
+            const content = header.nextElementSibling;
+            const arrow = header.querySelector('span');
+            
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+                arrow.textContent = '▼';
+            } else {
+                content.style.display = 'none';
+                arrow.textContent = '▶';
+            }
+        }
+    </script>
 </body>
 </html>

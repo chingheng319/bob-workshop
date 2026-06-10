@@ -7,3 +7,12 @@ design-docs/
 
 #quest-questions
 questions.json
+
+# VSCode settings
+.vscode/
+
+# Bob AI settings
+.bob/
+
+# Maven build outputs
+topics/*/target/
