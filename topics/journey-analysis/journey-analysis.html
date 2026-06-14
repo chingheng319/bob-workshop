@@ -22,7 +22,7 @@
       <div class="success-box">
         <h4>🔗 GitHub Repository</h4>
         <p style="margin-bottom: 12px;">Sample Application 程式碼位於：</p>
-        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;">https://github.com/owhc/bob-workshop.git</pre>
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;">https://github.com/icewater30012/bob-workshop.git</pre>
         <p style="margin-top: 12px; font-size: 0.9rem; color: var(--muted);">
           專案路徑：<code>topics/journey-analysis/</code>
           <p style="margin-bottom: 12px;"><b>請先 Fork 至自己的 Github 帳號下</b></p>
@@ -378,28 +378,61 @@
 
     <!-- 時間分配 -->
     <div class="section">
-      <h2>⏱️ 建議時間分配</h2>
+      <h2>⏱️ 建議時間分配（4 人團隊協作）</h2>
+      <p style="margin-bottom: 20px;">本 Workshop 採用 <strong>3 人開發 + 1 人簡報</strong> 的協作模式：</p>
+      
+      <div class="warning-box" style="margin-bottom: 24px;">
+        <h4>👥 團隊分工</h4>
+        <ul style="margin-left: 24px;">
+          <li><strong>Person A</strong>：熱門路線分析（25 分鐘）</li>
+          <li><strong>Person B</strong>：尖峰時段分析或自訂功能（25 分鐘）</li>
+          <li><strong>Person C</strong>：前端整合 + Bob 進階功能（30 分鐘）</li>
+          <li><strong>Person D</strong>：技術簡報製作（全程，使用 frontend-slides SKILL）</li>
+        </ul>
+      </div>
+
       <div class="time-allocation">
         <div class="time-block">
-          <div class="time">15分</div>
-          <div class="label">環境設定<br>需求分析</div>
+          <div class="time">0-20分</div>
+          <div class="label">環境設定<br>需求分析<br>團隊討論</div>
         </div>
         <div class="time-block">
-          <div class="time">25分</div>
-          <div class="label">實作 Entity<br>Repository</div>
+          <div class="time">20-50分</div>
+          <div class="label">Person A & B<br>並行開發<br>路線+時段分析</div>
         </div>
         <div class="time-block">
-          <div class="time">35分</div>
-          <div class="label">實作分析邏輯<br>Service 層</div>
+          <div class="time">50-70分</div>
+          <div class="label">Person C<br>前端整合完成<br>提供截圖給 D</div>
         </div>
         <div class="time-block">
-          <div class="time">25分</div>
-          <div class="label">Bob 進階功能<br>文件建立</div>
+          <div class="time">70-100分</div>
+          <div class="label">全員協作<br>Bob 配置建立<br>A/B/C 分工撰寫</div>
         </div>
         <div class="time-block">
-          <div class="time">20分</div>
-          <div class="label">測試與審查<br>最終檢查</div>
+          <div class="time">100-120分</div>
+          <div class="label">全員 Review<br>簡報潤飾<br>最終檢查</div>
         </div>
+      </div>
+
+      <div class="success-box" style="margin-top: 24px;">
+        <h4>🔄 關鍵同步點與分工</h4>
+        <ul style="margin-left: 24px;">
+          <li><strong>20-50 分鐘</strong>：Person A & B 並行開發（無依賴關係，可同時進行）</li>
+          <li><strong>50 分鐘</strong>：Person A/B 完成後，Person C 開始整合</li>
+          <li><strong>70 分鐘</strong>：Person C 整合完成，提供截圖給 Person D</li>
+          <li><strong>70-100 分鐘</strong>：全員協作建立 Bob 配置
+            <ul style="margin-left: 20px; margin-top: 8px; font-size: 0.9rem;">
+              <li>Person A：撰寫 AGENTS.md（記錄路線分析的設計決策）</li>
+              <li>Person B：撰寫 coding-standards.md（提取程式碼規範）</li>
+              <li>Person C：建立 Slash Command + security-rules.md</li>
+              <li>Person D：根據開發成果更新簡報內容</li>
+            </ul>
+          </li>
+          <li><strong>100 分鐘</strong>：全員 Review 簡報內容與 Bob 配置</li>
+        </ul>
+        <p style="margin-top: 12px; font-size: 0.9rem; color: var(--muted);">
+          💡 <strong>提示</strong>：70-100 分鐘是全員協作的黃金時段，每個人根據自己的開發經驗貢獻 Bob 配置內容，確保文件反映實際開發實踐。
+        </p>
       </div>
     </div>
 
