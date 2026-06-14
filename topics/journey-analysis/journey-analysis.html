@@ -25,8 +25,21 @@
         <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;">https://github.com/icewater30012/bob-workshop.git</pre>
         <p style="margin-top: 12px; font-size: 0.9rem; color: var(--muted);">
           專案路徑：<code>topics/journey-analysis/</code>
-          <p style="margin-bottom: 12px;"><b>請先 Fork 至自己的 Github 帳號下</b></p>
         </p>
+        
+        <div style="margin-top: 16px; padding: 12px; background: rgba(255, 193, 7, 0.1); border-radius: 6px; border-left: 3px solid #ffc107;">
+          <p style="margin-bottom: 8px;"><strong>⚠️ 團隊協作設定（重要）</strong></p>
+          <ol style="margin-left: 24px; font-size: 0.9rem;">
+            <li style="margin-bottom: 8px;"><strong>指定一位成員</strong> Fork 此 Repository 到自己的 GitHub 帳號</li>
+            <li style="margin-bottom: 8px;">其他團隊成員 <strong>Clone 該成員的 Fork</strong>（不是原始 Repo）</li>
+            <li style="margin-bottom: 8px;">所有人以 <strong>同一個 Repository</strong> 為基礎進行開發</li>
+            <li style="margin-bottom: 8px;">建議各自開 <strong>feature branch</strong> 進行開發（如 <code>feature/popular-routes</code>）</li>
+            <li>最後由 <strong>同一人負責整合</strong> 所有 branch 到 main</li>
+          </ol>
+          <p style="margin-top: 12px; font-size: 0.85rem; color: var(--muted);">
+            💡 這樣可以模擬真實的團隊協作流程，並避免多個 Fork 造成的整合問題
+          </p>
+        </div>
       </div>
 
       <div class="warning-box" style="margin-top: 24px;">
@@ -128,16 +141,6 @@
         </div>
 
         <div class="requirement-card">
-          <h4>⏰ 模組 2：自由發揮</h4>
-          <p style="margin-bottom: 12px; color: var(--muted); font-size: 0.95rem;">
-            <strong>功能說明</strong>：自訂
-          </p>
-          <ul>
-            <li>✅ 透過 README.md 說明功能</li>
-          </ul>
-          
-        </div>
-        <!--<div class="requirement-card">
           <h4>⏰ 模組 2：尖峰時段分析</h4>
           <p style="margin-bottom: 12px; color: var(--muted); font-size: 0.95rem;">
             <strong>功能說明</strong>：統計各時段（0-23 小時）的進站人數
@@ -156,7 +159,7 @@
               <li>API 端點：<code>GET /api/journeys/peak-hours</code></li>
             </ul>
           </div>
-        </div>-->
+        </div>
       </div>
     </div>
 
