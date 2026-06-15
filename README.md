@@ -26,13 +26,13 @@ bob-workshop/
 │   ├── STYLE_PRESETS.md            # 預設樣式庫
 │   └── bold-template-pack/         # 40+ 專業簡報模板
 ├── topics/                         # 實戰主題
-│   ├── station-system/             # 🚇 捷運站務管理系統（開發者）
-│   ├── transaction-monitor/        # 💳 信用卡交易監控系統（開發者）
-│   └── journey-analysis/           # 🗺️ 交通卡使用分析系統（開發者）
+│   ├── station-system/             # 🚇 捷運民怨疏通：這Bob我不背（開發者）
+│   ├── transaction-monitor/        # 💳 荷包守護神：信用卡爭Bob戰（開發者）
+│   └── journey-analysis/           # 🗺️ 交通卡分析：終結交通Bob爆王（開發者）
 └── README.md                       # 本文件
 ```
 
-## 🚇 實戰主題：捷運站務管理系統
+## 🚇 實戰主題：捷運民怨疏通：這Bob我不背
 
 **難度**：⭐⭐ 簡單  
 **時長**：1.5 小時
@@ -49,7 +49,7 @@ cd topics/station-system
 
 詳細說明請參考：[station-system/README.md](topics/station-system/README.md)
 
-## 💳 實戰主題：信用卡交易監控系統
+## 💳 實戰主題：荷包守護神：信用卡爭Bob戰
 
 **難度**：⭐⭐⭐ 中等  
 **時長**：2 小時
@@ -72,7 +72,7 @@ cd topics/transaction-monitor
 
 詳細說明請參考：[transaction-monitor/README.md](topics/transaction-monitor/README.md)
 
-## 🗺️ 實戰主題：交通卡使用分析系統
+## 🗺️ 實戰主題：交通卡分析：終結交通Bob爆王
 
 **難度**：⭐⭐⭐⭐ 進階
 **時長**：2 小時
