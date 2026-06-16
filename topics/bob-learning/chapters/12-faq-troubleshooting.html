@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 12 章：FAQ 與疑難排解 - IBM Bob 學習教材</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/workshop-theme.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>❓ 第 12 章：FAQ 與疑難排解</h1>
+      <p class="subtitle">常見問題與解決方案</p>
+      <div class="challenge-badge">⏱️ 時長：30 分鐘 | 難度：⭐⭐</div>
+    </header>
+
+    <!-- 章節導航 -->
+    <div class="section">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+        <a href="11-hands-on-project.html" style="color: var(--accent);">← 第 11 章：實戰專案</a>
+        <a href="../bob-learning.html" style="color: var(--accent);">📚 回到目錄</a>
+        <span style="color: var(--muted);">最後一章 🎉</span>
+      </div>
+    </div>
+
+    <!-- 目錄 -->
+    <div class="section">
+      <h2>📋 本章內容</h2>
+      <div class="objectives-list">
+        <ul>
+          <li><a href="#general">一般問題</a></li>
+          <li><a href="#tools">工具使用問題</a></li>
+          <li><a href="#token">Token 與成本問題</a></li>
+          <li><a href="#security">安全性問題</a></li>
+          <li><a href="#performance">效能問題</a></li>
+          <li><a href="#best-practices">最佳實踐總結</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 一般問題 -->
+    <div class="section" id="general">
+      <h2>🤔 一般問題</h2>
+      
+      <div class="challenge-box">
+        <h3>Q1: Bob 和其他 AI 助手（如 ChatGPT、Copilot）有什麼不同？</h3>
+        <div class="success-box">
+          <h4>✅ 答案</h4>
+          <p style="margin-bottom: 12px;"><strong>Bob 的獨特優勢：</strong></p>
+          <ul style="margin-left: 24px;">
+            <li><strong>專案感知</strong>：Bob 理解整個專案結構，不只是單一檔案</li>
+            <li><strong>工具整合</strong>：12 個內建工具可直接操作檔案系統</li>
+            <li><strong>模式切換</strong>：Plan/Code/Advanced 模式適應不同需求</li>
+            <li><strong>可自訂</strong>：Rules、Skills、Slash Commands 完全客製化</li>
+            <li><strong>上下文管理</strong>：Memory Import 和智慧上下文載入</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>Q2: 什麼時候該用 Plan 模式？什麼時候用 Code 模式？</h3>
+        <div class="success-box">
+          <h4>✅ 答案</h4>
+          <div class="evaluation-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>模式</th>
+                  <th>適用情境</th>
+                  <th>範例</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Plan 模式</strong></td>
+                  <td>
+                    • 需求分析<br>
+                    • 架構設計<br>
+                    • 問題診斷<br>
+                    • 文件撰寫
+                  </td>
+                  <td>
+                    "分析這個系統的架構"<br>
+                    "設計資料庫 Schema"<br>
+                    "規劃 API 端點"
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Code 模式</strong></td>
+                  <td>
+                    • 程式碼實作<br>
+                    • Bug 修復<br>
+                    • 重構<br>
+                    • 測試撰寫
+                  </td>
+                  <td>
+                    "實作這個功能"<br>
+                    "修復這個 Bug"<br>
+                    "重構這段程式碼"
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="margin-top: 12px; color: var(--muted); font-size: 0.95rem;">
+            <strong>提示</strong>：可以隨時切換模式，使用 <code>switch_mode</code> 工具。
+          </p>
+        </div>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>Q3: Bob 能取代人類開發者嗎？</h3>
+        <div class="warning-box">
+          <h4>⚠️ 答案</h4>
+          <p style="margin-bottom: 12px;"><strong>不能，也不應該。</strong></p>
+          <p style="margin-bottom: 12px;">Bob 是<strong>輔助工具</strong>，不是替代品：</p>
+          <ul style="margin-left: 24px;">
+            <li><strong>AI 輔助</strong>：Bob 提供建議和產生程式碼</li>
+            <li><strong>人類決策</strong>：開發者負責最終決策和品質把關</li>
+            <li><strong>協作關係</strong>：Bob 處理重複性工作，人類專注創造性思考</li>
+            <li><strong>持續學習</strong>：開發者仍需理解程式碼和技術原理</li>
+          </ul>
+          <p style="margin-top: 12px; padding: 12px; background: rgba(255, 85, 85, 0.1); border-radius: 6px;">
+            <strong>重要</strong>：永遠要審查 Bob 產生的程式碼，確保正確性和安全性！
+          </p>
+        </div>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>Q4: Bob 支援哪些程式語言？</h3>
+        <div class="success-box">
+          <h4>✅ 答案</h4>
+          <p style="margin-bottom: 12px;">Bob 支援<strong>所有主流程式語言</strong>，包括但不限於：</p>
+          <ul style="margin-left: 24px;">
+            <li><strong>後端</strong>：Java, Python, JavaScript/TypeScript, Go, Rust, C#, PHP</li>
+            <li><strong>前端</strong>：React, Vue, Angular, HTML/CSS</li>
+            <li><strong>行動</strong>：Swift, Kotlin, React Native, Flutter</li>
+            <li><strong>資料</strong>：SQL, R, Julia</li>
+            <li><strong>其他</strong>：Shell Script, YAML, JSON, Markdown</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 工具使用問題 -->
+    <div class="section" id="tools">
+      <h2>🛠️ 工具使用問題</h2>
+      
+      <div class="challenge-box">
+        <h3>Q5: apply_diff 的 SEARCH 區塊一直匹配失敗怎麼辦？</h3>
+        <div class="warning-box">
+          <h4>⚠️ 常見原因與解決方案</h4>
+          
+          <p style="margin-bottom: 12px;"><strong>原因 1：空白字元不一致</strong></p>
+          <ul style="margin-left: 24px; margin-bottom: 16px;">
+            <li>SEARCH 區塊必須<strong>完全匹配</strong>原始碼，包括空白和縮排</li>
+            <li><strong>解決</strong>：使用 <code>read_file</code> 重新讀取目標區域，確保完全一致</li>
+          </ul>
+
+          <p style="margin-bottom: 12px;"><strong>原因 2：沒有指定起始行號</strong></p>
+          <ul style="margin-left: 24px; margin-bottom: 16px;">
+            <li>缺少 <code>:start_line:N</code> 標記</li>
+            <li><strong>解決</strong>：在 SEARCH 區塊第一行加上 <code>:start_line:行號</code></li>
+          </ul>
+
+          <p style="margin-bottom: 12px;"><strong>原因 3：檔案已被修改</strong></p>
+          <ul style="margin-left: 24px;">
+            <li>檔案內容與 Bob 記憶中的不同</li>
+            <li><strong>解決</strong>：重新讀取檔案，使用最新內容</li>
+          </ul>
+        </div>
+
+        <div class="success-box" style="margin-top: 16px;">
+          <h4>💡 最佳實踐</h4>
+          <pre style="background: #2d2d2d; color: #f8f8f2; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 8px 0;">1. 使用 read_file 讀取目標區域
+2. 複製完全相同的內容到 SEARCH 區塊
+3. 加上 :start_line: 標記
+4. 執行 apply_diff</pre>
+        </div>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>Q6: 什麼時候用 write_to_file，什麼時候用 apply_diff？</h3>
+        <div class="success-box">
+          <h4>✅ 選擇指南</h4>
+          
+          <p style="margin-bottom: 12px;"><strong>使用 write_to_file：</strong></p>
+          <ul style="margin-left: 24px; margin-bottom: 16px;">
+            <li>✅ 建立新檔案</li>
+            <li>✅ 完全重寫小檔案（<100 行）</li>
+            <li>✅ 配置檔案（JSON, YAML 等）</li>
+          </ul>
+
+          <p style="margin-bottom: 12px;"><strong>使用 apply_diff：</strong></p>
+          <ul style="margin-left: 24px;">
+            <li>✅ 修改現有程式碼</li>
+            <li>✅ 大檔案的局部修改</li>
+            <li>✅ 需要精確控制修改範圍</li>
+            <li>✅ 批次修改多個位置</li>
+          </ul>
+
+          <p style="margin-top: 12px; padding: 12px; background: rgba(0, 102, 204, 0.05); border-radius: 6px;">
+            <strong>經驗法則</strong>：檔案 >100 行或只修改部分內容時，優先使用 apply_diff
+          </p>
+        </div>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>Q7: 如何讓 Bob 只讀取檔案的特定部分？</h3>
+        <div class="success-box">
+          <h4>✅ 使用行範圍讀取</h4>
+          
+          <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;"><read_file>
+<args>
+  <file>
+    <path>src/app.ts</path>
+    <line_range>50-100</line_range>
+    <line_range>200-250</line_range>
+  </file>
+</args>
+</read_file></pre>
+
+          <p style="margin-top: 12px;"><strong>步驟</strong>：</p>
+          <ol style="margin-left: 24px;">
+            <li>使用 <code>list_code_definition_names</code> 找出目標位置</li>
+            <li>使用 <code>read_file</code> 搭配 <code><line_range></code></li>
+            <li>可指定多個不連續的行範圍</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <!-- Token 與成本問題 -->
+    <div class="section" id="token">
+      <h2>💰 Token 與成本問題</h2>
+      
+      <div class="challenge-box">
+        <h3>Q8: 如何知道我用了多少 Token？</h3>
+        <div class="success-box">
+          <h4>✅ 查看方式</h4>
+          <ul style="margin-left: 24px;">
+            <li>Bob IDE 右下角顯示當前對話的 Token 使用量</li>
+            <li>每次互動後會顯示消耗的 Bobcoin</li>
+            <li>可在設定中查看總使用量和剩餘額度</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>Q9: Token 消耗太快，如何優化？</h3>
+        <div class="success-box">
+          <h4>✅ 立即可行的優化策略</h4>
+          
+          <p style="margin-bottom: 12px;"><strong>優先級 1：簡化回應（節省 50-70%）</strong></p>
+          <ul style="margin-left: 24px; margin-bottom: 16px;">
+            <li>要求 Bob 保持回應簡潔</li>
+            <li>避免冗長的解釋</li>
+            <li>直接執行，不預告</li>
+          </ul>
+
+          <p style="margin-bottom: 12px;"><strong>優先級 2：使用行範圍（節省 80-95%）</strong></p>
+          <ul style="margin-left: 24px; margin-bottom: 16px;">
+            <li>大檔案必用行範圍讀取</li>
+            <li>只讀取需要的部分</li>
+            <li>避免讀取整個檔案</li>
+          </ul>
+
+          <p style="margin-bottom: 12px;"><strong>優先級 3：批次操作（節省 40-60%）</strong></p>
+          <ul style="margin-left: 24px;">
+            <li>一次讀取多個檔案</li>
+            <li>一次執行多個修改</li>
+            <li>減少互動輪次</li>
+          </ul>
+        </div>
+
+        <div class="warning-box" style="margin-top: 16px;">
+          <h4>⚠️ 避免這些 Token 浪費</h4>
+          <ul style="margin-left: 24px;">
+            <li>❌ 重複讀取相同檔案</li>
+            <li>❌ 讀取整個大檔案</li>
+            <li>❌ 用 write_to_file 修改大檔案</li>
+            <li>❌ 冗長的對話</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>Q10: Bobcoin 用完了怎麼辦？</h3>
+        <div class="success-box">
+          <h4>✅ 解決方案</h4>
+          <ul style="margin-left: 24px;">
+            <li>聯繫管理員申請額外額度</li>
+            <li>等待下個計費週期重置</li>
+            <li>優化使用策略，減少消耗</li>
+            <li>使用 Memory Import 減少重複載入</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 安全性問題 -->
+    <div class="section" id="security">
+      <h2>🔒 安全性問題</h2>
+      
+      <div class="challenge-box">
+        <h3>Q11: Bob 會儲存我的程式碼嗎？</h3>
+        <div class="warning-box">
+          <h4>⚠️ 重要資訊</h4>
+          <p style="margin-bottom: 12px;">根據 IBM Bob 的隱私政策：</p>
+          <ul style="margin-left: 24px;">
+            <li>對話內容會暫時儲存以維持上下文</li>
+            <li>不會用於訓練 AI 模型（需確認具體政策）</li>
+            <li>建議不要分享敏感資訊</li>
+            <li>使用 .bobignore 排除敏感檔案</li>
+          </ul>
+          <p style="margin-top: 12px; padding: 12px; background: rgba(255, 85, 85, 0.1); border-radius: 6px;">
+            <strong>安全原則</strong>：永遠假設 AI 可能看到你分享的內容，不要上傳真實的密碼、金鑰或個資！
+          </p>
+        </div>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>Q12: 如何防止 Bob 讀取敏感檔案？</h3>
+        <div class="success-box">
+          <h4>✅ 使用 .bobignore</h4>
+          
+          <p style="margin-bottom: 12px;"><strong>步驟</strong>：</p>
+          <ol style="margin-left: 24px; margin-bottom: 16px;">
+            <li>在專案根目錄建立 <code>.bobignore</code> 檔案</li>
+            <li>列出要排除的檔案和目錄</li>
+            <li>使用與 .gitignore 相同的語法</li>
+          </ol>
+
+          <p style="margin-bottom: 12px;"><strong>必須排除的內容</strong>：</p>
+          <ul style="margin-left: 24px;">
+            <li>環境變數檔案（.env, .env.*）</li>
+            <li>密鑰檔案（*.key, *.pem）</li>
+            <li>配置檔案（含密碼的 config）</li>
+            <li>資料庫檔案（*.db, *.sqlite）</li>
+            <li>日誌檔案（*.log）</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>Q13: Bob 產生的程式碼安全嗎？</h3>
+        <div class="warning-box">
+          <h4>⚠️ 需要人工審查</h4>
+          <p style="margin-bottom: 12px;">Bob 產生的程式碼<strong>不保證</strong>完全安全，必須：</p>
+          <ul style="margin-left: 24px;">
+            <li>✅ 使用 <code>/review</code> 或 <code>/security-scan</code> 檢查</li>
+            <li>✅ 人工審查所有程式碼</li>
+            <li>✅ 執行安全測試</li>
+            <li>✅ 檢查輸入驗證</li>
+            <li>✅ 確認無 SQL Injection、XSS 等漏洞</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 效能問題 -->
+    <div class="section" id="performance">
+      <h2>⚡ 效能問題</h2>
+      
+      <div class="challenge-box">
+        <h3>Q14: Bob 回應很慢怎麼辦？</h3>
+        <div class="success-box">
+          <h4>✅ 可能原因與解決方案</h4>
+          
+          <p style="margin-bottom: 12px;"><strong>原因 1：上下文過大</strong></p>
+          <ul style="margin-left: 24px; margin-bottom: 16px;">
+            <li><strong>解決</strong>：清理不需要的上下文，開始新對話</li>
+          </ul>
+
+          <p style="margin-bottom: 12px;"><strong>原因 2：讀取大量檔案</strong></p>
+          <ul style="margin-left: 24px; margin-bottom: 16px;">
+            <li><strong>解決</strong>：使用行範圍，只讀取必要部分</li>
+          </ul>
+
+          <p style="margin-bottom: 12px;"><strong>原因 3：複雜的任務</strong></p>
+          <ul style="margin-left: 24px; margin-bottom: 16px;">
+            <li><strong>解決</strong>：拆分成多個小任務</li>
+          </ul>
+
+          <p style="margin-bottom: 12px;"><strong>原因 4：網路問題</strong></p>
+          <ul style="margin-left: 24px;">
+            <li><strong>解決</strong>：檢查網路連線，稍後重試</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>Q15: 如何加快 Bob 的回應速度？</h3>
+        <div class="success-box">
+          <h4>✅ 優化技巧</h4>
+          <ul style="margin-left: 24px;">
+            <li><strong>精確描述</strong>：清楚說明需求，避免來回確認</li>
+            <li><strong>減少上下文</strong>：只載入必要的檔案</li>
+            <li><strong>使用 Memory Import</strong>：預先載入常用資訊</li>
+            <li><strong>批次操作</strong>：一次完成多個任務</li>
+            <li><strong>簡化任務</strong>：複雜任務拆分成小步驟</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 最佳實踐總結 -->
+    <div class="section" id="best-practices">
+      <h2>✨ 最佳實踐總結</h2>
+      
+      <div class="success-box">
+        <h3>🎯 Bob 使用黃金法則</h3>
+        
+        <p style="margin-bottom: 12px;"><strong>1. 規劃先行</strong></p>
+        <ul style="margin-left: 24px; margin-bottom: 16px;">
+          <li>使用 Plan 模式先規劃，再用 Code 模式實作</li>
+          <li>建立 AGENTS.md 指導開發方向</li>
+          <li>撰寫 Custom Rules 確保品質</li>
+        </ul>
+
+        <p style="margin-bottom: 12px;"><strong>2. Token 優化</strong></p>
+        <ul style="margin-left: 24px; margin-bottom: 16px;">
+          <li>大檔案必用行範圍讀取</li>
+          <li>優先使用 apply_diff 而非 write_to_file</li>
+          <li>批次操作減少互動輪次</li>
+          <li>保持回應簡潔</li>
+        </ul>
+
+        <p style="margin-bottom: 12px;"><strong>3. 安全第一</strong></p>
+        <ul style="margin-left: 24px; margin-bottom: 16px;">
+          <li>建立完整的 .bobignore</li>
+          <li>不上傳真實敏感資料</li>
+          <li>審查所有 AI 產生的程式碼</li>
+          <li>使用 /security-scan 檢查安全性</li>
+        </ul>
+
+        <p style="margin-bottom: 12px;"><strong>4. 持續學習</strong></p>
+        <ul style="margin-left: 24px; margin-bottom: 16px;">
+          <li>記錄有效的提示詞</li>
+          <li>建立團隊知識庫</li>
+          <li>分享最佳實踐</li>
+          <li>定期更新 Rules 和 Skills</li>
+        </ul>
+
+        <p style="margin-bottom: 12px;"><strong>5. 人機協作</strong></p>
+        <ul style="margin-left: 24px;">
+          <li>AI 輔助，人類決策</li>
+          <li>Bob 處理重複性工作</li>
+          <li>人類專注創造性思考</li>
+          <li>永遠保持批判性思維</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 快速參考 -->
+    <div class="section">
+      <h2>📖 快速參考</h2>
+      
+      <div class="challenge-box">
+        <h3>常用指令速查</h3>
+        
+        <div class="evaluation-table">
+          <table>
+            <thead>
+              <tr>
+                <th>指令</th>
+                <th>用途</th>
+                <th>範例</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>/init</code></td>
+                <td>初始化 AGENTS.md</td>
+                <td><code>/init</code></td>
+              </tr>
+              <tr>
+                <td><code>/review</code></td>
+                <td>程式碼審查</td>
+                <td><code>/review src/app.ts</code></td>
+              </tr>
+              <tr>
+                <td><code>/create-pr</code></td>
+                <td>建立 Pull Request</td>
+                <td><code>/create-pr</code></td>
+              </tr>
+              <tr>
+                <td><code>switch_mode</code></td>
+                <td>切換模式</td>
+                <td>切換到 Code 模式</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>工具選擇速查</h3>
+        
+        <div class="evaluation-table">
+          <table>
+            <thead>
+              <tr>
+                <th>需求</th>
+                <th>推薦工具</th>
+                <th>原因</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>讀取大檔案</td>
+                <td><code>read_file</code> + 行範圍</td>
+                <td>節省 80-95% Token</td>
+              </tr>
+              <tr>
+                <td>修改程式碼</td>
+                <td><code>apply_diff</code></td>
+                <td>精確且省 Token</td>
+              </tr>
+              <tr>
+                <td>建立新檔案</td>
+                <td><code>write_to_file</code></td>
+                <td>簡單直接</td>
+              </tr>
+              <tr>
+                <td>搜尋程式碼</td>
+                <td><code>search_files</code></td>
+                <td>快速定位</td>
+              </tr>
+              <tr>
+                <td>了解結構</td>
+                <td><code>list_code_definition_names</code></td>
+                <td>不讀取完整內容</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 學習資源 -->
+    <div class="section">
+      <h2>📚 延伸學習資源</h2>
+      
+      <div class="requirements-grid">
+        <div class="requirement-card">
+          <h4>📖 官方文件</h4>
+          <ul>
+            <li><a href="https://ibm.github.io/bob-docs" target="_blank">Bob 官方文件</a></li>
+            <li><a href="../bob-learning.html">Bob Cheatsheet</a></li>
+            <li>IBM Bob 使用手冊</li>
+          </ul>
+        </div>
+
+        <div class="requirement-card">
+          <h4>🎓 學習路徑</h4>
+          <ul>
+            <li><a href="01-introduction.html">第 1 章：Bob 介紹</a></li>
+            <li><a href="02-core-concepts.html">第 2 章：核心概念</a></li>
+            <li><a href="11-hands-on-project.html">第 11 章：實戰專案</a></li>
+          </ul>
+        </div>
+
+        <div class="requirement-card">
+          <h4>💡 進階主題</h4>
+          <ul>
+            <li><a href="09-token-optimization.html">Token 優化策略</a></li>
+            <li><a href="10-sdlc-security.html">安全性最佳實踐</a></li>
+            <li>MCP 整合（Advanced 模式）</li>
+          </ul>
+        </div>
+
+        <div class="requirement-card">
+          <h4>🤝 社群資源</h4>
+          <ul>
+            <li>IBM Bob 使用者社群</li>
+            <li>最佳實踐分享</li>
+            <li>問題討論區</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 結語 -->
+    <div class="section">
+      <h2>🎉 恭喜完成學習！</h2>
+      
+      <div class="success-box">
+        <h3>你已經掌握了 Bob 的核心技能</h3>
+        <p style="margin-bottom: 16px;">通過這 12 章的學習，你已經了解：</p>
+        <ul style="margin-left: 24px;">
+          <li>✅ Bob 的核心概念與優勢</li>
+          <li>✅ 三種模式的使用時機</li>
+          <li>✅ 12 個內建工具的應用</li>
+          <li>✅ Custom Rules 和 Skills 的建立</li>
+          <li>✅ Token 優化策略</li>
+          <li>✅ 安全性最佳實踐</li>
+          <li>✅ 實戰專案開發流程</li>
+        </ul>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>下一步建議</h3>
+        <ol style="margin-left: 24px;">
+          <li style="margin-bottom: 12px;">
+            <strong>實踐練習</strong>
+            <p style="margin-top: 8px; color: var(--muted); font-size: 0.95rem;">
+              完成第 11 章的實戰專案，鞏固所學知識
+            </p>
+          </li>
+          
+          <li style="margin-bottom: 12px;">
+            <strong>應用到工作</strong>
+            <p style="margin-top: 8px; color: var(--muted); font-size: 0.95rem;">
+              在實際專案中使用 Bob，累積經驗
+            </p>
+          </li>
+          
+          <li style="margin-bottom: 12px;">
+            <strong>建立團隊規範</strong>
+            <p style="margin-top: 8px; color: var(--muted); font-size: 0.95rem;">
+              與團隊分享最佳實踐，建立使用規範
+            </p>
+          </li>
+          
+          <li>
+            <strong>持續學習</strong>
+            <p style="margin-top: 8px; color: var(--muted); font-size: 0.95rem;">
+              關注 Bob 的新功能和更新
+            </p>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- 回饋 -->
+    <div class="section">
+      <h2>💬 回饋與建議</h2>
+      <div class="challenge-box">
+        <p style="margin-bottom: 12px;">如果你對這份學習教材有任何建議或發現錯誤，歡迎提供回饋：</p>
+        <ul style="margin-left: 24px;">
+          <li>提交 Issue 到 GitHub Repository</li>
+          <li>聯繫教材維護者</li>
+          <li>分享你的學習心得</li>
+        </ul>
+      </div>
+    </div>
+
+    <footer>
+      <div style="display: flex; justify-content: space-between; margin-top: 32px;">
+        <a href="11-hands-on-project.html" class="cta-button">← 上一章</a>
+        <a href="../bob-learning.html" class="cta-button">回到目錄</a>
+        <a href="../bob-learning.html" class="cta-button">重新開始 🔄</a>
+      </div>
+      
+      <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); text-align: center;">
+        <h3 style="color: var(--accent); margin-bottom: 16px;">🎓 學習完成！</h3>
+        <p style="color: var(--muted); margin-bottom: 8px;">
+          感謝你完成 IBM Bob 學習教材
+        </p>
+        <p style="color: var(--muted);">
+          現在開始你的 AI 輔助開發之旅吧！🚀
+        </p>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

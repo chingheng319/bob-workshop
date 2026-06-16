@@ -1,0 +1,320 @@
+# 交通卡使用分析系統
+
+> **用途**：IBM Bob Workshop 實戰演練
+> **難度**：⭐⭐⭐⭐ 進階
+
+## 📋 專案簡介
+
+這是一個交通卡使用分析系統的 Sample Application，展示了基本的旅程查詢與統計功能。在 Workshop 中，學員將使用 **IBM Bob** 新增進階分析功能。
+
+## 🎯 Workshop 目標
+
+完成本 Workshop 後，你將能夠：
+- ✅ 使用 Bob 從現有程式碼快速新增功能
+- ✅ 實作複雜的資料聚合與統計分析
+- ✅ 設計 RESTful API 端點
+- ✅ 撰寫專案 Rules 與 AGENTS.md
+- ✅ 建立自訂 Slash Command
+
+## 🚀 快速開始
+
+### 系統需求
+
+- Java 17 或以上
+- Maven 3.6 或以上
+- IBM Bob IDE
+
+### 技術棧
+
+- **框架**: Spring Boot 3.2.0
+- **資料庫**: H2 (記憶體資料庫)
+- **ORM**: JPA/Hibernate
+- **前端**: HTML + CSS + JavaScript
+- **API 文件**: SpringDoc OpenAPI
+
+### 啟動應用程式
+
+```bash
+# 使用 Maven Wrapper
+./mvnw spring-boot:run
+
+# 或使用已安裝的 Maven
+mvn spring-boot:run
+```
+
+應用程式將在 `http://localhost:8080` 啟動。
+
+### 存取介面
+
+- **Web UI**: http://localhost:8080
+- **H2 資料庫控制台**: http://localhost:8080/h2-console
+  - JDBC URL: `jdbc:h2:mem:metro_db`
+  - Username: `sa`
+  - Password: (留空)
+- **Swagger UI**: http://localhost:8080/swagger-ui.html
+
+## 📊 現有功能
+
+### API 端點
+
+| 方法 | 端點 | 說明 |
+|------|------|------|
+| GET | `/api/journeys` | 查詢所有旅程 |
+| GET | `/api/journeys/statistics` | 取得基本統計（總旅程數、總收入） |
+
+### 測試資料
+
+系統已預載以下測試資料：
+- 5 張交通卡
+- 8 個車站
+- 8 筆進出站交易
+- 12 筆旅程記錄
+
+## 📁 專案結構
+
+```
+journey-analysis/
+├── src/main/java/com/metro/
+│   ├── JourneyAnalysisApplication.java  # 主應用程式
+│   ├── controller/                      # API 控制層
+│   │   └── JourneyController.java       # ✅ 已提供
+│   ├── dto/                             # 資料傳輸物件
+│   │   ├── JourneyStatisticsDto.java    # ✅ 已提供
+│   │   ├── RouteAnalysisDto.java        # ❌ 待實作
+│   │   └── PeakHourDto.java             # ❌ 待實作
+│   ├── model/                           # 資料模型
+│   │   ├── Card.java                    # ✅ 交通卡實體
+│   │   ├── Station.java                 # ✅ 車站實體
+│   │   ├── Transaction.java             # ✅ 交易實體
+│   │   ├── TransactionType.java         # ✅ 交易類型列舉
+│   │   └── Journey.java                 # ✅ 旅程實體
+│   ├── repository/                      # 資料存取層
+│   │   ├── CardRepository.java          # ✅ 已提供
+│   │   ├── StationRepository.java       # ✅ 已提供
+│   │   ├── TransactionRepository.java   # ✅ 已提供
+│   │   └── JourneyRepository.java       # ✅ 已提供（需擴充）
+│   └── service/                         # 業務邏輯層
+│       └── JourneyService.java          # ✅ 已提供（需擴充）
+├── src/main/resources/
+│   ├── application.yml                  # ✅ 應用程式配置
+│   ├── data.sql                         # ✅ 測試資料
+│   └── static/                          # 前端資源
+│       ├── index.html                   # ✅ Web UI
+│       ├── styles.css                   # ✅ 樣式
+│       └── app.js                       # ✅ JavaScript
+└── .bob/                                # ❌ 待建立
+    ├── slash-commands/
+    │   └── analyze-routes.md            # ❌ 待建立
+    ├── rules/
+    │   └── coding-standards.md          # ❌ 待建立
+    ├── rules-code/
+    │   └── AGENTS.md                    # ❌ 待建立
+    └── skills/
+        └── data-analysis/               # ❌ 待建立
+            └── SKILL.md                 # ❌ 待建立
+```
+
+---
+
+## 🎯 Workshop 任務
+
+### 👥 團隊分工建議（3+1 模式）
+
+本 Workshop 採用 **3 人開發 + 1 人簡報** 的協作模式。
+
+---
+
+### **開發組（3 人）**
+
+#### **👤 Person A：熱門路線分析（難度 ⭐⭐⭐）**
+**任務：RouteAnalysisDto + Repository 查詢 + API**
+
+**具體工作：**
+1. 建立 `RouteAnalysisDto.java` 記錄類別
+   - 欄位：originStation, destinationStation, journeyCount
+2. 在 `JourneyRepository` 新增聚合查詢方法
+   - 使用 `@Query` 實作 GROUP BY 查詢
+3. 在 `JourneyService` 實作 `getPopularRoutes()` 方法
+4. 在 `JourneyController` 新增 `GET /api/journeys/popular-routes` 端點
+
+**Bob 使用重點：**
+```
+使用 Bob 分析 JourneyRepository 現有查詢模式
+使用 Bob 產生 JPQL 聚合查詢
+```
+
+**時間：25 分鐘**
+
+---
+
+#### **👤 Person B：尖峰時段分析（難度 ⭐⭐⭐）**
+**任務：PeakHourDto + 時段統計 + API**
+
+**具體工作：**
+1. 建立 `PeakHourDto.java` 記錄類別
+   - 欄位：hour, entryCount
+2. 在 `JourneyRepository` 新增時段查詢方法
+   - 使用 `HOUR()` 函數提取小時
+3. 在 `JourneyService` 實作 `getPeakHours()` 方法
+4. 在 `JourneyController` 新增 `GET /api/journeys/peak-hours` 端點
+
+**Bob 使用重點：**
+```
+使用 Bob 實作時間函數查詢
+使用 Bob 優化查詢效能
+```
+
+**時間：25 分鐘**
+
+---
+
+#### **👤 Person C：前端整合 + Bob 進階功能（難度 ⭐⭐⭐⭐）**
+**任務：Dashboard 更新 + Rules/AGENTS.md/Slash Commands**
+
+**具體工作：**
+
+**Phase 1: 前端整合（15 分鐘）**
+1. 在 `index.html` 加入熱門路線與尖峰時段圖表區塊
+2. 在 `app.js` 加入 API 呼叫與圖表渲染
+3. 在 `styles.css` 加入圖表樣式
+
+**Phase 2: Bob 進階功能（15 分鐘）**
+
+**2.1 建立 AGENTS.md（範例）**
+```markdown
+# 專案特性
+- H2 資料庫名稱：metro_db
+- 包名：com.metro
+- Constructor Injection Only
+
+# 非顯而易見的決策
+- Journey 使用複合查詢（需 JOIN Transaction）
+- 時段分析使用 HOUR() 函數（H2 特定語法）
+```
+
+**2.2 建立 coding-standards.md（範例）**
+```markdown
+# 必須遵守
+- Constructor Injection（參考 JourneyService.java）
+- Lombok @RequiredArgsConstructor
+- DTO 使用 Record 類別
+```
+
+**2.3 建立 Slash Command: /analyze-routes（範例）**
+```markdown
+# 功能
+分析路線查詢效能與資料品質
+
+# 檢查項目
+1. 檢查 JPQL 查詢是否使用索引
+2. 驗證 DTO 欄位對應
+```
+
+**提示**：以上僅為範例，學員需根據實際開發經驗補充。
+
+**時間：30 分鐘**
+
+---
+
+### **📊 簡報組（1 人）**
+
+#### **👤 Person D：技術簡報製作**
+**任務：使用 Bob + Frontend-slides SKILL 製作成果簡報**
+
+**簡報大綱（8-10 slides）：**
+1. **封面** - 交通卡使用分析系統開發成果
+2. **專案背景** - 捷運系統數據分析需求
+3. **系統架構** - 現有系統 + 新增分析模組
+4. **開發成果 - 熱門路線** - Top 10 路線統計實作
+5. **開發成果 - 尖峰時段** - 24 小時分布分析
+6. **技術亮點** - JPQL 聚合查詢與效能優化
+7. **Bob 使用技巧** - Ask/Code Mode、Rules、AGENTS.md
+8. **Demo 展示** - Dashboard 截圖與數據視覺化
+9. **總結與心得** - 開發效率提升與學習收穫
+
+**時間分配：**
+- 0-20分鐘：與開發組討論大綱
+- 20-60分鐘：使用 Bob 產生簡報初稿
+- 60-100分鐘：根據開發進度更新內容
+- 100-120分鐘：最終潤飾與排練
+
+---
+
+### 🎯 依賴關係
+
+```
+Person A (熱門路線) ─┐
+                    ├─→ Person C (前端整合)
+Person B (尖峰時段) ─┘       ↓
+                      Person D (簡報)
+```
+
+---
+
+### 💡 協作建議
+
+**關鍵同步點：**
+1. **30分鐘**：Person A/B 完成後，Person C 開始整合
+2. **70分鐘**：開發組提供截圖給 Person D
+3. **100分鐘**：全員 Review 簡報內容
+
+**避免衝突：**
+- Person A/B 各自負責不同 API 端點
+- Person C 負責前端與 Bob 配置
+- 使用 Git 分支開發（可選）
+
+---
+
+## 💡 開發提示
+
+### 使用 Bob 的最佳實踐
+
+1. **分析現有程式碼**
+   ```
+   請分析 JourneyRepository 的查詢模式，我需要新增聚合查詢
+   ```
+
+2. **產生程式碼**
+   ```
+   根據 Journey Entity，幫我建立熱門路線的 JPQL 查詢
+   ```
+
+3. **效能優化**
+   ```
+   檢查這個查詢是否有 N+1 問題，建議優化方案
+   ```
+
+### 資料分析開發重點
+
+- ✅ 使用 JPQL 聚合函數（COUNT, GROUP BY）
+- ✅ 適當使用 JOIN FETCH 避免 N+1
+- ✅ DTO 使用 Record 類別簡化程式碼
+- ✅ 前端使用圖表庫視覺化數據
+
+## 📚 參考資源
+
+- [Spring Data JPA 文件](https://spring.io/projects/spring-data-jpa)
+- [IBM Bob 官方文件](https://bob.ibm.com/docs)
+- [H2 Database 函數參考](http://www.h2database.com/html/functions.html)
+
+## 🆘 常見問題
+
+### Q: 如何重新載入測試資料？
+
+A: 重新啟動應用程式即可，H2 資料庫會自動重建。
+
+### Q: JPQL 查詢如何使用時間函數？
+
+A: H2 支援 `HOUR(timestamp)` 函數，參考 `data.sql` 中的時間格式。
+
+### Q: 前端如何繪製圖表？
+
+A: 可使用 Chart.js 或原生 Canvas API，範例見 `app.js`。
+
+## 📝 授權
+
+本專案僅供 IBM Bob Workshop 教學使用。
+
+---
+
+**準備好開始挑戰了嗎？啟動應用程式，開啟 Bob，讓我們開始吧！** 🚀

@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 5 章：Skills 系統 - IBM Bob 完整學習指南</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/workshop-theme.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🎨 第 5 章：Skills 系統</h1>
+      <p class="subtitle">擴展 Bob 的能力</p>
+      <div class="challenge-badge">⏱️ 預估時間：1 小時 | 難度：⭐⭐⭐</div>
+    </header>
+
+    <!-- 章節導航 -->
+    <div class="section">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+        <a href="04-custom-rules.html" style="color: var(--accent);">← 第 4 章：Custom Rules</a>
+        <a href="../bob-learning.html" style="color: var(--accent);">📚 回到目錄</a>
+        <a href="06-agents-md.html" style="color: var(--accent);">第 6 章：AGENTS.md →</a>
+      </div>
+    </div>
+
+    <!-- 學習目標 -->
+    <div class="section">
+      <h2>🎯 學習目標</h2>
+      <div class="challenge-box">
+        <p>完成本章後，你將能夠：</p>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li>理解 Skills 的概念與用途</li>
+          <li>了解 AgentSkills 支援表</li>
+          <li>建立自訂 Skill</li>
+          <li>在專案中有效運用 Skills</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 5.1 什麼是 Skills -->
+    <div class="section">
+      <h2>🎯 5.1 什麼是 Skills？</h2>
+      
+      <div class="challenge-box">
+        <h3>定義</h3>
+        <p><strong>Skills（技能）</strong>是 Bob 可以執行的特定能力或功能模組。透過 Skills，你可以擴展 Bob 的功能，讓它能夠執行更多專業化的任務。</p>
+        
+        <h4 style="margin-top: 24px;">Skills 的特色</h4>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li><strong>模組化</strong>：每個 Skill 專注於特定功能</li>
+          <li><strong>可重用</strong>：Skill 可在不同專案中使用</li>
+          <li><strong>可組合</strong>：多個 Skills 可以組合使用</li>
+          <li><strong>可擴展</strong>：可以建立自訂 Skills</li>
+        </ul>
+      </div>
+
+      <div class="success-box" style="margin-top: 24px;">
+        <h4>💡 Skills vs Tools</h4>
+        <div style="margin-top: 12px;">
+          <p><strong>Tools（工具）</strong>：Bob 的基本操作能力</p>
+          <ul style="margin-left: 24px; margin-top: 8px; font-size: 0.9rem;">
+            <li>例如：read_file, write_to_file, execute_command</li>
+            <li>內建且固定，無法修改</li>
+          </ul>
+          
+          <p style="margin-top: 16px;"><strong>Skills（技能）</strong>：更高層次的功能模組</p>
+          <ul style="margin-left: 24px; margin-top: 8px; font-size: 0.9rem;">
+            <li>例如：程式碼審查、測試生成、文件產生</li>
+            <li>可以自訂與擴展</li>
+            <li>通常會組合使用多個 Tools</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5.2 AgentSkills 支援表 -->
+    <div class="section">
+      <h2>📊 5.2 AgentSkills 支援表</h2>
+      
+      <div class="challenge-box">
+        <h3>什麼是 AgentSkills？</h3>
+        <p>AgentSkills 是 Bob 內建支援的技能集合。不同的 Agent（AI 模型）支援不同的 Skills。</p>
+      </div>
+
+      <div class="evaluation-table" style="margin-top: 24px;">
+        <table>
+          <thead>
+            <tr>
+              <th>Skill 類別</th>
+              <th>說明</th>
+              <th>常見用途</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>程式碼分析</strong></td>
+              <td>分析程式碼結構與品質</td>
+              <td>程式碼審查、重構建議</td>
+            </tr>
+            <tr>
+              <td><strong>測試生成</strong></td>
+              <td>自動產生測試程式碼</td>
+              <td>單元測試、整合測試</td>
+            </tr>
+            <tr>
+              <td><strong>文件產生</strong></td>
+              <td>產生技術文件</td>
+              <td>API 文件、註解、README</td>
+            </tr>
+            <tr>
+              <td><strong>程式碼轉換</strong></td>
+              <td>轉換程式碼格式或語言</td>
+              <td>重構、遷移、現代化</td>
+            </tr>
+            <tr>
+              <td><strong>安全掃描</strong></td>
+              <td>檢查安全漏洞</td>
+              <td>漏洞檢測、安全審查</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="success-box" style="margin-top: 24px;">
+        <h4>💡 如何查看支援的 Skills</h4>
+        <p>在 Bob Cheatsheet 中可以找到完整的 AgentSkills 支援表，列出每個 Agent 支援哪些 Skills。</p>
+      </div>
+    </div>
+
+    <!-- 5.3 建立自訂 Skill -->
+    <div class="section">
+      <h2>🛠️ 5.3 建立自訂 Skill</h2>
+      
+      <div class="challenge-box">
+        <h3>Skill 檔案結構</h3>
+        <p>自訂 Skills 放在 <code>.bob/skills/</code> 目錄：</p>
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; margin-top: 12px; font-family: 'IBM Plex Mono', monospace;">專案根目錄/
+├── .bob/
+│   └── skills/
+│       ├── code-review.md
+│       ├── api-doc-generator.md
+│       └── performance-analyzer.md
+└── src/</pre>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>Skill 檔案格式</h3>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li><strong>格式</strong>：Markdown (.md)</li>
+          <li><strong>命名</strong>：描述性名稱，小寫加連字符</li>
+          <li><strong>內容</strong>：描述 Skill 的功能、步驟、範例</li>
+        </ul>
+      </div>
+
+      <div class="success-box" style="margin-top: 24px;">
+        <h4>📝 Skill 文件範本</h4>
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; margin-top: 12px; font-family: 'IBM Plex Mono', monospace; overflow-x: auto;"># Skill 名稱
+
+## 目的
+說明這個 Skill 的用途
+
+## 功能描述
+詳細描述 Skill 的功能
+
+## 執行步驟
+1. 步驟一
+2. 步驟二
+3. 步驟三
+
+## 輸入
+說明需要什麼輸入
+
+## 輸出
+說明會產生什麼輸出
+
+## 使用範例
+提供具體的使用案例
+
+## 注意事項
+特殊情況或限制</pre>
+      </div>
+    </div>
+
+    <!-- 5.4 實戰範例 -->
+    <div class="section">
+      <h2>🎯 5.4 實戰範例：程式碼審查 Skill</h2>
+      
+      <div class="challenge-box">
+        <h3>範例：code-review.md</h3>
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; margin-top: 12px; font-family: 'IBM Plex Mono', monospace; overflow-x: auto; font-size: 0.85rem;"># 程式碼審查 Skill
+
+## 目的
+對程式碼進行全面的品質審查，提供改善建議
+
+## 功能描述
+這個 Skill 會分析程式碼並檢查以下項目：
+- 程式碼風格與規範
+- 潛在的 Bug 或錯誤
+- 效能問題
+- 安全漏洞
+- 可讀性與可維護性
+- 測試覆蓋率
+
+## 執行步驟
+1. 讀取指定的程式碼檔案
+2. 分析程式碼結構
+3. 檢查是否符合專案規範（參考 .bob/rules/）
+4. 識別潛在問題
+5. 提供具體的改善建議
+6. 產生審查報告
+
+## 輸入
+- 檔案路徑或目錄路徑
+- 可選：審查重點（如 "安全性"、"效能"）
+
+## 輸出
+審查報告，包含：
+- 問題清單（依嚴重程度分類）
+- 每個問題的詳細說明
+- 改善建議與範例程式碼
+- 整體評分
+
+## 使用範例
+
+### 範例 1：審查單一檔案
+```
+請使用程式碼審查 Skill 檢查 src/main/java/com/example/UserService.java
+```
+
+### 範例 2：審查整個目錄
+```
+請使用程式碼審查 Skill 檢查 src/main/java/com/example/ 目錄，
+重點關注安全性問題
+```
+
+## 審查標準
+參考以下規則檔案：
+- .bob/rules/coding-standards.md
+- .bob/rules/security-rules.md
+- .bob/rules/performance-guidelines.md
+
+## 報告格式
+
+### 嚴重問題 🔴
+- 問題描述
+- 位置：檔案名稱:行號
+- 建議修改
+
+### 警告 🟡
+- 問題描述
+- 位置：檔案名稱:行號
+- 建議修改
+
+### 建議 🔵
+- 改善建議
+- 位置：檔案名稱:行號
+- 範例程式碼
+
+## 注意事項
+- 審查結果基於專案的 Rules 設定
+- 如果沒有 Rules，使用通用最佳實踐
+- 大型專案建議分批審查</pre>
+      </div>
+    </div>
+
+    <!-- 5.5 API 文件生成 Skill -->
+    <div class="section">
+      <h2>📚 5.5 實戰範例：API 文件生成 Skill</h2>
+      
+      <div class="challenge-box">
+        <h3>範例：api-doc-generator.md</h3>
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; margin-top: 12px; font-family: 'IBM Plex Mono', monospace; overflow-x: auto; font-size: 0.85rem;"># API 文件生成 Skill
+
+## 目的
+自動產生 RESTful API 的完整文件
+
+## 功能描述
+分析 Controller 類別，產生包含以下內容的 API 文件：
+- API 端點列表
+- 請求方法（GET/POST/PUT/DELETE）
+- 請求參數
+- 請求體格式
+- 回應格式
+- 狀態碼說明
+- 使用範例
+
+## 執行步驟
+1. 讀取 Controller 類別
+2. 分析 @RequestMapping 等註解
+3. 識別所有 API 端點
+4. 提取參數與回應類型
+5. 產生 Markdown 格式文件
+6. 包含 curl 使用範例
+
+## 輸入
+- Controller 類別路徑
+- 可選：輸出檔案路徑
+
+## 輸出
+Markdown 格式的 API 文件
+
+## 使用範例
+
+```
+請使用 API 文件生成 Skill 為 
+src/main/java/com/example/controller/UserController.java 
+產生文件，輸出到 docs/api/user-api.md
+```
+
+## 文件範本
+
+```markdown
+# User API 文件
+
+## 基本資訊
+- Base URL: `/api/users`
+- 版本: v1
+
+## API 端點
+
+### 1. 取得所有使用者
+- **端點**: `GET /api/users`
+- **說明**: 取得所有使用者列表
+- **參數**: 
+  - `page` (optional): 頁碼，預設 0
+  - `size` (optional): 每頁筆數，預設 20
+- **回應**: 
+  ```json
+  {
+    "content": [...],
+    "totalElements": 100,
+    "totalPages": 5
+  }
+  ```
+- **使用範例**:
+  ```bash
+  curl -X GET "http://localhost:8080/api/users?page=0&size=20"
+  ```
+
+### 2. 取得單一使用者
+- **端點**: `GET /api/users/{id}`
+- **說明**: 根據 ID 取得使用者
+- **路徑參數**:
+  - `id`: 使用者 ID
+- **回應**:
+  ```json
+  {
+    "id": 1,
+    "name": "John Doe",
+    "email": "john@example.com"
+  }
+  ```
+- **使用範例**:
+  ```bash
+  curl -X GET "http://localhost:8080/api/users/1"
+  ```
+```
+
+## 注意事項
+- 確保 Controller 有適當的註解
+- 支援 Spring Boot 和 JAX-RS 註解
+- 產生的文件可直接用於專案文件</pre>
+      </div>
+    </div>
+
+    <!-- 5.6 實戰練習 -->
+    <div class="section">
+      <h2>✏️ 5.6 實戰練習</h2>
+      
+      <div class="warning-box">
+        <h4>練習 1：建立第一個 Skill</h4>
+        <p>建立一個簡單的 Skill：</p>
+        <ol style="margin-left: 24px; margin-top: 12px;">
+          <li>建立 <code>.bob/skills/</code> 目錄</li>
+          <li>建立 <code>test-generator.md</code></li>
+          <li>定義測試生成的步驟與規則</li>
+          <li>測試 Skill 是否正常運作</li>
+        </ol>
+      </div>
+
+      <div class="warning-box" style="margin-top: 24px;">
+        <h4>練習 2：使用 Skill</h4>
+        <p>實際使用你建立的 Skill：</p>
+        <ol style="margin-left: 24px; margin-top: 12px;">
+          <li>選擇一個現有的類別</li>
+          <li>請 Bob 使用你的 Skill 產生測試</li>
+          <li>檢查產生的測試是否符合預期</li>
+          <li>根據結果調整 Skill 定義</li>
+        </ol>
+      </div>
+
+      <div class="warning-box" style="margin-top: 24px;">
+        <h4>練習 3：組合多個 Skills</h4>
+        <p>建立一個工作流程，組合使用多個 Skills：</p>
+        <ol style="margin-left: 24px; margin-top: 12px;">
+          <li>先使用程式碼審查 Skill</li>
+          <li>根據審查結果進行重構</li>
+          <li>使用測試生成 Skill 建立測試</li>
+          <li>使用文件生成 Skill 更新文件</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- 5.7 最佳實踐 -->
+    <div class="section">
+      <h2>💡 5.7 Skills 最佳實踐</h2>
+      
+      <div class="success-box">
+        <h4>Skill 設計原則</h4>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li><strong>單一職責</strong>：每個 Skill 專注於一個功能</li>
+          <li><strong>清楚的輸入輸出</strong>：明確定義需要什麼、產生什麼</li>
+          <li><strong>步驟明確</strong>：詳細描述執行步驟</li>
+          <li><strong>提供範例</strong>：包含實際使用案例</li>
+          <li><strong>可組合</strong>：設計時考慮與其他 Skills 的配合</li>
+        </ul>
+      </div>
+
+      <div class="success-box" style="margin-top: 24px;">
+        <h4>Skill 命名建議</h4>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li>使用動詞-名詞格式：<code>generate-tests</code></li>
+          <li>描述性且具體：<code>api-doc-generator</code></li>
+          <li>避免太通用：不要用 <code>helper</code> 或 <code>utility</code></li>
+          <li>保持一致性：團隊使用統一的命名風格</li>
+        </ul>
+      </div>
+
+      <div class="warning-box" style="margin-top: 24px;">
+        <h4>⚠️ 常見錯誤</h4>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li>❌ Skill 功能太複雜，難以理解</li>
+          <li>❌ 沒有明確的執行步驟</li>
+          <li>❌ 缺少使用範例</li>
+          <li>❌ 與 Rules 或 AGENTS.md 內容重複</li>
+          <li>❌ Skill 之間有依賴但沒有說明</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 重點回顧 -->
+    <div class="section">
+      <h2>📝 重點回顧</h2>
+      
+      <div class="success-box">
+        <h4>本章重點</h4>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li>✅ Skills 是 Bob 的功能模組</li>
+          <li>✅ AgentSkills 是內建支援的技能集</li>
+          <li>✅ 可在 .bob/skills/ 建立自訂 Skills</li>
+          <li>✅ Skill 檔案使用 Markdown 格式</li>
+          <li>✅ 好的 Skill 要有清楚的步驟與範例</li>
+          <li>✅ Skills 可以組合使用</li>
+        </ul>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h4>✅ 完成檢查清單</h4>
+        <p>確認你已經：</p>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li>□ 理解 Skills 的概念</li>
+          <li>□ 了解 AgentSkills 支援表</li>
+          <li>□ 學會建立自訂 Skill</li>
+          <li>□ 建立至少一個 Skill 檔案</li>
+          <li>□ 測試 Skill 是否生效</li>
+          <li>□ 完成實戰練習</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 延伸閱讀 -->
+    <div class="section">
+      <h2>📚 延伸閱讀</h2>
+      
+      <div class="success-box">
+        <h4>推薦資源</h4>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li><a href="https://owhc.github.io/bob-cheatsheet/" target="_blank" style="color: var(--accent);">📖 Bob Cheatsheet - Skills 章節</a></li>
+          <li>查看 AgentSkills 支援表</li>
+          <li>參考其他專案的 Skills 範例</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 章節導航 -->
+    <div class="section">
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px; background: rgba(0, 102, 204, 0.05); border-radius: 8px;">
+        <a href="04-custom-rules.html" style="color: var(--accent); text-decoration: none;">← 上一章：Custom Rules</a>
+        <a href="06-agents-md.html" class="cta-button" style="display: inline-block; padding: 12px 24px;">下一章：AGENTS.md →</a>
+      </div>
+    </div>
+
+    <footer>
+      <div style="display: flex; justify-content: space-between; margin-top: 32px;">
+        <a href="04-custom-rules.html" class="cta-button">← 上一章</a>
+        <a href="../bob-learning.html" class="cta-button">回到目錄</a>
+        <a href="06-agents-md.html" class="cta-button">下一章 →</a>
+      </div>
+      
+      <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); text-align: center;">
+        <p style="color: var(--muted);">
+          🎉 恭喜完成第 5 章！接下來學習 AGENTS.md
+        </p>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

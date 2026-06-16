@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IBM Bob 完整學習指南 - 從零開始掌握 AI 開發助手</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/workshop-theme.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🤖 IBM Bob 完整學習指南</h1>
+      <p class="subtitle">從零開始掌握 AI 開發助手</p>
+      <p class="company">IBM Bob Workshop 系列教材</p>
+      <div class="challenge-badge">⏱️ 總時長：8-10 小時 | 難度：⭐⭐⭐</div>
+    </header>
+
+    <!-- 課程簡介 -->
+    <div class="section">
+      <h2>📚 課程簡介</h2>
+      <div class="challenge-box">
+        <h3>關於本課程</h3>
+        <p>這是一套完整的 IBM Bob 學習教材，專為想要從零開始學習 Bob 的開發者設計。透過 12 個循序漸進的章節，你將全面掌握 Bob 的核心功能與進階應用。</p>
+        
+        <h4 style="margin-top: 24px;">🎯 你將學會</h4>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li>理解 IBM Bob 的核心概念與運作機制</li>
+          <li>掌握四大核心功能：Slash Commands、Custom Rules、Skills、AGENTS.md</li>
+          <li>學會使用 12 個內建工具提升開發效率</li>
+          <li>運用 Memory Import 與 Token 優化策略</li>
+          <li>整合 SDLC 流程與安全最佳實踐</li>
+          <li>透過實戰專案建立完整的 Bob 配置</li>
+        </ul>
+
+        <h4 style="margin-top: 24px;">👥 適合對象</h4>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li>想要提升開發效率的軟體工程師</li>
+          <li>對 AI 輔助開發工具感興趣的開發者</li>
+          <li>需要快速上手 IBM Bob 的團隊成員</li>
+          <li>希望深入了解 Bob 進階功能的使用者</li>
+        </ul>
+      </div>
+
+      <div class="success-box" style="margin-top: 24px;">
+        <h4>🔗 快速參考資源</h4>
+        <p style="margin-bottom: 12px;">學習過程中可隨時參考以下資源：</p>
+        <ul style="margin-left: 24px;">
+          <li><a href="https://owhc.github.io/bob-cheatsheet/" target="_blank" style="color: var(--accent);">📖 Bob Cheatsheet</a> - 完整的功能速查表</li>
+          <li><a href="https://github.com/owhc/bob-workshop" target="_blank" style="color: var(--accent);">💻 Workshop GitHub</a> - 範例程式碼與專案</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 學習路徑 -->
+    <div class="section">
+      <h2>🗺️ 學習路徑</h2>
+      <p style="margin-bottom: 20px;">本課程分為四個階段，共 12 個章節：</p>
+      
+      <div class="time-allocation" style="margin-bottom: 32px;">
+        <div class="time-block">
+          <div class="time">階段一</div>
+          <div class="label">基礎入門<br>2 章節</div>
+        </div>
+        <div class="time-block">
+          <div class="time">階段二</div>
+          <div class="label">核心機制<br>4 章節</div>
+        </div>
+        <div class="time-block">
+          <div class="time">階段三</div>
+          <div class="label">進階功能<br>4 章節</div>
+        </div>
+        <div class="time-block">
+          <div class="time">階段四</div>
+          <div class="label">實戰應用<br>2 章節</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 第一部分：基礎入門 -->
+    <div class="section">
+      <h2>🚀 第一部分：基礎入門</h2>
+      <p style="margin-bottom: 20px;">建立對 IBM Bob 的基本認識</p>
+      
+      <div class="requirements-grid">
+        <div class="requirement-card">
+          <h4>📖 第 1 章：什麼是 IBM Bob？</h4>
+          <p style="margin-bottom: 12px; color: var(--muted); font-size: 0.95rem;">
+            <strong>預估時間</strong>：30 分鐘 | <strong>難度</strong>：⭐
+          </p>
+          <ul>
+            <li>Bob 的定位與價值主張</li>
+            <li>與傳統 AI 助手的差異</li>
+            <li>適用場景與使用時機</li>
+            <li>Bob 的核心優勢</li>
+          </ul>
+          <div style="margin-top: 16px;">
+            <a href="chapters/01-introduction.html" class="cta-button" style="display: inline-block; padding: 8px 16px; font-size: 0.9rem;">開始學習 →</a>
+          </div>
+        </div>
+
+        <div class="requirement-card">
+          <h4>🎮 第 2 章：Bob 的核心概念</h4>
+          <p style="margin-bottom: 12px; color: var(--muted); font-size: 0.95rem;">
+            <strong>預估時間</strong>：45 分鐘 | <strong>難度</strong>：⭐⭐
+          </p>
+          <ul>
+            <li>Mode 系統（Plan/Code/Advanced）</li>
+            <li>Tool 使用機制</li>
+            <li>對話流程與互動模式</li>
+            <li>Context 管理概念</li>
+          </ul>
+          <div style="margin-top: 16px;">
+            <a href="chapters/02-core-concepts.html" class="cta-button" style="display: inline-block; padding: 8px 16px; font-size: 0.9rem;">開始學習 →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 第二部分：核心機制 -->
+    <div class="section">
+      <h2>⚙️ 第二部分：四大核心機制</h2>
+      <p style="margin-bottom: 20px;">深入學習 Bob 的四大核心功能</p>
+      
+      <div class="requirements-grid">
+        <div class="requirement-card">
+          <h4>🎯 第 3 章：Slash Commands</h4>
+          <p style="margin-bottom: 12px; color: var(--muted); font-size: 0.95rem;">
+            <strong>預估時間</strong>：1 小時 | <strong>難度</strong>：⭐⭐
+          </p>
+          <ul>
+            <li>什麼是 Slash Commands</li>
+            <li>內建指令完整介紹</li>
+            <li>建立自訂指令</li>
+            <li>實戰範例與最佳實踐</li>
+          </ul>
+          <div style="margin-top: 16px;">
+            <a href="chapters/03-slash-commands.html" class="cta-button" style="display: inline-block; padding: 8px 16px; font-size: 0.9rem;">開始學習 →</a>
+          </div>
+        </div>
+
+        <div class="requirement-card">
+          <h4>📝 第 4 章：Custom Rules</h4>
+          <p style="margin-bottom: 12px; color: var(--muted); font-size: 0.95rem;">
+            <strong>預估時間</strong>：1 小時 | <strong>難度</strong>：⭐⭐⭐
+          </p>
+          <ul>
+            <li>Rules 的作用與重要性</li>
+            <li>規則檔案結構與語法</li>
+            <li>編寫規範建議</li>
+            <li>實戰範例：建立專案規則</li>
+          </ul>
+          <div style="margin-top: 16px;">
+            <a href="chapters/04-custom-rules.html" class="cta-button" style="display: inline-block; padding: 8px 16px; font-size: 0.9rem;">開始學習 →</a>
+          </div>
+        </div>
+
+        <div class="requirement-card">
+          <h4>🎨 第 5 章：Skills 系統</h4>
+          <p style="margin-bottom: 12px; color: var(--muted); font-size: 0.95rem;">
+            <strong>預估時間</strong>：1 小時 | <strong>難度</strong>：⭐⭐⭐
+          </p>
+          <ul>
+            <li>Skills 的概念與用途</li>
+            <li>如何建立自訂 Skill</li>
+            <li>AgentSkills 支援表</li>
+            <li>實戰範例：建立專案 Skill</li>
+          </ul>
+          <div style="margin-top: 16px;">
+            <a href="chapters/05-skills.html" class="cta-button" style="display: inline-block; padding: 8px 16px; font-size: 0.9rem;">開始學習 →</a>
+          </div>
+        </div>
+
+        <div class="requirement-card">
+          <h4>📋 第 6 章：AGENTS.md</h4>
+          <p style="margin-bottom: 12px; color: var(--muted); font-size: 0.95rem;">
+            <strong>預估時間</strong>：1 小時 | <strong>難度</strong>：⭐⭐⭐
+          </p>
+          <ul>
+            <li>AGENTS.md 的用途與重要性</li>
+            <li>文件結構與撰寫要點</li>
+            <li>最佳實踐與範例</li>
+            <li>實戰：為專案建立 AGENTS.md</li>
+          </ul>
+          <div style="margin-top: 16px;">
+            <a href="chapters/06-agents-md.html" class="cta-button" style="display: inline-block; padding: 8px 16px; font-size: 0.9rem;">開始學習 →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 第三部分：進階功能 -->
+    <div class="section">
+      <h2>🚀 第三部分：進階功能</h2>
+      <p style="margin-bottom: 20px;">掌握 Bob 的進階應用與優化技巧</p>
+      
+      <div class="requirements-grid">
+        <div class="requirement-card">
+          <h4>🧠 第 7 章：Memory Import</h4>
+          <p style="margin-bottom: 12px; color: var(--muted); font-size: 0.95rem;">
+            <strong>預估時間</strong>：45 分鐘 | <strong>難度</strong>：⭐⭐⭐
+          </p>
+          <ul>
+            <li>什麼是 Memory Import</li>
+            <li>使用時機與策略</li>
+            <li>記憶體管理最佳實踐</li>
+            <li>實戰範例與應用場景</li>
+          </ul>
+          <div style="margin-top: 16px;">
+            <a href="chapters/07-memory-import.html" class="cta-button" style="display: inline-block; padding: 8px 16px; font-size: 0.9rem;">開始學習 →</a>
+          </div>
+        </div>
+
+        <div class="requirement-card">
+          <h4>🔧 第 8 章：12個內建工具</h4>
+          <p style="margin-bottom: 12px; color: var(--muted); font-size: 0.95rem;">
+            <strong>預估時間</strong>：1.5 小時 | <strong>難度</strong>：⭐⭐⭐
+          </p>
+          <ul>
+            <li>檔案操作工具詳解</li>
+            <li>程式碼分析工具</li>
+            <li>執行與測試工具</li>
+            <li>使用技巧與最佳實踐</li>
+          </ul>
+          <div style="margin-top: 16px;">
+            <a href="chapters/08-builtin-tools.html" class="cta-button" style="display: inline-block; padding: 8px 16px; font-size: 0.9rem;">開始學習 →</a>
+          </div>
+        </div>
+
+        <div class="requirement-card">
+          <h4>💰 第 9 章：Token 節省策略</h4>
+          <p style="margin-bottom: 12px; color: var(--muted); font-size: 0.95rem;">
+            <strong>預估時間</strong>：1 小時 | <strong>難度</strong>：⭐⭐⭐⭐
+          </p>
+          <ul>
+            <li>Token 計費機制詳解</li>
+            <li>成本優化策略</li>
+            <li>節省技巧與最佳實踐</li>
+            <li>實戰：降低 Token 消耗</li>
+          </ul>
+          <div style="margin-top: 16px;">
+            <a href="chapters/09-token-optimization.html" class="cta-button" style="display: inline-block; padding: 8px 16px; font-size: 0.9rem;">開始學習 →</a>
+          </div>
+        </div>
+
+        <div class="requirement-card">
+          <h4>🔒 第 10 章：SDLC 整合與安全</h4>
+          <p style="margin-bottom: 12px; color: var(--muted); font-size: 0.95rem;">
+            <strong>預估時間</strong>：1 小時 | <strong>難度</strong>：⭐⭐⭐⭐
+          </p>
+          <ul>
+            <li>SDLC 整合概念</li>
+            <li>安全最佳實踐</li>
+            <li>.bobignore 使用指南</li>
+            <li>企業級應用建議</li>
+          </ul>
+          <div style="margin-top: 16px;">
+            <a href="chapters/10-sdlc-security.html" class="cta-button" style="display: inline-block; padding: 8px 16px; font-size: 0.9rem;">開始學習 →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 第四部分：實戰應用 -->
+    <div class="section">
+      <h2>💪 第四部分：實戰應用</h2>
+      <p style="margin-bottom: 20px;">透過實戰專案整合所學知識</p>
+      
+      <div class="requirements-grid">
+        <div class="requirement-card">
+          <h4>🎯 第 11 章：實戰專案</h4>
+          <p style="margin-bottom: 12px; color: var(--muted); font-size: 0.95rem;">
+            <strong>預估時間</strong>：2 小時 | <strong>難度</strong>：⭐⭐⭐⭐
+          </p>
+          <ul>
+            <li>專案情境說明</li>
+            <li>建立完整的 Bob 配置</li>
+            <li>步驟式實作指引</li>
+            <li>驗證與測試</li>
+          </ul>
+          <div style="margin-top: 16px;">
+            <a href="chapters/11-hands-on-project.html" class="cta-button" style="display: inline-block; padding: 8px 16px; font-size: 0.9rem;">開始學習 →</a>
+          </div>
+        </div>
+
+        <div class="requirement-card">
+          <h4>💡 第 12 章：FAQ 與疑難排解</h4>
+          <p style="margin-bottom: 12px; color: var(--muted); font-size: 0.95rem;">
+            <strong>預估時間</strong>：30 分鐘 | <strong>難度</strong>：⭐⭐
+          </p>
+          <ul>
+            <li>常見問題集錦</li>
+            <li>疑難排解指南</li>
+            <li>最佳實踐總結</li>
+            <li>進階學習資源</li>
+          </ul>
+          <div style="margin-top: 16px;">
+            <a href="chapters/12-faq-troubleshooting.html" class="cta-button" style="display: inline-block; padding: 8px 16px; font-size: 0.9rem;">開始學習 →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 學習建議 -->
+    <div class="section">
+      <h2>💡 學習建議</h2>
+      <div class="warning-box">
+        <h4>📖 如何使用本教材</h4>
+        <ol style="margin-left: 24px; margin-top: 12px;">
+          <li style="margin-bottom: 12px;"><strong>循序漸進</strong>：建議按照章節順序學習，每個章節都建立在前面的基礎上</li>
+          <li style="margin-bottom: 12px;"><strong>動手實作</strong>：每章都有實戰範例，務必親自操作以加深理解</li>
+          <li style="margin-bottom: 12px;"><strong>完成練習</strong>：章節末的練習題能幫助你驗證學習成果</li>
+          <li style="margin-bottom: 12px;"><strong>參考資源</strong>：善用 Bob Cheatsheet 作為快速參考</li>
+          <li style="margin-bottom: 12px;"><strong>實戰應用</strong>：學完後立即在實際專案中應用所學</li>
+        </ol>
+      </div>
+
+      <div class="success-box" style="margin-top: 24px;">
+        <h4>🎯 學習目標檢查清單</h4>
+        <p style="margin-bottom: 12px;">完成本課程後，你應該能夠：</p>
+        <ul style="margin-left: 24px;">
+          <li>✅ 理解 Bob 的核心概念與運作原理</li>
+          <li>✅ 熟練使用 Slash Commands 提升效率</li>
+          <li>✅ 撰寫 Custom Rules 規範開發流程</li>
+          <li>✅ 建立 Skills 擴展 Bob 功能</li>
+          <li>✅ 撰寫 AGENTS.md 指導 AI 助手</li>
+          <li>✅ 運用 Memory Import 管理上下文</li>
+          <li>✅ 掌握 12 個內建工具的使用</li>
+          <li>✅ 實施 Token 優化策略降低成本</li>
+          <li>✅ 整合 SDLC 流程與安全實踐</li>
+          <li>✅ 獨立建立完整的 Bob 專案配置</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 技術需求 -->
+    <div class="section">
+      <h2>🛠️ 技術需求</h2>
+      <div class="requirements-grid">
+        <div class="requirement-card">
+          <h4>💻 開發環境</h4>
+          <ul>
+            <li>IBM Bob IDE（已安裝）</li>
+            <li>基本的程式設計知識</li>
+            <li>文字編輯器（VS Code 等）</li>
+            <li>Git 版本控制基礎</li>
+          </ul>
+        </div>
+
+        <div class="requirement-card">
+          <h4>📚 先備知識</h4>
+          <ul>
+            <li>基本的軟體開發經驗</li>
+            <li>了解 Markdown 語法</li>
+            <li>熟悉命令列操作</li>
+            <li>對 AI 工具有基本認識</li>
+          </ul>
+        </div>
+
+        <div class="requirement-card">
+          <h4>⏰ 時間規劃</h4>
+          <ul>
+            <li>總時長：8-10 小時</li>
+            <li>建議分 4-5 天完成</li>
+            <li>每天學習 2-3 章節</li>
+            <li>預留實作練習時間</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <h2>🚀 準備好開始學習了嗎？</h2>
+      <p>從第一章開始，逐步掌握 IBM Bob 的強大功能</p>
+      <p>讓 AI 助手成為你的開發利器！</p>
+      <a href="chapters/01-introduction.html" class="cta-button">開始第一章：什麼是 IBM Bob？ →</a>
+      
+      <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border);">
+        <p style="font-size: 0.9rem; color: var(--muted);">
+          💡 提示：建議先完整閱讀本頁面，了解整體學習路徑後再開始學習
+        </p>
+        <p style="font-size: 0.9rem; color: var(--muted); margin-top: 8px;">
+          📖 隨時可參考 <a href="https://owhc.github.io/bob-cheatsheet/" target="_blank" style="color: var(--accent);">Bob Cheatsheet</a> 快速查找功能
+        </p>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

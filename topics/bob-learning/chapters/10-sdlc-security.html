@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 10 章：SDLC 整合與安全性 - IBM Bob 學習教材</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/workshop-theme.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🔒 第 10 章：SDLC 整合與安全性</h1>
+      <p class="subtitle">將 Bob 安全地整合到開發流程</p>
+      <div class="challenge-badge">⏱️ 時長：35 分鐘 | 難度：⭐⭐⭐⭐</div>
+    </header>
+
+    <!-- 章節導航 -->
+    <div class="section">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+        <a href="09-token-optimization.html" style="color: var(--accent);">← 第 9 章：Token 優化</a>
+        <a href="../bob-learning.html" style="color: var(--accent);">📚 回到目錄</a>
+        <a href="11-hands-on-project.html" style="color: var(--accent);">第 11 章：實戰專案 →</a>
+      </div>
+    </div>
+
+    <!-- 學習目標 -->
+    <div class="section">
+      <h2>🎯 學習目標</h2>
+      <div class="objectives-list">
+        <ul>
+          <li>了解 Bob 在 SDLC 各階段的應用</li>
+          <li>掌握 .bobignore 的使用方法</li>
+          <li>學習敏感資料保護策略</li>
+          <li>理解程式碼審查最佳實踐</li>
+          <li>建立安全的 Bob 使用規範</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SDLC 整合 -->
+    <div class="section">
+      <h2>🔄 Bob 在 SDLC 的應用</h2>
+      
+      <div class="challenge-box">
+        <h3>軟體開發生命週期整合</h3>
+        
+        <div class="evaluation-table">
+          <table>
+            <thead>
+              <tr>
+                <th>階段</th>
+                <th>Bob 應用</th>
+                <th>建議模式</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>需求分析</strong></td>
+                <td>
+                  • 分析需求文件<br>
+                  • 產生技術規格<br>
+                  • 設計系統架構
+                </td>
+                <td>Plan 模式</td>
+              </tr>
+              <tr>
+                <td><strong>設計階段</strong></td>
+                <td>
+                  • 設計資料庫 Schema<br>
+                  • 規劃 API 端點<br>
+                  • 產生架構圖
+                </td>
+                <td>Plan 模式</td>
+              </tr>
+              <tr>
+                <td><strong>開發階段</strong></td>
+                <td>
+                  • 產生程式碼<br>
+                  • 重構優化<br>
+                  • 修復 Bug
+                </td>
+                <td>Code 模式</td>
+              </tr>
+              <tr>
+                <td><strong>測試階段</strong></td>
+                <td>
+                  • 產生測試案例<br>
+                  • 撰寫單元測試<br>
+                  • 執行測試
+                </td>
+                <td>Code 模式</td>
+              </tr>
+              <tr>
+                <td><strong>部署階段</strong></td>
+                <td>
+                  • 產生部署腳本<br>
+                  • 撰寫文件<br>
+                  • 配置 CI/CD
+                </td>
+                <td>Code 模式</td>
+              </tr>
+              <tr>
+                <td><strong>維護階段</strong></td>
+                <td>
+                  • 分析問題<br>
+                  • 快速修復<br>
+                  • 更新文件
+                </td>
+                <td>Code 模式</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="success-box" style="margin-top: 24px;">
+        <h4>💡 整合最佳實踐</h4>
+        <ul>
+          <li><strong>需求階段</strong>：使用 Plan 模式分析需求，產生技術文件</li>
+          <li><strong>設計階段</strong>：讓 Bob 協助設計架構，產生視覺化圖表</li>
+          <li><strong>開發階段</strong>：使用 Code 模式快速實作功能</li>
+          <li><strong>審查階段</strong>：使用 <code>/review</code> 進行程式碼審查</li>
+          <li><strong>文件階段</strong>：自動產生 API 文件和使用說明</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- .bobignore 使用 -->
+    <div class="section">
+      <h2>🚫 .bobignore 檔案管理</h2>
+      
+      <div class="challenge-box">
+        <h3>什麼是 .bobignore？</h3>
+        <p style="margin-bottom: 16px;">
+          <code>.bobignore</code> 是一個配置檔案，用於指定 Bob <strong>不應該讀取或處理</strong>的檔案和目錄。
+          這對於保護敏感資料和優化效能至關重要。
+        </p>
+
+        <div class="warning-box">
+          <h4>⚠️ 為什麼需要 .bobignore？</h4>
+          <ul>
+            <li><strong>安全性</strong>：防止 Bob 讀取敏感資料（密碼、金鑰、個資）</li>
+            <li><strong>效能</strong>：避免載入不必要的大型檔案</li>
+            <li><strong>成本</strong>：減少 Token 消耗</li>
+            <li><strong>隱私</strong>：保護商業機密和專有資訊</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>.bobignore 範例</h3>
+        
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;"># 環境變數和配置檔案
+.env
+.env.*
+*.key
+*.pem
+config/secrets.yml
+
+# 依賴套件
+node_modules/
+vendor/
+.venv/
+venv/
+
+# 建置產物
+dist/
+build/
+target/
+*.jar
+*.war
+
+# 日誌檔案
+*.log
+logs/
+
+# 資料庫檔案
+*.db
+*.sqlite
+*.sqlite3
+
+# IDE 配置
+.vscode/
+.idea/
+*.swp
+
+# 測試覆蓋率報告
+coverage/
+.coverage
+htmlcov/
+
+# 大型資料檔案
+*.csv
+*.json (如果很大)
+data/
+
+# 敏感文件
+credentials.json
+service-account.json
+*.p12</pre>
+
+        <div class="success-box" style="margin-top: 16px;">
+          <h4>💡 配置原則</h4>
+          <ul>
+            <li>預設排除所有敏感檔案</li>
+            <li>排除第三方依賴</li>
+            <li>排除建置產物</li>
+            <li>排除大型資料檔案</li>
+            <li>定期審查和更新</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>建立 .bobignore 的步驟</h3>
+        
+        <ol style="margin-left: 24px;">
+          <li style="margin-bottom: 12px;">
+            <strong>在專案根目錄建立 .bobignore 檔案</strong>
+            <pre style="background: #2d2d2d; color: #f8f8f2; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 8px 0;">touch .bobignore</pre>
+          </li>
+          
+          <li style="margin-bottom: 12px;">
+            <strong>參考 .gitignore 內容</strong>
+            <p style="margin-top: 8px; color: var(--muted); font-size: 0.95rem;">
+              .bobignore 通常應該包含 .gitignore 的所有內容，再加上額外的敏感檔案
+            </p>
+          </li>
+          
+          <li style="margin-bottom: 12px;">
+            <strong>新增專案特定的排除規則</strong>
+            <p style="margin-top: 8px; color: var(--muted); font-size: 0.95rem;">
+              根據專案類型新增特定的排除模式
+            </p>
+          </li>
+          
+          <li>
+            <strong>測試驗證</strong>
+            <p style="margin-top: 8px; color: var(--muted); font-size: 0.95rem;">
+              確認 Bob 不會讀取被排除的檔案
+            </p>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- 敏感資料保護 -->
+    <div class="section">
+      <h2>🔐 敏感資料保護策略</h2>
+      
+      <div class="challenge-box">
+        <h3>常見敏感資料類型</h3>
+        
+        <div class="evaluation-table">
+          <table>
+            <thead>
+              <tr>
+                <th>類型</th>
+                <th>範例</th>
+                <th>保護方法</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>認證資訊</strong></td>
+                <td>
+                  • API 金鑰<br>
+                  • 密碼<br>
+                  • Token
+                </td>
+                <td>
+                  • 使用環境變數<br>
+                  • 加入 .bobignore<br>
+                  • 使用密鑰管理服務
+                </td>
+              </tr>
+              <tr>
+                <td><strong>個人資料</strong></td>
+                <td>
+                  • 使用者資料<br>
+                  • 信用卡號<br>
+                  • 身分證字號
+                </td>
+                <td>
+                  • 使用假資料測試<br>
+                  • 資料遮罩<br>
+                  • 排除資料檔案
+                </td>
+              </tr>
+              <tr>
+                <td><strong>商業機密</strong></td>
+                <td>
+                  • 演算法<br>
+                  • 商業邏輯<br>
+                  • 客戶名單
+                </td>
+                <td>
+                  • 限制 Bob 存取範圍<br>
+                  • 使用 Memory Import<br>
+                  • 定期清理上下文
+                </td>
+              </tr>
+              <tr>
+                <td><strong>基礎設施</strong></td>
+                <td>
+                  • 伺服器 IP<br>
+                  • 資料庫連線<br>
+                  • 網路拓撲
+                </td>
+                <td>
+                  • 使用變數替代<br>
+                  • 配置檔案加密<br>
+                  • 排除配置檔案
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="warning-box" style="margin-top: 24px;">
+        <h4>⚠️ 安全紅線</h4>
+        <p style="margin-bottom: 12px;"><strong>絕對不要讓 Bob 處理以下內容：</strong></p>
+        <ul>
+          <li>❌ 生產環境的密碼或金鑰</li>
+          <li>❌ 真實的個人資料或信用卡資訊</li>
+          <li>❌ 未加密的敏感配置檔案</li>
+          <li>❌ 客戶的專有程式碼（未經授權）</li>
+          <li>❌ 安全漏洞的詳細資訊（在修復前）</li>
+        </ul>
+      </div>
+
+      <div class="success-box" style="margin-top: 24px;">
+        <h4>✅ 安全最佳實踐</h4>
+        <ul>
+          <li><strong>環境分離</strong>：開發環境使用假資料</li>
+          <li><strong>最小權限</strong>：只給 Bob 必要的檔案存取權</li>
+          <li><strong>定期審查</strong>：檢查 Bob 的存取記錄</li>
+          <li><strong>加密儲存</strong>：敏感資料必須加密</li>
+          <li><strong>版本控制</strong>：敏感檔案不進入 Git</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 程式碼審查 -->
+    <div class="section">
+      <h2>👀 程式碼審查最佳實踐</h2>
+      
+      <div class="challenge-box">
+        <h3>使用 /review 指令</h3>
+        <p style="margin-bottom: 16px;">Bob 提供 <code>/review</code> 指令進行程式碼審查：</p>
+        
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;">/review src/services/UserService.java</pre>
+
+        <div class="success-box" style="margin-top: 16px;">
+          <h4>💡 審查重點</h4>
+          <ul>
+            <li><strong>安全性</strong>：SQL Injection、XSS、CSRF 等漏洞</li>
+            <li><strong>效能</strong>：N+1 查詢、記憶體洩漏、演算法複雜度</li>
+            <li><strong>可維護性</strong>：程式碼結構、命名規範、註解品質</li>
+            <li><strong>最佳實踐</strong>：設計模式、SOLID 原則、DRY 原則</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>自訂安全掃描 Slash Command</h3>
+        <p style="margin-bottom: 16px;">建立專門的安全掃描指令：</p>
+        
+        <p><strong>檔案位置</strong>：<code>.bob/slash-commands/security-scan.md</code></p>
+        
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;"># Security Scan
+
+執行全面的程式碼安全掃描，檢查以下項目：
+
+## 檢查項目
+
+1. **輸入驗證**
+   - 檢查所有使用者輸入是否經過驗證
+   - 確認資料型別和範圍檢查
+
+2. **SQL Injection**
+   - 檢查是否使用參數化查詢
+   - 避免字串拼接 SQL
+
+3. **XSS 防護**
+   - 檢查輸出是否經過編碼
+   - 確認 HTML/JavaScript 注入防護
+
+4. **認證授權**
+   - 檢查認證機制
+   - 確認權限控制
+
+5. **敏感資料**
+   - 檢查是否有硬編碼的密碼或金鑰
+   - 確認敏感資料是否加密
+
+6. **錯誤處理**
+   - 檢查是否洩漏敏感資訊
+   - 確認錯誤訊息適當
+
+## 輸出格式
+
+- 列出發現的安全問題
+- 標註嚴重程度（高/中/低）
+- 提供修復建議</pre>
+
+        <div class="success-box" style="margin-top: 16px;">
+          <h4>💡 使用方式</h4>
+          <pre style="background: #2d2d2d; color: #f8f8f2; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 8px 0;">/security-scan src/controllers/</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- 團隊協作 -->
+    <div class="section">
+      <h2>👥 團隊協作規範</h2>
+      
+      <div class="challenge-box">
+        <h3>建立團隊 Bob 使用規範</h3>
+        
+        <p style="margin-bottom: 16px;"><strong>檔案位置</strong>：<code>.bob/TEAM_GUIDELINES.md</code></p>
+        
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;"># Bob 使用規範
+
+## 安全規範
+
+1. **禁止事項**
+   - ❌ 不得讓 Bob 處理生產環境密碼
+   - ❌ 不得上傳真實個人資料
+   - ❌ 不得分享包含敏感資訊的對話
+
+2. **必須事項**
+   - ✅ 使用前檢查 .bobignore
+   - ✅ 定期清理 Bob 上下文
+   - ✅ 審查 Bob 產生的程式碼
+
+## 開發流程
+
+1. **需求階段**：使用 Plan 模式分析
+2. **設計階段**：產生架構文件
+3. **開發階段**：使用 Code 模式實作
+4. **審查階段**：使用 /review 檢查
+5. **部署階段**：產生部署文件
+
+## 程式碼品質
+
+- 遵循專案 Rules（.bob/rules/）
+- 使用 /security-scan 檢查安全性
+- 確保測試覆蓋率 >80%
+- 產生的程式碼必須經過人工審查
+
+## Token 優化
+
+- 優先使用行範圍讀取
+- 批次操作減少互動
+- 保持回應簡潔
+- 避免重複讀取檔案</pre>
+      </div>
+
+      <div class="success-box" style="margin-top: 24px;">
+        <h4>💡 團隊協作建議</h4>
+        <ul>
+          <li><strong>統一規範</strong>：全團隊使用相同的 Rules 和 AGENTS.md</li>
+          <li><strong>知識分享</strong>：分享有效的 Slash Commands 和 Skills</li>
+          <li><strong>定期審查</strong>：檢討 Bob 使用效果和問題</li>
+          <li><strong>持續改進</strong>：根據經驗更新使用規範</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 合規性考量 -->
+    <div class="section">
+      <h2>📋 合規性考量</h2>
+      
+      <div class="challenge-box">
+        <h3>資料保護法規</h3>
+        
+        <div class="evaluation-table">
+          <table>
+            <thead>
+              <tr>
+                <th>法規</th>
+                <th>要求</th>
+                <th>Bob 使用注意事項</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>GDPR</strong></td>
+                <td>個人資料保護</td>
+                <td>
+                  • 不處理真實個資<br>
+                  • 使用假資料測試<br>
+                  • 定期清理上下文
+                </td>
+              </tr>
+              <tr>
+                <td><strong>PCI DSS</strong></td>
+                <td>支付卡資料安全</td>
+                <td>
+                  • 絕不處理真實卡號<br>
+                  • 使用測試卡號<br>
+                  • 排除支付相關檔案
+                </td>
+              </tr>
+              <tr>
+                <td><strong>HIPAA</strong></td>
+                <td>醫療資料保護</td>
+                <td>
+                  • 不處理病患資料<br>
+                  • 使用匿名化資料<br>
+                  • 嚴格存取控制
+                </td>
+              </tr>
+              <tr>
+                <td><strong>個資法</strong></td>
+                <td>個人資料保護</td>
+                <td>
+                  • 遵循最小必要原則<br>
+                  • 資料去識別化<br>
+                  • 記錄存取日誌
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="warning-box" style="margin-top: 24px;">
+        <h4>⚠️ 法律責任</h4>
+        <p style="margin-bottom: 12px;">使用 AI 工具時，開發者和組織需要注意：</p>
+        <ul>
+          <li>對 AI 產生的程式碼負責</li>
+          <li>確保符合授權條款</li>
+          <li>保護智慧財產權</li>
+          <li>遵守資料保護法規</li>
+          <li>維護資訊安全</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 實作練習 -->
+    <div class="section">
+      <h2>💪 實作練習</h2>
+      
+      <div class="challenge-box">
+        <h3>練習 1：建立 .bobignore</h3>
+        <ol style="margin-left: 24px;">
+          <li>分析你的專案結構</li>
+          <li>識別敏感檔案和目錄</li>
+          <li>建立完整的 .bobignore 檔案</li>
+          <li>測試驗證排除規則</li>
+        </ol>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>練習 2：建立安全掃描指令</h3>
+        <ol style="margin-left: 24px;">
+          <li>建立 <code>/security-scan</code> Slash Command</li>
+          <li>定義檢查項目和標準</li>
+          <li>測試掃描功能</li>
+          <li>根據結果改進程式碼</li>
+        </ol>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>練習 3：制定團隊規範</h3>
+        <ol style="margin-left: 24px;">
+          <li>撰寫 TEAM_GUIDELINES.md</li>
+          <li>定義安全使用規範</li>
+          <li>建立程式碼審查流程</li>
+          <li>與團隊成員討論並改進</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- 最佳實踐總結 -->
+    <div class="section">
+      <h2>✨ 最佳實踐總結</h2>
+      
+      <div class="success-box">
+        <h4>🎯 安全使用 Bob 的黃金法則</h4>
+        <ol style="margin-left: 24px;">
+          <li><strong>預設安全</strong>：建立完整的 .bobignore，排除所有敏感檔案</li>
+          <li><strong>最小權限</strong>：只給 Bob 必要的檔案存取權限</li>
+          <li><strong>假資料測試</strong>：開發環境使用假資料，不用真實資料</li>
+          <li><strong>定期審查</strong>：檢查 Bob 產生的程式碼和存取記錄</li>
+          <li><strong>團隊規範</strong>：建立並遵守團隊使用規範</li>
+          <li><strong>持續學習</strong>：關注安全最佳實踐的更新</li>
+          <li><strong>人工把關</strong>：AI 輔助，人類決策</li>
+        </ol>
+      </div>
+
+      <div class="warning-box" style="margin-top: 24px;">
+        <h4>⚠️ 常見安全錯誤</h4>
+        <ul>
+          <li>❌ 沒有建立 .bobignore</li>
+          <li>❌ 讓 Bob 處理生產環境配置</li>
+          <li>❌ 上傳真實個人資料</li>
+          <li>❌ 不審查 AI 產生的程式碼</li>
+          <li>❌ 忽略安全警告</li>
+          <li>❌ 過度依賴 AI 判斷</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 重點回顧 -->
+    <div class="section">
+      <h2>📝 重點回顧</h2>
+      <div class="evaluation-table">
+        <table>
+          <thead>
+            <tr>
+              <th>主題</th>
+              <th>關鍵要點</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>SDLC 整合</strong></td>
+              <td>在各階段適當使用 Bob，提升開發效率</td>
+            </tr>
+            <tr>
+              <td><strong>.bobignore</strong></td>
+              <td>排除敏感檔案，保護資料安全</td>
+            </tr>
+            <tr>
+              <td><strong>敏感資料</strong></td>
+              <td>絕不讓 Bob 處理真實敏感資料</td>
+            </tr>
+            <tr>
+              <td><strong>程式碼審查</strong></td>
+              <td>使用 /review 和自訂安全掃描</td>
+            </tr>
+            <tr>
+              <td><strong>團隊協作</strong></td>
+              <td>建立統一的使用規範和最佳實踐</td>
+            </tr>
+            <tr>
+              <td><strong>合規性</strong></td>
+              <td>遵守資料保護法規和安全標準</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 完成檢查 -->
+    <div class="section">
+      <h2>✅ 完成檢查清單</h2>
+      <div class="challenge-box">
+        <ul style="list-style: none; padding-left: 0;">
+          <li>☐ 了解 Bob 在 SDLC 各階段的應用</li>
+          <li>☐ 建立完整的 .bobignore 檔案</li>
+          <li>☐ 理解敏感資料保護策略</li>
+          <li>☐ 會使用 /review 進行程式碼審查</li>
+          <li>☐ 建立自訂的安全掃描指令</li>
+          <li>☐ 制定團隊使用規範</li>
+          <li>☐ 了解相關法規要求</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 延伸閱讀 -->
+    <div class="section">
+      <h2>📚 延伸閱讀</h2>
+      <div class="requirements-grid">
+        <div class="requirement-card">
+          <h4>📖 相關章節</h4>
+          <ul>
+            <li><a href="04-custom-rules.html">第 4 章：Custom Rules</a></li>
+            <li><a href="03-slash-commands.html">第 3 章：Slash Commands</a></li>
+          </ul>
+        </div>
+
+        <div class="requirement-card">
+          <h4>🔗 外部資源</h4>
+          <ul>
+            <li><a href="https://gdpr.eu/" target="_blank">GDPR 官方網站</a></li>
+            <li><a href="https://owasp.org/" target="_blank">OWASP 安全指南</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div style="display: flex; justify-content: space-between; margin-top: 32px;">
+        <a href="09-token-optimization.html" class="cta-button">← 上一章</a>
+        <a href="../bob-learning.html" class="cta-button">回到目錄</a>
+        <a href="11-hands-on-project.html" class="cta-button">下一章 →</a>
+      </div>
+      
+      <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); text-align: center;">
+        <p style="color: var(--muted);">
+          安全第一，AI 輔助，人類決策！🔒
+        </p>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

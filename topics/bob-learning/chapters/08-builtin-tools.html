@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 8 章：12 個內建工具 - IBM Bob 學習教材</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/workshop-theme.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🛠️ 第 8 章：12 個內建工具</h1>
+      <p class="subtitle">掌握 Bob 的核心操作能力</p>
+      <div class="challenge-badge">⏱️ 時長：45 分鐘 | 難度：⭐⭐⭐</div>
+    </header>
+
+    <!-- 章節導航 -->
+    <div class="section">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+        <a href="07-memory-import.html" style="color: var(--accent);">← 第 7 章：Memory Import</a>
+        <a href="../bob-learning.html" style="color: var(--accent);">📚 回到目錄</a>
+        <a href="09-token-optimization.html" style="color: var(--accent);">第 9 章：Token 優化 →</a>
+      </div>
+    </div>
+
+    <!-- 學習目標 -->
+    <div class="section">
+      <h2>🎯 學習目標</h2>
+      <div class="objectives-list">
+        <ul>
+          <li>理解 Bob 的 12 個內建工具及其用途</li>
+          <li>掌握檔案操作工具的使用時機</li>
+          <li>學會程式碼編輯工具的最佳實踐</li>
+          <li>了解系統互動工具的應用場景</li>
+          <li>熟悉工具組合使用策略</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 工具概覽 -->
+    <div class="section">
+      <h2>📋 12 個內建工具概覽</h2>
+      <p style="margin-bottom: 20px;">Bob 提供 12 個核心工具，分為四大類別：</p>
+      
+      <div class="evaluation-table">
+        <table>
+          <thead>
+            <tr>
+              <th>類別</th>
+              <th>工具</th>
+              <th>主要用途</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="3"><strong>檔案讀取</strong></td>
+              <td><code>read_file</code></td>
+              <td>讀取檔案內容（支援行範圍）</td>
+            </tr>
+            <tr>
+              <td><code>list_files</code></td>
+              <td>列出目錄檔案</td>
+            </tr>
+            <tr>
+              <td><code>search_files</code></td>
+              <td>搜尋檔案內容（regex）</td>
+            </tr>
+            <tr>
+              <td rowspan="4"><strong>程式碼編輯</strong></td>
+              <td><code>write_to_file</code></td>
+              <td>寫入完整檔案內容</td>
+            </tr>
+            <tr>
+              <td><code>apply_diff</code></td>
+              <td>精確修改程式碼片段</td>
+            </tr>
+            <tr>
+              <td><code>insert_content</code></td>
+              <td>在指定行插入內容</td>
+            </tr>
+            <tr>
+              <td><code>list_code_definition_names</code></td>
+              <td>列出程式碼定義（類別、函數等）</td>
+            </tr>
+            <tr>
+              <td rowspan="3"><strong>系統互動</strong></td>
+              <td><code>execute_command</code></td>
+              <td>執行 CLI 命令</td>
+            </tr>
+            <tr>
+              <td><code>ask_followup_question</code></td>
+              <td>向使用者提問</td>
+            </tr>
+            <tr>
+              <td><code>attempt_completion</code></td>
+              <td>完成任務並回報結果</td>
+            </tr>
+            <tr>
+              <td rowspan="2"><strong>進階功能</strong></td>
+              <td><code>switch_mode</code></td>
+              <td>切換 Bob 模式</td>
+            </tr>
+            <tr>
+              <td><code>update_todo_list</code></td>
+              <td>更新任務清單</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 檔案讀取工具 -->
+    <div class="section">
+      <h2>📖 檔案讀取工具</h2>
+      
+      <div class="challenge-box">
+        <h3>1. read_file - 讀取檔案內容</h3>
+        <p style="margin-bottom: 16px;"><strong>用途</strong>：讀取檔案內容，支援行範圍讀取以節省 Token</p>
+        
+        <p style="margin-top: 16px;"><strong>基本用法</strong>：</p>
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;"><read_file>
+<args>
+  <file>
+    <path>src/app.ts</path>
+  </file>
+</args>
+</read_file></pre>
+
+        <p style="margin-top: 16px;"><strong>進階用法（行範圍）</strong>：</p>
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;"><read_file>
+<args>
+  <file>
+    <path>src/utils.ts</path>
+    <line_range>1-15</line_range>
+    <line_range>50-150</line_range>
+  </file>
+</args>
+</read_file></pre>
+
+        <div class="success-box" style="margin-top: 16px;">
+          <h4>💡 最佳實踐</h4>
+          <ul>
+            <li>大檔案務必使用行範圍，可節省 80-95% Token</li>
+            <li>一次最多讀取 10 個檔案</li>
+            <li>先用 <code>list_code_definition_names</code> 定位目標</li>
+            <li>合併相近的行範圍（間隔 <10 行）</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>2. list_files - 列出目錄檔案</h3>
+        <p style="margin-bottom: 16px;"><strong>用途</strong>：瀏覽目錄結構，了解專案組織</p>
+        
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;"><list_files>
+<path>src/</path>
+<recursive>true</recursive>
+</list_files></pre>
+
+        <div class="warning-box" style="margin-top: 16px;">
+          <h4>⚠️ 使用時機</h4>
+          <ul>
+            <li>✅ 探索未知專案結構</li>
+            <li>✅ 尋找特定類型檔案</li>
+            <li>❌ 不要用來確認剛建立的檔案（等使用者確認）</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>3. search_files - 搜尋檔案內容</h3>
+        <p style="margin-bottom: 16px;"><strong>用途</strong>：使用正規表達式搜尋程式碼模式</p>
+        
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;"><search_files>
+<path>src/</path>
+<regex>class.*Controller</regex>
+<file_pattern>*.java</file_pattern>
+</search_files></pre>
+
+        <div class="success-box" style="margin-top: 16px;">
+          <h4>💡 應用場景</h4>
+          <ul>
+            <li>尋找特定 API 端點</li>
+            <li>找出所有 TODO 註解</li>
+            <li>搜尋安全漏洞模式</li>
+            <li>定位特定函數呼叫</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 程式碼編輯工具 -->
+    <div class="section">
+      <h2>✏️ 程式碼編輯工具</h2>
+      
+      <div class="challenge-box">
+        <h3>4. apply_diff - 精確修改程式碼</h3>
+        <p style="margin-bottom: 16px;"><strong>用途</strong>：精確修改程式碼片段，節省 90%+ Token</p>
+        
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;"><apply_diff>
+<path>src/app.py</path>
+<diff>
+<<<<<<< SEARCH
+:start_line:15
+-------
+def calculate_total(items):
+    total = 0
+    for item in items:
+        total += item
+    return total
+=======
+def calculate_total(items):
+    """Calculate total with 10% markup"""
+    return sum(item * 1.1 for item in items)
+>>>>>>> REPLACE
+</diff>
+</apply_diff></pre>
+
+        <div class="success-box" style="margin-top: 16px;">
+          <h4>💡 關鍵要點</h4>
+          <ul>
+            <li><strong>必須完全匹配</strong>：SEARCH 區塊要與原始碼一模一樣</li>
+            <li><strong>包含行號</strong>：使用 <code>:start_line:N</code> 指定起始行</li>
+            <li><strong>批次修改</strong>：一次 diff 可包含多個 SEARCH/REPLACE 區塊</li>
+            <li><strong>優先選擇</strong>：大檔案修改首選此工具</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>5. write_to_file - 寫入完整檔案</h3>
+        <p style="margin-bottom: 16px;"><strong>用途</strong>：建立新檔案或完全重寫檔案</p>
+        
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;"><write_to_file>
+<path>config.json</path>
+<content>
+{
+  "apiEndpoint": "https://api.example.com",
+  "version": "1.0.0"
+}
+</content>
+<line_count>4</line_count>
+</write_to_file></pre>
+
+        <div class="warning-box" style="margin-top: 16px;">
+          <h4>⚠️ 使用時機</h4>
+          <ul>
+            <li>✅ 建立新檔案</li>
+            <li>✅ 完全重寫小檔案</li>
+            <li>❌ 修改大檔案（用 apply_diff）</li>
+            <li>❌ 部分更新（用 apply_diff）</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>6. insert_content - 插入內容</h3>
+        <p style="margin-bottom: 16px;"><strong>用途</strong>：在指定行號插入新內容</p>
+        
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;"><insert_content>
+<path>src/utils.ts</path>
+<line>1</line>
+<content>
+import { sum } from './math';
+</content>
+</insert_content></pre>
+
+        <div class="success-box" style="margin-top: 16px;">
+          <h4>💡 特殊用法</h4>
+          <ul>
+            <li><code>line: 1</code> - 插入到檔案開頭</li>
+            <li><code>line: 0</code> - 附加到檔案結尾</li>
+            <li>適合新增 import、註解等單行內容</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>7. list_code_definition_names - 列出程式碼定義</h3>
+        <p style="margin-bottom: 16px;"><strong>用途</strong>：快速了解程式碼結構，不讀取完整內容</p>
+        
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;"><list_code_definition_names>
+<path>src/services/</path>
+</list_code_definition_names></pre>
+
+        <div class="success-box" style="margin-top: 16px;">
+          <h4>💡 應用場景</h4>
+          <ul>
+            <li>快速瀏覽專案架構</li>
+            <li>定位目標函數位置</li>
+            <li>了解類別結構</li>
+            <li>配合 read_file 行範圍使用</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 系統互動工具 -->
+    <div class="section">
+      <h2>💻 系統互動工具</h2>
+      
+      <div class="challenge-box">
+        <h3>8. execute_command - 執行命令</h3>
+        <p style="margin-bottom: 16px;"><strong>用途</strong>：執行 CLI 命令，如測試、建置、部署</p>
+        
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;"><execute_command>
+<command>npm test</command>
+</execute_command></pre>
+
+        <p style="margin-top: 16px;"><strong>切換目錄執行</strong>：</p>
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;"><execute_command>
+<command>cd backend && python -m pytest</command>
+</execute_command></pre>
+
+        <div class="success-box" style="margin-top: 16px;">
+          <h4>💡 常見用途</h4>
+          <ul>
+            <li>執行測試：<code>npm test</code>, <code>mvn test</code></li>
+            <li>建置專案：<code>npm run build</code>, <code>mvn package</code></li>
+            <li>安裝依賴：<code>npm install</code>, <code>pip install -r requirements.txt</code></li>
+            <li>Git 操作：<code>git status</code>, <code>git diff</code></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>9. ask_followup_question - 向使用者提問</h3>
+        <p style="margin-bottom: 16px;"><strong>用途</strong>：需要更多資訊時向使用者提問</p>
+        
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;"><ask_followup_question>
+<question>API 端點的基礎 URL 是什麼？</question>
+<follow_up>
+  <suggest>https://api.example.com</suggest>
+  <suggest>http://localhost:8080</suggest>
+</follow_up>
+</ask_followup_question></pre>
+
+        <div class="warning-box" style="margin-top: 16px;">
+          <h4>⚠️ 使用原則</h4>
+          <ul>
+            <li>只在真正需要時提問</li>
+            <li>提供具體的選項建議</li>
+            <li>避免問可以從程式碼推斷的問題</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>10. attempt_completion - 完成任務</h3>
+        <p style="margin-bottom: 16px;"><strong>用途</strong>：任務完成時回報結果</p>
+        
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;"><attempt_completion>
+<result>
+✅ API 端點已建立
+✅ 測試通過
+✅ 文件已更新
+</result>
+</attempt_completion></pre>
+
+        <div class="success-box" style="margin-top: 16px;">
+          <h4>💡 最佳實踐</h4>
+          <ul>
+            <li>簡潔列出完成項目</li>
+            <li>確認所有工具操作成功後才使用</li>
+            <li>不重複任務描述，聚焦結果</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 進階功能工具 -->
+    <div class="section">
+      <h2>🚀 進階功能工具</h2>
+      
+      <div class="challenge-box">
+        <h3>11. switch_mode - 切換模式</h3>
+        <p style="margin-bottom: 16px;"><strong>用途</strong>：在不同 Bob 模式間切換</p>
+        
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;"><switch_mode>
+<mode_slug>code</mode_slug>
+<reason>需要進行程式碼實作</reason>
+</switch_mode></pre>
+
+        <div class="success-box" style="margin-top: 16px;">
+          <h4>💡 模式選擇</h4>
+          <ul>
+            <li><code>plan</code> - 規劃與設計階段</li>
+            <li><code>code</code> - 程式碼實作階段</li>
+            <li><code>advanced</code> - 使用 MCP 功能</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>12. update_todo_list - 更新任務清單</h3>
+        <p style="margin-bottom: 16px;"><strong>用途</strong>：管理多步驟任務的進度</p>
+        
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;"><update_todo_list>
+<todos>
+[x] 分析需求
+[-] 實作核心邏輯
+[ ] 撰寫測試
+[ ] 更新文件
+</todos>
+</update_todo_list></pre>
+
+        <div class="success-box" style="margin-top: 16px;">
+          <h4>💡 狀態標記</h4>
+          <ul>
+            <li><code>[ ]</code> - 待處理</li>
+            <li><code>[-]</code> - 進行中</li>
+            <li><code>[x]</code> - 已完成</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 工具組合策略 -->
+    <div class="section">
+      <h2>🎯 工具組合策略</h2>
+      
+      <div class="challenge-box">
+        <h3>常見工作流程</h3>
+        
+        <p style="margin-top: 16px;"><strong>場景 1：新增功能</strong></p>
+        <ol style="margin-left: 24px; margin-bottom: 16px;">
+          <li><code>list_code_definition_names</code> - 了解現有結構</li>
+          <li><code>read_file</code> (行範圍) - 讀取相關程式碼</li>
+          <li><code>apply_diff</code> - 修改現有檔案</li>
+          <li><code>write_to_file</code> - 建立新檔案</li>
+          <li><code>execute_command</code> - 執行測試</li>
+          <li><code>attempt_completion</code> - 完成任務</li>
+        </ol>
+
+        <p style="margin-top: 16px;"><strong>場景 2：Bug 修復</strong></p>
+        <ol style="margin-left: 24px; margin-bottom: 16px;">
+          <li><code>search_files</code> - 搜尋錯誤模式</li>
+          <li><code>read_file</code> (行範圍) - 讀取問題區域</li>
+          <li><code>apply_diff</code> - 修正程式碼</li>
+          <li><code>execute_command</code> - 驗證修復</li>
+          <li><code>attempt_completion</code> - 回報結果</li>
+        </ol>
+
+        <p style="margin-top: 16px;"><strong>場景 3：重構</strong></p>
+        <ol style="margin-left: 24px;">
+          <li><code>list_code_definition_names</code> - 分析結構</li>
+          <li><code>read_file</code> (多檔案) - 批次讀取</li>
+          <li><code>apply_diff</code> (多區塊) - 批次修改</li>
+          <li><code>execute_command</code> - 執行測試</li>
+          <li><code>attempt_completion</code> - 完成重構</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- 實作練習 -->
+    <div class="section">
+      <h2>💪 實作練習</h2>
+      
+      <div class="challenge-box">
+        <h3>練習 1：檔案操作組合</h3>
+        <p style="margin-bottom: 12px;"><strong>任務</strong>：在專案中新增一個工具函數</p>
+        <ol style="margin-left: 24px;">
+          <li>使用 <code>list_code_definition_names</code> 找出 utils 檔案</li>
+          <li>使用 <code>read_file</code> 讀取檔案結構</li>
+          <li>使用 <code>apply_diff</code> 新增函數</li>
+          <li>使用 <code>execute_command</code> 執行測試</li>
+        </ol>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>練習 2：批次修改</h3>
+        <p style="margin-bottom: 12px;"><strong>任務</strong>：更新多個檔案的 API 端點</p>
+        <ol style="margin-left: 24px;">
+          <li>使用 <code>search_files</code> 找出所有使用舊端點的檔案</li>
+          <li>使用 <code>read_file</code> 批次讀取（最多 10 個）</li>
+          <li>使用 <code>apply_diff</code> 批次修改</li>
+          <li>使用 <code>execute_command</code> 驗證變更</li>
+        </ol>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>練習 3：Token 優化</h3>
+        <p style="margin-bottom: 12px;"><strong>任務</strong>：修改大型檔案中的單一函數</p>
+        <ol style="margin-left: 24px;">
+          <li>使用 <code>list_code_definition_names</code> 定位函數</li>
+          <li>使用 <code>read_file</code> 只讀取函數所在行範圍</li>
+          <li>使用 <code>apply_diff</code> 精確修改</li>
+          <li>比較與 <code>write_to_file</code> 的 Token 差異</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- 最佳實踐總結 -->
+    <div class="section">
+      <h2>✨ 最佳實踐總結</h2>
+      
+      <div class="success-box">
+        <h4>🎯 工具選擇原則</h4>
+        <ul>
+          <li><strong>讀取優先</strong>：先用 <code>list_code_definition_names</code> 定位，再用 <code>read_file</code> 行範圍</li>
+          <li><strong>編輯優先</strong>：大檔案用 <code>apply_diff</code>，小檔案或新檔案用 <code>write_to_file</code></li>
+          <li><strong>批次操作</strong>：盡可能在一次工具呼叫中完成多個操作</li>
+          <li><strong>Token 意識</strong>：時刻考慮 Token 消耗，選擇最經濟的方案</li>
+        </ul>
+      </div>
+
+      <div class="warning-box" style="margin-top: 24px;">
+        <h4>⚠️ 常見錯誤</h4>
+        <ul>
+          <li>❌ 讀取整個大檔案而不使用行範圍</li>
+          <li>❌ 用 <code>write_to_file</code> 修改大檔案</li>
+          <li>❌ 重複讀取已在上下文中的檔案</li>
+          <li>❌ <code>apply_diff</code> 的 SEARCH 區塊不完全匹配</li>
+          <li>❌ 忘記在 <code>apply_diff</code> 中指定 <code>:start_line:</code></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 重點回顧 -->
+    <div class="section">
+      <h2>📝 重點回顧</h2>
+      <div class="evaluation-table">
+        <table>
+          <thead>
+            <tr>
+              <th>工具</th>
+              <th>最佳使用時機</th>
+              <th>Token 效率</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>read_file</code> + 行範圍</td>
+              <td>讀取大檔案特定部分</td>
+              <td>⭐⭐⭐⭐⭐</td>
+            </tr>
+            <tr>
+              <td><code>apply_diff</code></td>
+              <td>修改現有程式碼</td>
+              <td>⭐⭐⭐⭐⭐</td>
+            </tr>
+            <tr>
+              <td><code>list_code_definition_names</code></td>
+              <td>快速了解程式碼結構</td>
+              <td>⭐⭐⭐⭐⭐</td>
+            </tr>
+            <tr>
+              <td><code>search_files</code></td>
+              <td>尋找特定模式</td>
+              <td>⭐⭐⭐⭐</td>
+            </tr>
+            <tr>
+              <td><code>write_to_file</code></td>
+              <td>建立新檔案</td>
+              <td>⭐⭐⭐</td>
+            </tr>
+            <tr>
+              <td><code>execute_command</code></td>
+              <td>執行測試、建置</td>
+              <td>⭐⭐⭐⭐</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 完成檢查 -->
+    <div class="section">
+      <h2>✅ 完成檢查清單</h2>
+      <div class="challenge-box">
+        <ul style="list-style: none; padding-left: 0;">
+          <li>☐ 理解 12 個工具的用途與差異</li>
+          <li>☐ 掌握 <code>read_file</code> 行範圍用法</li>
+          <li>☐ 熟悉 <code>apply_diff</code> 的 SEARCH/REPLACE 格式</li>
+          <li>☐ 了解何時使用 <code>apply_diff</code> vs <code>write_to_file</code></li>
+          <li>☐ 能夠組合多個工具完成複雜任務</li>
+          <li>☐ 完成至少 2 個實作練習</li>
+          <li>☐ 理解 Token 優化策略</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 延伸閱讀 -->
+    <div class="section">
+      <h2>📚 延伸閱讀</h2>
+      <div class="requirements-grid">
+        <div class="requirement-card">
+          <h4>📖 相關章節</h4>
+          <ul>
+            <li><a href="02-core-concepts.html">第 2 章：核心概念</a></li>
+            <li><a href="09-token-optimization.html">第 9 章：Token 優化</a></li>
+          </ul>
+        </div>
+
+        <div class="requirement-card">
+          <h4>🔗 官方資源</h4>
+          <ul>
+            <li><a href="https://ibm.github.io/bob-docs" target="_blank">Bob 官方文件</a></li>
+            <li><a href="../bob-learning.html">Bob Cheatsheet</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div style="display: flex; justify-content: space-between; margin-top: 32px;">
+        <a href="07-memory-import.html" class="cta-button">← 上一章</a>
+        <a href="../bob-learning.html" class="cta-button">回到目錄</a>
+        <a href="09-token-optimization.html" class="cta-button">下一章 →</a>
+      </div>
+      
+      <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); text-align: center;">
+        <p style="color: var(--muted);">
+          掌握這 12 個工具，你就能充分發揮 Bob 的能力！💪
+        </p>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

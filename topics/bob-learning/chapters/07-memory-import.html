@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 7 章：Memory Import - IBM Bob 完整學習指南</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/workshop-theme.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🧠 第 7 章：Memory Import</h1>
+      <p class="subtitle">記憶匯入讓 Bob 記住重要資訊</p>
+      <div class="challenge-badge">⏱️ 預估時間：45 分鐘 | 難度：⭐⭐⭐</div>
+    </header>
+
+    <!-- 章節導航 -->
+    <div class="section">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+        <a href="06-agents-md.html" style="color: var(--accent);">← 第 6 章：AGENTS.md</a>
+        <a href="../bob-learning.html" style="color: var(--accent);">📚 回到目錄</a>
+        <a href="08-builtin-tools.html" style="color: var(--accent);">第 8 章：12 個內建工具 →</a>
+      </div>
+    </div>
+
+    <!-- 學習目標 -->
+    <div class="section">
+      <h2>🎯 學習目標</h2>
+      <div class="challenge-box">
+        <p>完成本章後，你將能夠：</p>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li>理解 Memory Import 的概念與用途</li>
+          <li>了解使用時機與策略</li>
+          <li>掌握記憶體管理最佳實踐</li>
+          <li>有效運用 Memory Import 提升效率</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 7.1 什麼是 Memory Import -->
+    <div class="section">
+      <h2>💾 7.1 什麼是 Memory Import？</h2>
+      
+      <div class="challenge-box">
+        <h3>定義</h3>
+        <p><strong>Memory Import（記憶匯入）</strong>是將重要資訊預先載入到 Bob 的上下文（Context）中，讓 Bob 在對話過程中能夠記住並使用這些資訊。</p>
+        
+        <h4 style="margin-top: 24px;">為什麼需要 Memory Import？</h4>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li><strong>避免重複說明</strong>：不需要每次都重新解釋專案背景</li>
+          <li><strong>提升效率</strong>：Bob 能快速理解上下文</li>
+          <li><strong>節省 Token</strong>：比每次讀取檔案更經濟</li>
+          <li><strong>保持一致性</strong>：確保 Bob 使用正確的資訊</li>
+        </ul>
+      </div>
+
+      <div class="success-box" style="margin-top: 24px;">
+        <h4>💡 Memory Import vs 讀取檔案</h4>
+        <div style="margin-top: 12px;">
+          <p><strong>讀取檔案（read_file）</strong></p>
+          <ul style="margin-left: 24px; margin-top: 8px; font-size: 0.9rem;">
+            <li>每次對話都要重新讀取</li>
+            <li>消耗較多 Token</li>
+            <li>適合：需要最新內容的檔案</li>
+          </ul>
+          
+          <p style="margin-top: 16px;"><strong>Memory Import</strong></p>
+          <ul style="margin-left: 24px; margin-top: 8px; font-size: 0.9rem;">
+            <li>一次匯入，持續使用</li>
+            <li>節省 Token</li>
+            <li>適合：不常變動的重要資訊</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7.2 使用時機 -->
+    <div class="section">
+      <h2>⏰ 7.2 何時使用 Memory Import？</h2>
+      
+      <div class="requirements-grid">
+        <div class="requirement-card">
+          <h4>✅ 適合匯入的內容</h4>
+          <ul>
+            <li><strong>專案規範</strong>：編碼標準、命名慣例</li>
+            <li><strong>API 文件</strong>：常用的 API 說明</li>
+            <li><strong>架構設計</strong>：系統架構圖、模組說明</li>
+            <li><strong>業務規則</strong>：核心業務邏輯</li>
+            <li><strong>技術決策</strong>：為什麼選擇某個技術</li>
+            <li><strong>常見問題</strong>：FAQ 與解決方案</li>
+          </ul>
+        </div>
+
+        <div class="requirement-card">
+          <h4>❌ 不適合匯入的內容</h4>
+          <ul>
+            <li><strong>程式碼檔案</strong>：會頻繁變動</li>
+            <li><strong>大量資料</strong>：會消耗太多 Token</li>
+            <li><strong>臨時資訊</strong>：只用一次的內容</li>
+            <li><strong>敏感資料</strong>：密碼、金鑰等</li>
+            <li><strong>過時資訊</strong>：已經不適用的內容</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="warning-box" style="margin-top: 24px;">
+        <h4>💡 判斷原則</h4>
+        <p>如果某個資訊符合以下條件，就適合使用 Memory Import：</p>
+        <ol style="margin-left: 24px; margin-top: 12px;">
+          <li>會在多次對話中重複使用</li>
+          <li>內容相對穩定，不常變動</li>
+          <li>對理解專案很重要</li>
+          <li>大小適中（不要太大）</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- 7.3 如何使用 Memory Import -->
+    <div class="section">
+      <h2>🛠️ 7.3 如何使用 Memory Import？</h2>
+      
+      <div class="challenge-box">
+        <h3>在 Bob Shell 中使用</h3>
+        <p>Bob Shell 提供 <code>/memory</code> 指令來管理記憶體：</p>
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; margin-top: 12px; font-family: 'IBM Plex Mono', monospace;"># 查看當前記憶體狀態
+/memory
+
+# 匯入檔案到記憶體
+/memory import path/to/file.md
+
+# 清除記憶體
+/memory clear</pre>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>在 Bob IDE 中使用</h3>
+        <p>在 Bob IDE 中，可以透過對話方式請求匯入：</p>
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; margin-top: 12px; font-family: 'IBM Plex Mono', monospace;">請將 .bob/rules/coding-standards.md 的內容匯入記憶體，
+我接下來的開發都需要遵循這些規範。</pre>
+      </div>
+
+      <div class="success-box" style="margin-top: 24px;">
+        <h4>💡 自動匯入</h4>
+        <p>某些檔案會自動被 Bob 載入：</p>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li><code>.bob/AGENTS.md</code> - 專案指引</li>
+          <li><code>.bob/rules/*.md</code> - 專案規則</li>
+          <li><code>.bob/skills/*.md</code> - 自訂技能</li>
+        </ul>
+        <p style="margin-top: 12px;">這些檔案不需要手動匯入，Bob 會自動讀取。</p>
+      </div>
+    </div>
+
+    <!-- 7.4 記憶體管理策略 -->
+    <div class="section">
+      <h2>📊 7.4 記憶體管理策略</h2>
+      
+      <div class="challenge-box">
+        <h3>Context 大小限制</h3>
+        <p>Bob 的 Context 有大小限制（Token 限制），需要謹慎管理：</p>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li><strong>對話歷史</strong>：佔用 Context</li>
+          <li><strong>已讀取的檔案</strong>：佔用 Context</li>
+          <li><strong>Memory Import</strong>：佔用 Context</li>
+          <li><strong>AGENTS.md 等</strong>：自動載入，佔用 Context</li>
+        </ul>
+      </div>
+
+      <div class="evaluation-table" style="margin-top: 24px;">
+        <table>
+          <thead>
+            <tr>
+              <th>策略</th>
+              <th>說明</th>
+              <th>適用場景</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>精簡內容</strong></td>
+              <td>只匯入最重要的資訊</td>
+              <td>Context 接近上限時</td>
+            </tr>
+            <tr>
+              <td><strong>分批匯入</strong></td>
+              <td>依任務需求匯入不同內容</td>
+              <td>有多個不同類型的任務</td>
+            </tr>
+            <tr>
+              <td><strong>定期清理</strong></td>
+              <td>完成任務後清除記憶體</td>
+              <td>開始新任務時</td>
+            </tr>
+            <tr>
+              <td><strong>優先順序</strong></td>
+              <td>先匯入最重要的資訊</td>
+              <td>資訊量大時</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="warning-box" style="margin-top: 24px;">
+        <h4>⚠️ Context 管理原則</h4>
+        <ol style="margin-left: 24px; margin-top: 12px;">
+          <li><strong>監控使用量</strong>：注意 Context 使用情況</li>
+          <li><strong>適時清理</strong>：完成任務後清除不需要的內容</li>
+          <li><strong>精簡文件</strong>：移除冗餘資訊</li>
+          <li><strong>分段處理</strong>：大任務分成小任務，分別管理 Context</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- 7.5 實戰範例 -->
+    <div class="section">
+      <h2>🎯 7.5 實戰範例</h2>
+      
+      <div class="challenge-box">
+        <h3>範例 1：匯入編碼規範</h3>
+        <p><strong>情境</strong>：開始開發新功能，需要遵循專案規範</p>
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; margin-top: 12px; font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem;"># 在 Bob Shell 中
+/memory import .bob/rules/coding-standards.md
+
+# 在 Bob IDE 中
+請將編碼規範（.bob/rules/coding-standards.md）匯入記憶體，
+接下來我要開發使用者管理功能，請確保程式碼符合規範。</pre>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>範例 2：匯入 API 文件</h3>
+        <p><strong>情境</strong>：需要整合外部 API，頻繁參考文件</p>
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; margin-top: 12px; font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem;">請將支付 API 文件（docs/payment-api.md）匯入記憶體，
+我需要實作支付功能，會頻繁使用這些 API。</pre>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>範例 3：清除記憶體</h3>
+        <p><strong>情境</strong>：完成支付功能，要開始開發訂單功能</p>
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; margin-top: 12px; font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem;"># 在 Bob Shell 中
+/memory clear
+
+# 在 Bob IDE 中
+請清除之前匯入的支付 API 文件，
+現在要開始開發訂單功能了。</pre>
+      </div>
+    </div>
+
+    <!-- 7.6 實戰練習 -->
+    <div class="section">
+      <h2>✏️ 7.6 實戰練習</h2>
+      
+      <div class="warning-box">
+        <h4>練習 1：匯入專案規範</h4>
+        <p>練習使用 Memory Import：</p>
+        <ol style="margin-left: 24px; margin-top: 12px;">
+          <li>準備一個規範文件（如 coding-standards.md）</li>
+          <li>使用 Memory Import 匯入</li>
+          <li>請 Bob 產生一段程式碼</li>
+          <li>檢查是否符合匯入的規範</li>
+        </ol>
+      </div>
+
+      <div class="warning-box" style="margin-top: 24px;">
+        <h4>練習 2：管理 Context</h4>
+        <p>練習 Context 管理：</p>
+        <ol style="margin-left: 24px; margin-top: 12px;">
+          <li>匯入多個文件到記憶體</li>
+          <li>觀察 Context 使用情況</li>
+          <li>完成任務後清除記憶體</li>
+          <li>開始新任務，匯入新的內容</li>
+        </ol>
+      </div>
+
+      <div class="warning-box" style="margin-top: 24px;">
+        <h4>練習 3：優化策略</h4>
+        <p>實驗不同的匯入策略：</p>
+        <ol style="margin-left: 24px; margin-top: 12px;">
+          <li>比較「每次讀檔」vs「Memory Import」的效率</li>
+          <li>測試匯入不同大小的文件</li>
+          <li>找出最適合你專案的策略</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- 7.7 最佳實踐 -->
+    <div class="section">
+      <h2>💡 7.7 Memory Import 最佳實踐</h2>
+      
+      <div class="success-box">
+        <h4>使用建議</h4>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li><strong>選擇性匯入</strong>：只匯入真正需要的內容</li>
+          <li><strong>保持精簡</strong>：文件內容要簡潔明確</li>
+          <li><strong>定期更新</strong>：確保匯入的是最新資訊</li>
+          <li><strong>適時清理</strong>：完成任務後清除記憶體</li>
+          <li><strong>監控使用</strong>：注意 Context 使用情況</li>
+        </ul>
+      </div>
+
+      <div class="success-box" style="margin-top: 24px;">
+        <h4>文件準備</h4>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li><strong>結構化</strong>：使用清楚的標題與章節</li>
+          <li><strong>重點突出</strong>：重要資訊放在前面</li>
+          <li><strong>範例豐富</strong>：提供具體的程式碼範例</li>
+          <li><strong>避免冗餘</strong>：移除不必要的內容</li>
+        </ul>
+      </div>
+
+      <div class="warning-box" style="margin-top: 24px;">
+        <h4>⚠️ 常見錯誤</h4>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li>❌ 匯入過多內容，超過 Context 限制</li>
+          <li>❌ 匯入會頻繁變動的檔案</li>
+          <li>❌ 忘記清除不需要的記憶體</li>
+          <li>❌ 匯入的文件內容過時</li>
+          <li>❌ 沒有監控 Context 使用情況</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 重點回顧 -->
+    <div class="section">
+      <h2>📝 重點回顧</h2>
+      
+      <div class="success-box">
+        <h4>本章重點</h4>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li>✅ Memory Import 讓 Bob 記住重要資訊</li>
+          <li>✅ 適合匯入不常變動的重要內容</li>
+          <li>✅ 使用 /memory 指令管理記憶體</li>
+          <li>✅ 需要注意 Context 大小限制</li>
+          <li>✅ 適時清理記憶體很重要</li>
+          <li>✅ 可以節省 Token 並提升效率</li>
+        </ul>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h4>✅ 完成檢查清單</h4>
+        <p>確認你已經：</p>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li>□ 理解 Memory Import 的概念</li>
+          <li>□ 了解使用時機</li>
+          <li>□ 學會使用 /memory 指令</li>
+          <li>□ 掌握記憶體管理策略</li>
+          <li>□ 實際使用 Memory Import</li>
+          <li>□ 完成實戰練習</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 延伸閱讀 -->
+    <div class="section">
+      <h2>📚 延伸閱讀</h2>
+      
+      <div class="success-box">
+        <h4>推薦資源</h4>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li><a href="https://owhc.github.io/bob-cheatsheet/" target="_blank" style="color: var(--accent);">📖 Bob Cheatsheet - Memory Import 章節</a></li>
+          <li>了解 Token 計費機制（第 9 章）</li>
+          <li>學習 Context 管理策略</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 章節導航 -->
+    <div class="section">
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px; background: rgba(0, 102, 204, 0.05); border-radius: 8px;">
+        <a href="06-agents-md.html" style="color: var(--accent); text-decoration: none;">← 上一章：AGENTS.md</a>
+        <a href="08-builtin-tools.html" class="cta-button" style="display: inline-block; padding: 12px 24px;">下一章：12個內建工具 →</a>
+      </div>
+    </div>
+
+    <footer>
+      <div style="display: flex; justify-content: space-between; margin-top: 32px;">
+        <a href="06-agents-md.html" class="cta-button">← 上一章</a>
+        <a href="../bob-learning.html" class="cta-button">回到目錄</a>
+        <a href="08-builtin-tools.html" class="cta-button">下一章 →</a>
+      </div>
+      
+      <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); text-align: center;">
+        <p style="color: var(--muted);">
+          🎉 恭喜完成第 7 章！接下來學習 12 個內建工具
+        </p>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

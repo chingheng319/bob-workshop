@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>捷運站務管理系統</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 標題區域 -->
+        <div class="header-section">
+            <h1 class="display-4">🚇 捷運站務管理系統</h1>
+            <p class="lead">Metro Station Management System</p>
+        </div>
+
+        <!-- 統計儀表板 -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">🚉</div>
+                <div class="stat-value" id="totalStations">0</div>
+                <div class="stat-label">總站點數</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🔴</div>
+                <div class="stat-value" id="redLineStations">0</div>
+                <div class="stat-label">紅線站點</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🟠</div>
+                <div class="stat-value" id="orangeLineStations">0</div>
+                <div class="stat-label">橘線站點</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">💬</div>
+                <div class="stat-value" id="totalFeedbacks">0</div>
+                <div class="stat-label">回饋數量</div>
+            </div>
+        </div>
+
+        <!-- 分頁導航 -->
+        <ul class="nav nav-tabs mb-4" id="mainTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="route-tab" data-bs-toggle="tab" data-bs-target="#route-panel" type="button">
+                    <i class="bi bi-signpost-2"></i> 路線規劃
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="feedback-tab" data-bs-toggle="tab" data-bs-target="#feedback-panel" type="button">
+                    <i class="bi bi-chat-heart"></i> 乘客回饋
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="station-tab" data-bs-toggle="tab" data-bs-target="#station-panel" type="button">
+                    <i class="bi bi-building"></i> 車站管理
+                </button>
+            </li>
+        </ul>
+
+        <!-- 分頁內容 -->
+        <div class="tab-content" id="mainTabContent">
+            
+            <!-- 路線規劃面板 -->
+            <div class="tab-pane fade show active" id="route-panel">
+                <div class="route-planner">
+                    <h5><i class="bi bi-signpost-2"></i> 路線規劃</h5>
+                    <div class="row g-3">
+                        <div class="col-md-5">
+                            <label class="form-label text-white">起點站</label>
+                            <select class="form-select" id="startStation">
+                                <option value="">請選擇起點站</option>
+                            </select>
+                        </div>
+                        <div class="col-md-5">
+                            <label class="form-label text-white">終點站</label>
+                            <select class="form-select" id="endStation">
+                                <option value="">請選擇終點站</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-end">
+                            <button class="btn btn-light w-100" onclick="planRoute()">
+                                <i class="bi bi-search"></i> 規劃
+                            </button>
+                        </div>
+                    </div>
+                    <div id="routeResult" class="route-result" style="display: none;">
+                        <h6 class="text-white mb-3"><i class="bi bi-map"></i> 路線資訊</h6>
+                        <div id="routeDetails"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 乘客回饋面板 -->
+            <div class="tab-pane fade" id="feedback-panel">
+                <div class="row g-4">
+                    <div class="col-lg-5">
+                        <div class="card">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="mb-0"><i class="bi bi-pencil-square"></i> 提交回饋</h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="feedbackForm">
+                                    <div class="mb-3">
+                                        <label for="feedbackStation" class="form-label">選擇車站 <span class="text-danger">*</span></label>
+                                        <select class="form-select" id="feedbackStation" required>
+                                            <option value="">請選擇車站</option>
+                                        </select>
+                                    </div>
+                                    <div class="row g-3 mb-3">
+                                        <div class="col-md-6">
+                                            <label for="passengerName" class="form-label">姓名 <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="passengerName" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="passengerEmail" class="form-label">Email <span class="text-danger">*</span></label>
+                                            <input type="email" class="form-control" id="passengerEmail" required>
+                                        </div>
+                                    </div>
+                                    <div class="row g-3 mb-3">
+                                        <div class="col-md-6">
+                                            <label for="feedbackRating" class="form-label">評分 <span class="text-danger">*</span></label>
+                                            <select class="form-select" id="feedbackRating" required>
+                                                <option value="">請選擇評分</option>
+                                                <option value="5">⭐⭐⭐⭐⭐ 非常滿意</option>
+                                                <option value="4">⭐⭐⭐⭐ 滿意</option>
+                                                <option value="3">⭐⭐⭐ 普通</option>
+                                                <option value="2">⭐⭐ 不滿意</option>
+                                                <option value="1">⭐ 非常不滿意</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="feedbackCategory" class="form-label">類別 <span class="text-danger">*</span></label>
+                                            <select class="form-select" id="feedbackCategory" required>
+                                                <option value="">請選擇類別</option>
+                                                <option value="服務品質">服務品質</option>
+                                                <option value="設施狀況">設施狀況</option>
+                                                <option value="清潔度">清潔度</option>
+                                                <option value="安全性">安全性</option>
+                                                <option value="其他">其他</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="feedbackContent" class="form-label">回饋內容 <span class="text-danger">*</span></label>
+                                        <textarea class="form-control" id="feedbackContent" rows="4" required></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100">
+                                        <i class="bi bi-send-fill"></i> 提交回饋
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="card">
+                            <div class="card-header bg-success text-white">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0"><i class="bi bi-list-stars"></i> 最新回饋</h5>
+                                    <button class="btn btn-sm btn-light" onclick="loadAllFeedbacks()">
+                                        <i class="bi bi-arrow-clockwise"></i> 重新整理
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body p-0">
+                                <div id="feedbackList" class="feedback-list">
+                                    <div class="text-center text-muted py-4">
+                                        <i class="bi bi-inbox" style="font-size: 2rem;"></i>
+                                        <p class="mt-2">載入回饋資料中...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 車站管理面板 -->
+            <div class="tab-pane fade" id="station-panel">
+                <!-- 搜尋與篩選 -->
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="search-box">
+                                    <i class="bi bi-search"></i>
+                                    <input type="text" class="form-control" id="searchInput" placeholder="搜尋車站代碼或名稱...">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-select" id="filterLine">
+                                    <option value="">所有路線</option>
+                                    <option value="紅線">紅線</option>
+                                    <option value="橘線">橘線</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-select" id="sortBy">
+                                    <option value="code">依代碼排序</option>
+                                    <option value="name">依名稱排序</option>
+                                    <option value="createdAt">依建立時間排序</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 新增車站表單 -->
+                <div class="card mb-3">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0"><i class="bi bi-plus-circle"></i> 新增車站</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="stationForm">
+                            <div class="row g-3">
+                                <div class="col-md-2">
+                                    <label for="code" class="form-label">車站代碼</label>
+                                    <input type="text" class="form-control" id="code" placeholder="R3" required>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="name" class="form-label">車站名稱</label>
+                                    <input type="text" class="form-control" id="name" placeholder="中央車站" required>
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="line" class="form-label">路線</label>
+                                    <select class="form-select" id="line" required>
+                                        <option value="">選擇</option>
+                                        <option value="紅線">紅線</option>
+                                        <option value="橘線">橘線</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="address" class="form-label">地址</label>
+                                    <input type="text" class="form-control" id="address" placeholder="車站地址">
+                                </div>
+                                <div class="col-md-2 d-flex align-items-end">
+                                    <button type="submit" class="btn btn-primary w-100">
+                                        <i class="bi bi-plus-lg"></i> 新增
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- 車站列表 -->
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0"><i class="bi bi-list-ul"></i> 車站列表</h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10%">代碼</th>
+                                        <th style="width: 20%">名稱</th>
+                                        <th style="width: 10%">路線</th>
+                                        <th style="width: 30%">地址</th>
+                                        <th style="width: 20%">建立時間</th>
+                                        <th style="width: 10%" class="text-center">操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="stationList">
+                                    <tr>
+                                        <td colspan="6" class="text-center text-muted py-4">
+                                            <div class="spinner-border spinner-border-sm me-2"></div>
+                                            載入車站資料中...
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 頁尾 -->
+        <footer>
+            <p>© 2024 捷運系統公司 | 現代化站務管理系統</p>
+        </footer>
+    </div>
+
+    <!-- 編輯車站 Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="bi bi-pencil"></i> 編輯車站</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm">
+                        <input type="hidden" id="editId">
+                        <div class="mb-3">
+                            <label for="editCode" class="form-label">車站代碼</label>
+                            <input type="text" class="form-control" id="editCode" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editName" class="form-label">車站名稱</label>
+                            <input type="text" class="form-control" id="editName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editLine" class="form-label">路線</label>
+                            <select class="form-select" id="editLine" required>
+                                <option value="紅線">紅線</option>
+                                <option value="橘線">橘線</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editAddress" class="form-label">地址</label>
+                            <input type="text" class="form-control" id="editAddress">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" onclick="saveEdit()">
+                        <i class="bi bi-check-lg"></i> 儲存
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- App JS -->
+    <script src="js/app.js"></script>
+</body>
+</html>

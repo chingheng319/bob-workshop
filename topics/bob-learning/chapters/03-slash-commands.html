@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 3 章：Slash Commands - IBM Bob 完整學習指南</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/workshop-theme.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🎯 第 3 章：Slash Commands</h1>
+      <p class="subtitle">快捷指令讓開發更高效</p>
+      <div class="challenge-badge">⏱️ 預估時間：1 小時 | 難度：⭐⭐</div>
+    </header>
+
+    <!-- 章節導航 -->
+    <div class="section">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+        <a href="02-core-concepts.html" style="color: var(--accent);">← 第 2 章：核心概念</a>
+        <a href="../bob-learning.html" style="color: var(--accent);">📚 回到目錄</a>
+        <a href="04-custom-rules.html" style="color: var(--accent);">第 4 章：Custom Rules →</a>
+      </div>
+    </div>
+
+    <!-- 學習目標 -->
+    <div class="section">
+      <h2>🎯 學習目標</h2>
+      <div class="challenge-box">
+        <p>完成本章後，你將能夠：</p>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li>理解 Slash Commands 的概念與用途</li>
+          <li>熟悉常用的內建指令</li>
+          <li>建立自訂的 Slash Commands</li>
+          <li>在實際開發中有效運用快捷指令</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 3.1 什麼是 Slash Commands -->
+    <div class="section">
+      <h2>⚡ 3.1 什麼是 Slash Commands？</h2>
+      
+      <div class="challenge-box">
+        <h3>定義</h3>
+        <p><strong>Slash Commands（斜線指令）</strong>是 Bob 提供的快捷指令系統，讓你用簡短的指令快速執行常見任務。</p>
+        
+        <h4 style="margin-top: 24px;">使用方式</h4>
+        <p>在對話框中輸入 <code>/</code> 開頭的指令，例如：</p>
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; margin-top: 12px; font-family: 'IBM Plex Mono', monospace;">/help</pre>
+        <p style="margin-top: 12px; font-size: 0.9rem; color: var(--muted);">
+          💡 可在 <strong>Bob Shell</strong> 或 <strong>Bob IDE</strong> 中使用
+        </p>
+      </div>
+
+      <div class="warning-box" style="margin-top: 24px;">
+        <h4>⚠️ 重要：不同環境的指令差異</h4>
+        <p><strong>Bob Shell 和 Bob IDE 支援的內建指令數量不同：</strong></p>
+        
+        <div style="margin-top: 16px;">
+          <p style="margin-bottom: 8px;"><strong>🖥️ Bob Shell（28 個內建指令）</strong></p>
+          <ul style="margin-left: 24px; font-size: 0.9rem;">
+            <li>完整的 28 個起始內建 Slash Commands</li>
+            <li style="margin-top: 8px;">包含指令：
+              <div style="margin-top: 8px; padding: 12px; background: rgba(0, 102, 204, 0.05); border-radius: 6px; font-family: 'IBM Plex Mono', monospace; line-height: 1.8;">
+                <code>about</code>, <code>bug</code>, <code>chat</code>, <code>clear</code>, <code>compress</code>, <code>copy</code>, <code>create-pr</code>, <code>directory</code>, <code>docs</code>, <code>editor</code>, <code>feedback</code>, <code>help</code>, <code>ide</code>, <code>init</code>, <code>instance</code>, <code>mcp</code>, <code>memory</code>, <code>mode</code>, <code>permissions</code>, <code>quit</code>, <code>review</code>, <code>secrets-manager</code>, <code>settings</code>, <code>stats</code>, <code>terminal-setup</code>, <code>theme</code>, <code>tools</code>, <code>vim</code>
+              </div>
+            </li>
+            <li style="margin-top: 8px;">支援建立自訂指令</li>
+          </ul>
+        </div>
+
+        <div style="margin-top: 16px;">
+          <p style="margin-bottom: 8px;"><strong>💻 Bob IDE（4 個內建指令）</strong></p>
+          <ul style="margin-left: 24px; font-size: 0.9rem;">
+            <li>支援 4 個起始內建指令：
+              <ul style="margin-left: 20px; margin-top: 4px;">
+                <li><code>init</code> - 分析程式碼庫並為 AI 助理建立簡潔的 AGENTS.md 檔案</li>
+                <li><code>create-pr</code> - 建立拉取請求</li>
+                <li><code>review</code> - 審查程式碼變更</li>
+                <li><code>start_java_modernization</code> - 啟動 Java 現代化工作流程</li>
+              </ul>
+            </li>
+            <li>支援建立自訂指令</li>
+          </ul>
+        </div>
+
+        <p style="margin-top: 16px; padding: 12px; background: rgba(255, 193, 7, 0.1); border-radius: 6px; border-left: 3px solid #ffc107;">
+          <strong>💡 重點</strong>：如果你需要使用更多內建指令（如 /help、/doc、/test 等），請使用 <strong>Bob Shell</strong>。Bob IDE 主要專注於程式碼開發相關的核心指令。
+        </p>
+      </div>
+
+      <div class="success-box" style="margin-top: 24px;">
+        <h4>💡 為什麼要使用 Slash Commands？</h4>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li><strong>提升效率</strong>：一個指令完成複雜任務</li>
+          <li><strong>標準化</strong>：團隊使用統一的指令</li>
+          <li><strong>可重複</strong>：將常用操作封裝成指令</li>
+          <li><strong>易記憶</strong>：簡短的指令名稱</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 3.2 內建 Slash Commands -->
+    <div class="section">
+      <h2>📋 3.2 內建指令介紹</h2>
+      
+      <h3 style="margin-bottom: 16px;">Bob IDE 的 4 個內建指令</h3>
+      <div class="evaluation-table">
+        <table>
+          <thead>
+            <tr>
+              <th>指令</th>
+              <th>用途</th>
+              <th>使用場景</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>/init</code></td>
+              <td>建立 AGENTS.md</td>
+              <td>分析專案並建立 AI 助理指引文件</td>
+            </tr>
+            <tr>
+              <td><code>/create-pr</code></td>
+              <td>建立拉取請求</td>
+              <td>從當前分支建立 PR</td>
+            </tr>
+            <tr>
+              <td><code>/review</code></td>
+              <td>程式碼審查</td>
+              <td>審查程式碼變更（可指定分支）</td>
+            </tr>
+            <tr>
+              <td><code>/start_java_modernization</code></td>
+              <td>Java 現代化</td>
+              <td>啟動 Java 程式碼現代化流程</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="margin-top: 32px; margin-bottom: 16px;">Bob Shell 的常用指令（28 個）</h3>
+      <div class="evaluation-table">
+        <table>
+          <thead>
+            <tr>
+              <th>指令</th>
+              <th>用途</th>
+              <th>使用場景</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>/help</code></td>
+              <td>顯示幫助資訊</td>
+              <td>查看所有可用指令</td>
+            </tr>
+            <tr>
+              <td><code>/clear</code></td>
+              <td>清除對話歷史</td>
+              <td>開始新任務時重置 Context</td>
+            </tr>
+            <tr>
+              <td><code>/init</code></td>
+              <td>建立 AGENTS.md</td>
+              <td>分析專案並建立 AI 助理指引</td>
+            </tr>
+            <tr>
+              <td><code>/review</code></td>
+              <td>程式碼審查</td>
+              <td>審查程式碼變更</td>
+            </tr>
+            <tr>
+              <td><code>/create-pr</code></td>
+              <td>建立拉取請求</td>
+              <td>從當前分支建立 PR</td>
+            </tr>
+            <tr>
+              <td><code>/memory</code></td>
+              <td>記憶體管理</td>
+              <td>管理對話記憶體</td>
+            </tr>
+            <tr>
+              <td><code>/docs</code></td>
+              <td>開啟文件</td>
+              <td>在瀏覽器中開啟 Bob Shell 文件</td>
+            </tr>
+            <tr>
+              <td colspan="3" style="text-align: center; color: var(--muted); font-style: italic;">
+                ...以及其他 21 個指令（theme, tools, settings, vim, mode, copy 等）
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="success-box" style="margin-top: 24px;">
+        <h4>💡 如何查看完整指令列表</h4>
+        <p><strong>在 Bob Shell 中</strong>：輸入 <code>/help</code> 查看所有 28 個指令</p>
+        <p style="margin-top: 8px;"><strong>在 Bob IDE 中</strong>：輸入 <code>/</code> 會自動顯示 4 個可用指令</p>
+      </div>
+
+      <div class="warning-box" style="margin-top: 24px;">
+        <h4>💡 使用範例</h4>
+        
+        <p style="margin-bottom: 12px;"><strong>範例 1：審查程式碼（Bob IDE 和 Bob Shell 都支援）</strong></p>
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; margin-top: 8px; font-family: 'IBM Plex Mono', monospace;">/review</pre>
+        <p style="margin-top: 8px; font-size: 0.9rem; color: var(--muted);">審查當前分支的程式碼變更</p>
+
+        <p style="margin-top: 20px; margin-bottom: 12px;"><strong>範例 2：建立 AGENTS.md（Bob IDE 和 Bob Shell 都支援）</strong></p>
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; margin-top: 8px; font-family: 'IBM Plex Mono', monospace;">/init</pre>
+        <p style="margin-top: 8px; font-size: 0.9rem; color: var(--muted);">分析專案並建立 AGENTS.md 檔案</p>
+
+        <p style="margin-top: 20px; margin-bottom: 12px;"><strong>範例 3：清除對話（僅 Bob Shell）</strong></p>
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; margin-top: 8px; font-family: 'IBM Plex Mono', monospace;">/clear</pre>
+        <p style="margin-top: 8px; font-size: 0.9rem; color: var(--muted);">清除對話歷史，重新開始</p>
+      </div>
+    </div>
+
+    <!-- 3.3 建立自訂 Slash Commands -->
+    <div class="section">
+      <h2>🛠️ 3.3 建立自訂 Slash Commands</h2>
+      
+      <div class="challenge-box">
+        <h3>為什麼要建立自訂指令？</h3>
+        <p>自訂指令讓你可以：</p>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li>封裝專案特定的操作</li>
+          <li>標準化團隊的工作流程</li>
+          <li>提升重複任務的效率</li>
+        </ul>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>建立步驟</h3>
+        <ol style="margin-left: 24px; margin-top: 12px;">
+          <li><strong>建立指令檔案</strong>
+            <p style="margin-left: 20px; margin-top: 8px;">在專案根目錄建立 <code>.bob/commands/</code> 目錄</p>
+          </li>
+          <li style="margin-top: 12px;"><strong>定義指令</strong>
+            <p style="margin-left: 20px; margin-top: 8px;">建立 <code>指令名稱.md</code> 檔案</p>
+          </li>
+          <li style="margin-top: 12px;"><strong>撰寫指令內容</strong>
+            <p style="margin-left: 20px; margin-top: 8px;">使用 Markdown 格式描述指令行為</p>
+          </li>
+        </ol>
+      </div>
+
+      <div class="success-box" style="margin-top: 24px;">
+        <h4>📝 實戰範例：建立 /security-scan 指令</h4>
+        <p style="margin-bottom: 12px;"><strong>目標</strong>：建立一個安全掃描指令，檢查程式碼中的安全問題</p>
+        
+        <p style="margin-top: 16px;"><strong>步驟 1：建立目錄</strong></p>
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; margin-top: 8px; font-family: 'IBM Plex Mono', monospace;">mkdir -p .bob/commands</pre>
+        
+        <p style="margin-top: 16px;"><strong>步驟 2：建立指令檔案</strong></p>
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; margin-top: 8px; font-family: 'IBM Plex Mono', monospace;">touch .bob/commands/security-scan.md</pre>
+        
+        <p style="margin-top: 16px;"><strong>步驟 3：撰寫指令內容</strong></p>
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; margin-top: 8px; font-family: 'IBM Plex Mono', monospace; overflow-x: auto;"># Security Scan Command
+
+## 目的
+執行程式碼安全掃描，檢查常見的安全漏洞
+
+## 檢查項目
+1. SQL Injection 風險
+2. XSS 漏洞
+3. 敏感資料外洩
+4. 不安全的加密方式
+5. 輸入驗證問題
+
+## 執行步驟
+1. 讀取指定的檔案或目錄
+2. 分析程式碼中的安全問題
+3. 產生詳細的安全報告
+4. 提供修復建議
+
+## 使用方式
+```
+/security-scan [檔案路徑]
+```
+
+## 範例
+```
+/security-scan src/main/java/com/example/UserController.java
+```</pre>
+      </div>
+    </div>
+
+    <!-- 3.4 實戰練習 -->
+    <div class="section">
+      <h2>✏️ 3.4 實戰練習</h2>
+      
+      <div class="warning-box">
+        <h4>練習 1：使用內建指令</h4>
+        
+        <p style="margin-bottom: 12px;"><strong>在 Bob IDE 中（4 個指令）：</strong></p>
+        <ol style="margin-left: 24px; margin-top: 8px;">
+          <li>使用 <code>/init</code> 為專案建立 AGENTS.md</li>
+          <li>使用 <code>/review</code> 審查程式碼變更</li>
+          <li>使用 <code>/create-pr</code> 建立拉取請求</li>
+        </ol>
+
+        <p style="margin-top: 16px; margin-bottom: 12px;"><strong>在 Bob Shell 中（28 個指令）：</strong></p>
+        <ol style="margin-left: 24px; margin-top: 8px;">
+          <li>使用 <code>/help</code> 查看所有可用指令</li>
+          <li>使用 <code>/clear</code> 清除對話歷史</li>
+          <li>使用 <code>/memory</code> 管理記憶體</li>
+          <li>使用 <code>/docs</code> 開啟文件</li>
+        </ol>
+      </div>
+
+      <div class="warning-box" style="margin-top: 24px;">
+        <h4>練習 2：建立自訂指令</h4>
+        <p>請建立一個 <code>/api-doc</code> 指令，用於產生 API 文件：</p>
+        <ol style="margin-left: 24px; margin-top: 12px;">
+          <li>建立 <code>.bob/commands/api-doc.md</code></li>
+          <li>定義指令的目的與執行步驟</li>
+          <li>測試指令是否正常運作（Bob Shell 和 Bob IDE 都支援）</li>
+        </ol>
+      </div>
+
+      <div class="warning-box" style="margin-top: 24px;">
+        <h4>練習 3：團隊指令</h4>
+        <p>思考你的團隊常做的任務，設計 2-3 個自訂指令：</p>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li>例如：<code>/deploy-check</code>（部署前檢查）</li>
+          <li>例如：<code>/pr-review</code>（Pull Request 審查）</li>
+          <li>例如：<code>/performance-check</code>（效能檢查）</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 3.5 最佳實踐 -->
+    <div class="section">
+      <h2>💡 3.5 Slash Commands 最佳實踐</h2>
+      
+      <div class="success-box">
+        <h4>指令命名原則</h4>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li><strong>簡短明確</strong>：使用簡短但有意義的名稱</li>
+          <li><strong>動詞開頭</strong>：如 <code>/check</code>、<code>/generate</code></li>
+          <li><strong>連字符分隔</strong>：多個單字用 <code>-</code> 連接</li>
+          <li><strong>避免衝突</strong>：不要與內建指令重名</li>
+        </ul>
+      </div>
+
+      <div class="success-box" style="margin-top: 24px;">
+        <h4>指令文件撰寫</h4>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li><strong>清楚的目的說明</strong>：讓使用者知道指令的用途</li>
+          <li><strong>詳細的執行步驟</strong>：Bob 需要知道如何執行</li>
+          <li><strong>使用範例</strong>：提供具體的使用案例</li>
+          <li><strong>參數說明</strong>：如果有參數，要清楚說明</li>
+        </ul>
+      </div>
+
+      <div class="success-box" style="margin-top: 24px;">
+        <h4>團隊協作</h4>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li><strong>版本控制</strong>：將指令檔案加入 Git</li>
+          <li><strong>文件化</strong>：在 README 中列出可用指令</li>
+          <li><strong>定期審查</strong>：檢查指令是否仍然有用</li>
+          <li><strong>團隊共識</strong>：確保團隊成員都了解指令用途</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 重點回顧 -->
+    <div class="section">
+      <h2>📝 重點回顧</h2>
+      
+      <div class="success-box">
+        <h4>本章重點</h4>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li>✅ Slash Commands 是快捷指令系統，提升開發效率</li>
+          <li>✅ <strong>Bob Shell 有 28 個內建指令，Bob IDE 有 4 個內建指令</strong></li>
+          <li>✅ Bob IDE 的 4 個指令：init, create-pr, review, start_java_modernization</li>
+          <li>✅ 兩個環境都支援建立自訂指令</li>
+          <li>✅ 自訂指令檔案放在 .bob/commands/ 目錄</li>
+          <li>✅ 指令檔案使用 Markdown 格式撰寫</li>
+        </ul>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h4>✅ 完成檢查清單</h4>
+        <p>確認你已經：</p>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li>□ 理解 Slash Commands 的概念</li>
+          <li>□ 熟悉常用的內建指令</li>
+          <li>□ 學會建立自訂指令</li>
+          <li>□ 完成實戰練習</li>
+          <li>□ 了解最佳實踐原則</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 延伸閱讀 -->
+    <div class="section">
+      <h2>📚 延伸閱讀</h2>
+      
+      <div class="success-box">
+        <h4>推薦資源</h4>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li><a href="https://owhc.github.io/bob-cheatsheet/" target="_blank" style="color: var(--accent);">📖 Bob Cheatsheet - Slash Commands 章節</a></li>
+          <li>參考其他專案的自訂指令範例</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 章節導航 -->
+    <div class="section">
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px; background: rgba(0, 102, 204, 0.05); border-radius: 8px;">
+        <a href="02-core-concepts.html" style="color: var(--accent); text-decoration: none;">← 上一章：核心概念</a>
+        <a href="04-custom-rules.html" class="cta-button" style="display: inline-block; padding: 12px 24px;">下一章：Custom Rules →</a>
+      </div>
+    </div>
+
+    <footer>
+      <div style="display: flex; justify-content: space-between; margin-top: 32px;">
+        <a href="02-core-concepts.html" class="cta-button">← 上一章</a>
+        <a href="../bob-learning.html" class="cta-button">回到目錄</a>
+        <a href="04-custom-rules.html" class="cta-button">下一章 →</a>
+      </div>
+      
+      <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); text-align: center;">
+        <p style="color: var(--muted);">
+          🎉 恭喜完成第 3 章！接下來學習 Custom Rules 自訂規則
+        </p>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 2 章：Bob 的核心概念 - IBM Bob 完整學習指南</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/workshop-theme.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🎮 第 2 章：Bob 的核心概念</h1>
+      <p class="subtitle">理解 Bob 的運作機制</p>
+      <div class="challenge-badge">⏱️ 預估時間：45 分鐘 | 難度：⭐⭐</div>
+    </header>
+
+    <!-- 章節導航 -->
+    <div class="section">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+        <a href="01-introduction.html" style="color: var(--accent);">← 第 1 章：Bob 介紹</a>
+        <a href="../bob-learning.html" style="color: var(--accent);">📚 回到目錄</a>
+        <a href="03-slash-commands.html" style="color: var(--accent);">第 3 章：Slash Commands →</a>
+      </div>
+    </div>
+
+    <!-- 學習目標 -->
+    <div class="section">
+      <h2>🎯 學習目標</h2>
+      <div class="challenge-box">
+        <p>完成本章後，你將能夠：</p>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li>理解 Bob 的 Mode 系統（Plan/Code/Advanced）</li>
+          <li>掌握 Tool 使用機制與工作流程</li>
+          <li>了解對話流程與互動模式</li>
+          <li>認識 Context 管理的重要性</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 2.1 Mode 系統 -->
+    <div class="section">
+      <h2>🎨 2.1 Mode 系統</h2>
+      
+      <div class="challenge-box">
+        <h3>什麼是 Mode？</h3>
+        <p>Bob 提供多種<strong>工作模式（Mode）</strong>，每種模式針對不同的開發任務優化。選擇正確的模式能大幅提升效率。</p>
+      </div>
+
+      <div class="requirements-grid" style="margin-top: 24px;">
+        <div class="requirement-card">
+          <h4>📝 Plan 模式</h4>
+          <p style="margin-bottom: 12px; color: var(--muted); font-size: 0.95rem;">
+            <strong>用途</strong>：規劃、設計、分析
+          </p>
+          <ul>
+            <li><strong>適合場景</strong>：
+              <ul style="margin-left: 20px; margin-top: 8px;">
+                <li>需求分析與架構設計</li>
+                <li>技術方案評估</li>
+                <li>問題診斷與分析</li>
+                <li>產生設計文件</li>
+              </ul>
+            </li>
+            <li style="margin-top: 12px;"><strong>特色</strong>：
+              <ul style="margin-left: 20px; margin-top: 8px;">
+                <li>專注於思考與規劃</li>
+                <li>不直接修改程式碼</li>
+                <li>提供詳細的分析報告</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <div class="requirement-card">
+          <h4>💻 Code 模式</h4>
+          <p style="margin-bottom: 12px; color: var(--muted); font-size: 0.95rem;">
+            <strong>用途</strong>：實作、修改、除錯
+          </p>
+          <ul>
+            <li><strong>適合場景</strong>：
+              <ul style="margin-left: 20px; margin-top: 8px;">
+                <li>撰寫新功能</li>
+                <li>修改現有程式碼</li>
+                <li>Bug 修復</li>
+                <li>程式碼重構</li>
+              </ul>
+            </li>
+            <li style="margin-top: 12px;"><strong>特色</strong>：
+              <ul style="margin-left: 20px; margin-top: 8px;">
+                <li>直接操作檔案</li>
+                <li>執行命令與測試</li>
+                <li>即時驗證結果</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <div class="requirement-card">
+          <h4>🚀 Advanced 模式</h4>
+          <p style="margin-bottom: 12px; color: var(--muted); font-size: 0.95rem;">
+            <strong>用途</strong>：進階功能與整合
+          </p>
+          <ul>
+            <li><strong>適合場景</strong>：
+              <ul style="margin-left: 20px; margin-top: 8px;">
+                <li>使用 MCP（Model Context Protocol）</li>
+                <li>整合外部工具</li>
+                <li>複雜的自動化任務</li>
+              </ul>
+            </li>
+            <li style="margin-top: 12px;"><strong>特色</strong>：
+              <ul style="margin-left: 20px; margin-top: 8px;">
+                <li>擴展 Bob 的能力</li>
+                <li>支援客製化整合</li>
+                <li>適合進階使用者</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="success-box" style="margin-top: 24px;">
+        <h4>💡 模式切換技巧</h4>
+        <p>在實際開發中，靈活切換模式能提升效率：</p>
+        <ol style="margin-left: 24px; margin-top: 12px;">
+          <li><strong>Plan 模式</strong>：先規劃設計方案</li>
+          <li><strong>Code 模式</strong>：實作程式碼</li>
+          <li><strong>Plan 模式</strong>：遇到問題時重新分析</li>
+          <li><strong>Code 模式</strong>：繼續實作</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- 2.2 Tool 使用機制 -->
+    <div class="section">
+      <h2>🔧 2.2 Tool 使用機制</h2>
+      
+      <div class="challenge-box">
+        <h3>什麼是 Tool？</h3>
+        <p>Bob 內建 <strong>12 個工具（Tools）</strong>，讓 AI 能夠直接操作檔案、執行命令、分析程式碼等。這是 Bob 與傳統 AI 助手的最大差異。</p>
+      </div>
+
+      <div class="evaluation-table" style="margin-top: 24px;">
+        <table>
+          <thead>
+            <tr>
+              <th>工具類別</th>
+              <th>工具名稱</th>
+              <th>主要用途</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="4"><strong>檔案操作</strong></td>
+              <td><code>read_file</code></td>
+              <td>讀取檔案內容</td>
+            </tr>
+            <tr>
+              <td><code>write_to_file</code></td>
+              <td>寫入完整檔案</td>
+            </tr>
+            <tr>
+              <td><code>apply_diff</code></td>
+              <td>精確修改檔案</td>
+            </tr>
+            <tr>
+              <td><code>insert_content</code></td>
+              <td>插入新內容</td>
+            </tr>
+            <tr>
+              <td rowspan="3"><strong>程式碼分析</strong></td>
+              <td><code>list_files</code></td>
+              <td>列出檔案結構</td>
+            </tr>
+            <tr>
+              <td><code>search_files</code></td>
+              <td>搜尋檔案內容</td>
+            </tr>
+            <tr>
+              <td><code>list_code_definition_names</code></td>
+              <td>列出程式碼定義</td>
+            </tr>
+            <tr>
+              <td rowspan="2"><strong>執行與測試</strong></td>
+              <td><code>execute_command</code></td>
+              <td>執行命令列指令</td>
+            </tr>
+            <tr>
+              <td><code>browser_action</code></td>
+              <td>瀏覽器操作</td>
+            </tr>
+            <tr>
+              <td rowspan="3"><strong>輔助功能</strong></td>
+              <td><code>ask_followup_question</code></td>
+              <td>詢問使用者</td>
+            </tr>
+            <tr>
+              <td><code>attempt_completion</code></td>
+              <td>完成任務</td>
+            </tr>
+            <tr>
+              <td><code>update_todo_list</code></td>
+              <td>更新待辦清單</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="warning-box" style="margin-top: 24px;">
+        <h4>⚠️ 重要原則</h4>
+        <p>Bob 每次只能使用<strong>一個工具</strong>，並且需要等待使用者確認結果後才能繼續。這確保了操作的可控性與安全性。</p>
+      </div>
+    </div>
+
+    <!-- 2.3 對話流程 -->
+    <div class="section">
+      <h2>💬 2.3 對話流程與互動模式</h2>
+      
+      <div class="challenge-box">
+        <h3>典型的對話流程</h3>
+        <ol style="margin-left: 24px; margin-top: 12px;">
+          <li><strong>使用者提出需求</strong>
+            <pre style="background: #2d2d2d; color: #f8f8f2; padding: 12px; border-radius: 6px; margin-top: 8px;">請幫我建立一個 User Entity，包含 id、name、email 欄位</pre>
+          </li>
+          <li style="margin-top: 16px;"><strong>Bob 分析並使用工具</strong>
+            <p style="margin-left: 20px; margin-top: 8px;">Bob 會先分析需求，然後使用適當的工具（如 <code>write_to_file</code>）</p>
+          </li>
+          <li style="margin-top: 16px;"><strong>等待使用者確認</strong>
+            <p style="margin-left: 20px; margin-top: 8px;">工具執行後，Bob 會等待你確認結果</p>
+          </li>
+          <li style="margin-top: 16px;"><strong>繼續或調整</strong>
+            <p style="margin-left: 20px; margin-top: 8px;">根據結果，繼續下一步或進行調整</p>
+          </li>
+        </ol>
+      </div>
+
+      <div class="success-box" style="margin-top: 24px;">
+        <h4>💡 互動技巧</h4>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li><strong>明確的需求</strong>：清楚說明你要什麼</li>
+          <li><strong>提供上下文</strong>：說明專案背景與限制</li>
+          <li><strong>逐步確認</strong>：每個步驟都確認結果</li>
+          <li><strong>善用範例</strong>：提供參考範例更有效</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 2.4 Context 管理 -->
+    <div class="section">
+      <h2>🧠 2.4 Context 管理</h2>
+      
+      <div class="challenge-box">
+        <h3>什麼是 Context？</h3>
+        <p><strong>Context（上下文）</strong>是 Bob 理解你專案的基礎。包含：</p>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li>對話歷史</li>
+          <li>已讀取的檔案內容</li>
+          <li>專案結構資訊</li>
+          <li>Rules、Skills、AGENTS.md 等配置</li>
+        </ul>
+      </div>
+
+      <div class="warning-box" style="margin-top: 24px;">
+        <h4>⚠️ Context 的限制</h4>
+        <p>Context 有大小限制（Token 限制），過多的 Context 會：</p>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li>增加成本（消耗更多 Token）</li>
+          <li>降低回應速度</li>
+          <li>可能影響準確性</li>
+        </ul>
+      </div>
+
+      <div class="success-box" style="margin-top: 24px;">
+        <h4>💡 Context 管理策略</h4>
+        <ol style="margin-left: 24px; margin-top: 12px;">
+          <li><strong>只讀取必要的檔案</strong>：使用 line_range 讀取部分內容</li>
+          <li><strong>使用 Memory Import</strong>：匯入常用的知識（第 7 章詳述）</li>
+          <li><strong>適時開新對話</strong>：完成一個任務後開新對話</li>
+          <li><strong>善用 AGENTS.md</strong>：將專案知識寫入文件（第 6 章詳述）</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- 動手練習 -->
+    <div class="section">
+      <h2>✏️ 動手練習</h2>
+      
+      <div class="warning-box">
+        <h4>練習 1：模式選擇</h4>
+        <p>請判斷以下場景應該使用哪種模式：</p>
+        <ol style="margin-left: 24px; margin-top: 12px;">
+          <li>需要設計一個新的資料庫結構 → <strong>Plan 模式</strong></li>
+          <li>修復一個 Bug → <strong>Code 模式</strong></li>
+          <li>評估兩種技術方案的優劣 → <strong>Plan 模式</strong></li>
+          <li>重構一個複雜的函式 → <strong>Code 模式</strong></li>
+        </ol>
+      </div>
+
+      <div class="warning-box" style="margin-top: 24px;">
+        <h4>練習 2：工具識別</h4>
+        <p>請判斷以下任務需要使用哪個工具：</p>
+        <ol style="margin-left: 24px; margin-top: 12px;">
+          <li>查看專案的檔案結構 → <code>list_files</code></li>
+          <li>修改檔案中的某個函式 → <code>apply_diff</code></li>
+          <li>建立一個新檔案 → <code>write_to_file</code></li>
+          <li>搜尋所有包含 "TODO" 的檔案 → <code>search_files</code></li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- 重點回顧 -->
+    <div class="section">
+      <h2>📝 重點回顧</h2>
+      
+      <div class="success-box">
+        <h4>本章重點</h4>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li>✅ Bob 有三種模式：Plan（規劃）、Code（實作）、Advanced（進階）</li>
+          <li>✅ Bob 內建 12 個工具，每次只能使用一個</li>
+          <li>✅ 對話流程：需求 → 工具使用 → 確認 → 繼續</li>
+          <li>✅ Context 管理很重要，影響效率與成本</li>
+          <li>✅ 靈活切換模式能提升開發效率</li>
+        </ul>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h4>✅ 完成檢查清單</h4>
+        <p>確認你已經：</p>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li>□ 理解三種模式的用途與差異</li>
+          <li>□ 認識 12 個內建工具</li>
+          <li>□ 了解對話流程與互動模式</li>
+          <li>□ 掌握 Context 管理的重要性</li>
+          <li>□ 完成動手練習</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 章節導航 -->
+    <div class="section">
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px; background: rgba(0, 102, 204, 0.05); border-radius: 8px;">
+        <a href="01-introduction.html" style="color: var(--accent); text-decoration: none;">← 上一章：什麼是 IBM Bob</a>
+        <a href="03-slash-commands.html" class="cta-button" style="display: inline-block; padding: 12px 24px;">下一章：Slash Commands →</a>
+      </div>
+    </div>
+
+    <footer>
+      <div style="display: flex; justify-content: space-between; margin-top: 32px;">
+        <a href="01-introduction.html" class="cta-button">← 上一章</a>
+        <a href="../bob-learning.html" class="cta-button">回到目錄</a>
+        <a href="03-slash-commands.html" class="cta-button">下一章 →</a>
+      </div>
+      
+      <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); text-align: center;">
+        <p style="color: var(--muted);">
+          🎉 恭喜完成第 2 章！接下來學習 Slash Commands 快捷指令
+        </p>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

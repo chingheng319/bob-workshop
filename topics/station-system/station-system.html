@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IBM Bob Workshop - 捷運車站管理系統挑戰</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/workshop-theme.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🚇 捷運車站管理系統</h1>
+      <p class="subtitle">IBM Bob Workshop 挑戰</p>
+      <p class="company"></p>
+      <div class="challenge-badge">難度：⭐⭐ | ⏱️ 時長：1.5-2 小時</div>
+    </header>
+
+    <!-- 專案資源 -->
+    <div class="section">
+      <h2>📦 專案資源</h2>
+      <div class="success-box">
+        <h4>🔗 GitHub Repository</h4>
+        <p style="margin-bottom: 12px;">Sample Application 程式碼位於：</p>
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;">https://github.com/icewater30012/bob-workshop.git</pre>
+        <p style="margin-top: 12px; font-size: 0.9rem; color: var(--muted);">
+          專案路徑：<code>topics/station-system/</code>
+        </p>
+        
+        <div style="margin-top: 16px; padding: 12px; background: rgba(255, 193, 7, 0.1); border-radius: 6px; border-left: 3px solid #ffc107;">
+          <p style="margin-bottom: 8px;"><strong>⚠️ 團隊協作設定（重要）</strong></p>
+          <ol style="margin-left: 24px; font-size: 0.9rem;">
+            <li style="margin-bottom: 8px;"><strong>指定一位成員</strong> Fork 此 Repository 到自己的 GitHub 帳號</li>
+            <li style="margin-bottom: 8px;">其他團隊成員 <strong>Clone 該成員的 Fork</strong>（不是原始 Repo）</li>
+            <li style="margin-bottom: 8px;">所有人以 <strong>同一個 Repository</strong> 為基礎進行開發</li>
+            <li style="margin-bottom: 8px;">建議各自開 <strong>feature branch</strong> 進行開發（如 <code>feature/feedback-system</code>）</li>
+            <li>最後由 <strong>同一人負責整合</strong> 所有 branch 到 main</li>
+          </ol>
+          <p style="margin-top: 12px; font-size: 0.85rem; color: var(--muted);">
+            💡 這樣可以模擬真實的團隊協作流程，並避免多個 Fork 造成的整合問題
+          </p>
+        </div>
+      </div>
+
+      <div class="warning-box" style="margin-top: 24px;">
+        <h4>💡 開發流程建議</h4>
+        <p style="margin-bottom: 16px;">建議學員採用以下開發流程，充分運用 Bob 的 Plan 與 Code 模式：</p>
+        
+        <div style="margin-left: 20px;">
+          <p style="margin-bottom: 12px;"><strong>1️⃣ 規劃階段 (Plan 模式)</strong></p>
+          <ul style="margin-left: 24px; margin-bottom: 16px;">
+            <li>使用 <strong>Plan 模式</strong>分析需求與設計架構</li>
+            <li>讓 Bob 協助規劃 Feedback Entity、Repository、Service、Controller 的設計</li>
+            <li>確認資料庫結構與 API 端點設計</li>
+            <li>產出開發計畫與實作步驟</li>
+            <li>可請 Bob 產出系統架構圖、資料流程圖、ER 圖等視覺化文件</li>
+          </ul>
+
+          <p style="margin-bottom: 12px;"><strong>2️⃣ 開發階段 (Code 模式)</strong></p>
+          <ul style="margin-left: 24px; margin-bottom: 16px;">
+            <li>切換至 <strong>Code 模式</strong>進行實際開發</li>
+            <li>依照規劃逐步實作各層級元件</li>
+            <li>使用 Bob 的程式碼生成與重構功能</li>
+            <li>執行測試並驗證功能</li>
+          </ul>
+
+          <p style="margin-bottom: 12px;"><strong>3️⃣ 模式切換技巧</strong></p>
+          <ul style="margin-left: 24px;">
+            <li>遇到設計問題時，切回 Plan 模式重新規劃</li>
+            <li>需要程式碼實作時，使用 Code 模式</li>
+            <li>善用兩種模式的優勢，提升開發效率</li>
+          </ul>
+        </div>
+
+        <p style="margin-top: 16px; padding: 12px; background: rgba(0, 102, 204, 0.05); border-radius: 6px; border-left: 3px solid var(--accent);">
+          <strong>💡 提示</strong>：Plan 模式適合思考與設計，Code 模式適合實作與除錯。靈活切換可以讓開發更有條理！
+        </p>
+      </div>
+    </div>
+
+    <!-- 挑戰概述 -->
+    <div class="section">
+      <h2>🎯 挑戰概述</h2>
+      <div class="challenge-box">
+        <h3>組別任務</h3>
+        <p>你/妳們是開發工程師，公司需要為現有的捷運車站管理系統新增<strong>乘客回饋功能</strong>，以收集乘客對車站設施、服務品質的意見，並支援營運改善決策。</p>
+        <p>你們將使用 <strong>IBM Bob</strong> 作為 AI 開發助手，從現有的 Sample Code 基礎上，共同快速實作這個使用者導向的回饋系統。</p>
+      </div>
+
+      <div class="warning-box">
+        <h4>⚠️ 重要提醒</h4>
+        <p>這是一個<strong>開放式挑戰</strong>，我們不會提供詳細的實作步驟。你需要：</p>
+        <ul>
+          <li>自行分析需求並設計解決方案</li>
+          <li>善用 IBM Bob 的各種功能來加速開發</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 學習目標 -->
+    <div class="section">
+      <h2>🎓 學習目標</h2>
+      <p style="margin-bottom: 20px;">完成本挑戰後，你/妳將能夠：</p>
+      <div class="objectives-list">
+        <ul>
+          <li>使用 Bob 從現有程式碼快速新增功能</li>
+          <li>建立自訂 Slash Command 提升開發效率</li>
+          <li>撰寫專案 Rules 確保程式碼品質</li>
+          <li>建立 AGENTS.md 指導 AI 助手</li>
+          <li>實作完整的 CRUD 功能與前端整合</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 功能需求 -->
+    <div class="section">
+      <h2>📋 功能需求</h2>
+      <p style="margin-bottom: 20px;">各分組實作以下核心功能：</p>
+      
+      <div class="requirements-grid">
+        <div class="requirement-card">
+          <h4>📝 模組 1：回饋系統後端</h4>
+          <p style="margin-bottom: 12px; color: var(--muted); font-size: 0.95rem;">
+            <strong>功能說明</strong>：建立完整的回饋資料管理功能
+          </p>
+          <ul>
+            <li>✅ 建立 Feedback Entity（回饋記錄）</li>
+            <li>✅ 實作 FeedbackRepository 資料存取</li>
+            <li>✅ 實作 FeedbackService 業務邏輯</li>
+            <li>✅ 實作 FeedbackController REST API</li>
+            <li>✅ 與 Station 建立關聯</li>
+          </ul>
+          <div style="margin-top: 16px; padding: 12px; background: rgba(0, 102, 204, 0.05); border-radius: 6px; border-left: 3px solid var(--accent);">
+            <p style="font-size: 0.9rem; margin-bottom: 8px;"><strong>要實作的 API 端點</strong>：</p>
+            <ul style="font-size: 0.9rem; color: var(--muted);">
+              <li><code>POST /api/feedbacks</code> - 提交回饋</li>
+              <li><code>GET /api/feedbacks</code> - 取得所有回饋</li>
+              <li><code>GET /api/feedbacks/station/{stationId}</code> - 依車站查詢</li>
+              <li><code>GET /api/feedbacks/statistics</code> - 回饋統計</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="requirement-card">
+          <h4>🎨 模組 2：前端整合</h4>
+          <p style="margin-bottom: 12px; color: var(--muted); font-size: 0.95rem;">
+            <strong>功能說明</strong>：在現有 UI 中整合回饋功能
+          </p>
+          <ul>
+            <li>✅ 回饋提交表單（車站選擇、評分、意見）</li>
+            <li>✅ 回饋列表顯示</li>
+            <li>✅ 依車站篩選回饋</li>
+            <li>✅ 回饋統計圖表（平均評分、總數）</li>
+          </ul>
+          <div style="margin-top: 16px; padding: 12px; background: rgba(0, 168, 150, 0.05); border-radius: 6px; border-left: 3px solid var(--accent2);">
+            <p style="font-size: 0.9rem; margin-bottom: 8px;"><strong>UI 設計重點</strong>：</p>
+            <ul style="font-size: 0.9rem; color: var(--muted);">
+              <li>使用 Bootstrap 5 保持一致的設計風格</li>
+              <li>即時更新，無需重新整理頁面</li>
+              <li>友善的錯誤提示與成功訊息</li>
+              <li>響應式設計，支援行動裝置</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 現有系統 -->
+    <div class="section">
+      <h2>✅ 現有系統架構</h2>
+      <p style="margin-bottom: 20px;">Sample Code 已提供以下基礎功能：</p>
+      
+      <div class="evaluation-table">
+        <table>
+          <thead>
+            <tr>
+              <th>元件</th>
+              <th>說明</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Station Entity</strong></td>
+              <td>車站資料（站名、代碼、路線）</td>
+            </tr>
+            <tr>
+              <td><strong>StationRepository</strong></td>
+              <td>車站資料存取介面</td>
+            </tr>
+            <tr>
+              <td><strong>StationService</strong></td>
+              <td>車站業務邏輯</td>
+            </tr>
+            <tr>
+              <td><strong>StationController</strong></td>
+              <td>車站 REST API（完整 CRUD）</td>
+            </tr>
+            <tr>
+              <td><strong>前端 UI</strong></td>
+              <td>車站管理介面（Bootstrap 5）</td>
+            </tr>
+            <tr>
+              <td><strong>H2 資料庫</strong></td>
+              <td>記憶體資料庫，含紅線與橘線完整車站資料</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 待實作功能 -->
+    <div class="section">
+      <h2>🔌 待實作功能</h2>
+      <p style="margin-bottom: 20px;">你需要實作以下核心元件：</p>
+      
+      <div class="evaluation-table">
+        <table>
+          <thead>
+            <tr>
+              <th>元件</th>
+              <th>說明</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Feedback Entity</strong></td>
+              <td>回饋記錄（車站、評分、意見、時間）</td>
+            </tr>
+            <tr>
+              <td><strong>FeedbackRepository</strong></td>
+              <td>回饋資料存取介面（含查詢方法）</td>
+            </tr>
+            <tr>
+              <td><strong>FeedbackService</strong></td>
+              <td>回饋業務邏輯（CRUD + 統計）</td>
+            </tr>
+            <tr>
+              <td><strong>FeedbackController</strong></td>
+              <td>RESTful API 端點</td>
+            </tr>
+            <tr>
+              <td><strong>前端整合</strong></td>
+              <td>回饋表單、列表、統計顯示</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="warning-box" style="margin-top: 24px;">
+        <h4>💡 實作建議</h4>
+        
+        <p style="margin-bottom: 16px;"><strong>建議實作順序</strong></p>
+        <ol style="margin-left: 24px; margin-bottom: 16px;">
+          <li style="margin-bottom: 12px;"><strong>分析現有系統</strong>
+            <ul style="margin-left: 20px; margin-top: 8px;">
+              <li>檢視現有的 Station Entity 與 Controller</li>
+              <li>了解資料庫結構與 API 設計模式</li>
+              <li>查看前端如何與後端互動</li>
+            </ul>
+          </li>
+          
+          <li style="margin-bottom: 12px;"><strong>設計 Feedback Entity</strong>
+            <ul style="margin-left: 20px; margin-top: 8px;">
+              <li>定義回饋記錄所需的欄位（評分、意見、時間等）</li>
+              <li>建立與 Station 的關聯（ManyToOne）</li>
+              <li>考慮資料驗證規則</li>
+            </ul>
+          </li>
+          
+          <li style="margin-bottom: 12px;"><strong>建立 Repository 層</strong>
+            <ul style="margin-left: 20px; margin-top: 8px;">
+              <li>建立 FeedbackRepository 介面</li>
+              <li>設計查詢方法（依車站查詢、統計等）</li>
+            </ul>
+          </li>
+          
+          <li style="margin-bottom: 12px;"><strong>實作 Service 層</strong>
+            <ul style="margin-left: 20px; margin-top: 8px;">
+              <li>建立 FeedbackService 類別</li>
+              <li>實作 CRUD 操作</li>
+              <li>實作統計功能（平均評分、總數等）</li>
+            </ul>
+          </li>
+          
+          <li style="margin-bottom: 12px;"><strong>建立 Controller 層</strong>
+            <ul style="margin-left: 20px; margin-top: 8px;">
+              <li>建立 FeedbackController 類別</li>
+              <li>實作 REST API 端點</li>
+              <li>處理錯誤與驗證</li>
+            </ul>
+          </li>
+          
+          <li style="margin-bottom: 12px;"><strong>前端整合</strong>
+            <ul style="margin-left: 20px; margin-top: 8px;">
+              <li>在現有 UI 中加入回饋功能區塊</li>
+              <li>實作表單提交與資料顯示</li>
+              <li>加入統計圖表或資訊卡片</li>
+            </ul>
+          </li>
+          
+          <li style="margin-bottom: 12px;"><strong>測試與驗證</strong>
+            <ul style="margin-left: 20px; margin-top: 8px;">
+              <li>撰寫單元測試</li>
+              <li>測試 API 端點</li>
+              <li>驗證前端功能</li>
+            </ul>
+          </li>
+        </ol>
+        
+        <p style="margin-top: 16px;"><strong>技術考量重點</strong>：</p>
+        <ul style="margin-left: 24px;">
+          <li>如何設計評分系統（1-5 星？數字評分？）</li>
+          <li>如何確保回饋與車站的關聯正確？</li>
+          <li>如何計算統計資料（平均評分、回饋數量）？</li>
+          <li>如何設計友善的使用者介面？</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bob 功能產出 -->
+    <div class="section">
+      <h2>🤖 產出要求</h2>
+      <p style="margin-bottom: 20px;">除了功能實作，你還需要建立以下 Bob 相關文件：</p>
+      
+      <div class="deliverables">
+        <h4>必要產出</h4>
+        <ul>
+          <li><strong>自訂 Slash Command</strong>：建立 <code>/deploy-check</code> 指令
+            <br><span style="font-size: 0.9rem; color: var(--muted);">用途：讓 Bob 執行部署前檢查，驗證程式碼品質、測試覆蓋率、安全性等</span>
+          </li>
+          <li><strong>編碼規範</strong>：撰寫 <code>.bob/rules/coding-standards.md</code>
+            <br><span style="font-size: 0.9rem; color: var(--muted);">內容：Spring Boot 開發規範、命名慣例、錯誤處理等</span>
+          </li>
+          <li><strong>安全規範</strong>：撰寫 <code>.bob/rules/security-rules.md</code>
+            <br><span style="font-size: 0.9rem; color: var(--muted);">內容：輸入驗證、SQL Injection 防護、敏感資料處理等</span>
+          </li>
+          <li><strong>AI 指引</strong>：建立 <code>.bob/rules-code/AGENTS.md</code>
+            <br><span style="font-size: 0.9rem; color: var(--muted);">主題：捷運系統開發最佳實踐（資料驗證、API 設計、前端整合）</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="success-box">
+        <h4>💡 提示</h4>
+        <p>這些文件是幫助你更有效使用 Bob 的關鍵工具。Slash Command 讓 Bob 執行特定的部署檢查，Rules 確保程式碼品質，AGENTS.md 指導 AI 理解專案特性。</p>
+      </div>
+    </div>
+
+    <!-- 啟動應用程式 -->
+    <div class="section">
+      <h2>🚀 如何使用 Sample Application 完成挑戰</h2>
+      <p style="margin-bottom: 20px;">本專案提供完整的 Sample Application，包含基礎交易查詢功能。你需要在此基礎上新增警示監控功能。</p>
+      
+      <div class="challenge-box">
+        <h3>步驟 1：Clone 團隊共用專案</h3>
+        <div style="padding: 12px; background: rgba(255, 193, 7, 0.1); border-radius: 6px; border-left: 3px solid #ffc107; margin-bottom: 16px;">
+          <p style="margin-bottom: 8px;"><strong>⚠️ 重要：請 Clone 團隊成員 Fork 後的 Repository，而非原始專案</strong></p>
+        </div>
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;"># 替換成團隊成員的 GitHub 帳號
+git clone https://github.com/[團隊成員帳號]/bob-workshop.git
+cd bob-workshop/topics/station-system</pre>
+        <p style="margin-top: 12px; font-size: 0.9rem; color: var(--muted);">
+          💡 確保所有團隊成員都從同一個 Fork 進行開發，才能順利協作
+        </p>
+        
+        <h3 style="margin-top: 24px;">步驟 2：啟動應用程式</h3>
+        <p style="margin-bottom: 12px;">選擇以下任一方式：</p>
+        
+        <p style="margin-top: 16px;"><strong>方式 A：使用 Maven Wrapper（推薦）</strong></p>
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;">./mvnw spring-boot:run</pre>
+        
+        <p style="margin-top: 16px;"><strong>方式 B：使用已安裝的 Maven</strong></p>
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;">mvn spring-boot:run</pre>
+        
+        <h3 style="margin-top: 24px;">步驟 3：驗證啟動成功</h3>
+        <p style="margin-bottom: 12px;">看到以下訊息表示啟動成功：</p>
+        <pre style="background: #2d2d2d; color: #50fa7b; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;">Started StationApplication in X.XXX seconds</pre>
+        
+        <h3 style="margin-top: 24px;">步驟 4：存取應用程式</h3>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li><strong>Web UI</strong>: <a href="http://localhost:8080" target="_blank" style="color: var(--accent);">http://localhost:8080</a></li>
+          <li><strong>H2 資料庫控制台</strong>: <a href="http://localhost:8080/h2-console" target="_blank" style="color: var(--accent);">http://localhost:8080/h2-console</a>
+            <ul style="margin-left: 24px; margin-top: 8px; font-size: 0.9rem; color: var(--muted);">
+              <li>JDBC URL: <code>jdbc:h2:mem:metro</code></li>
+              <li>Username: <code>sa</code></li>
+              <li>Password: (留空)</li>
+            </ul>
+          </li>
+          <li><strong>API 端點</strong>: <a href="http://localhost:8080/api/stations" target="_blank" style="color: var(--accent);">http://localhost:8080/api/stations</a></li>
+        </ul>
+      </div>
+      
+      <div class="warning-box" style="margin-top: 24px;">
+        <h4>⚠️ 常見問題</h4>
+        <p><strong>Q: Port 8080 已被佔用？</strong></p>
+        <p style="margin-left: 24px; margin-bottom: 12px;">A: 修改 <code>src/main/resources/application.yml</code> 中的 <code>server.port</code></p>
+        
+        <p><strong>Q: Maven 下載依賴很慢？</strong></p>
+        <p style="margin-left: 24px; margin-bottom: 12px;">A: 設定 Maven 使用國內鏡像源</p>
+        
+        <p><strong>Q: 如何停止應用程式？</strong></p>
+        <p style="margin-left: 24px;">A: 在終端機按 <code>Ctrl + C</code></p>
+      </div>
+    </div>
+
+    <!-- 時間分配 -->
+    <div class="section">
+      <h2>⏱️ 建議時間分配（4 人團隊協作）</h2>
+      <p style="margin-bottom: 20px;">本 Workshop 採用 <strong>3 人開發 + 1 人簡報</strong> 的協作模式，總時長 <strong>2 小時</strong>：</p>
+
+      <div class="time-allocation">
+        <div class="time-block">
+          <div class="time">0-20分</div>
+          <div class="label">階段一<br>專案分析與規劃<br>全員參與</div>
+        </div>
+        <div class="time-block">
+          <div class="time">20-50分</div>
+          <div class="label">階段二<br>後端實作<br>開發者 A + B</div>
+        </div>
+        <div class="time-block">
+          <div class="time">50-80分</div>
+          <div class="label">階段三<br>前端整合<br>開發者 C</div>
+        </div>
+        <div class="time-block">
+          <div class="time">80-100分</div>
+          <div class="label">階段四<br>測試與 Bob 功能<br>開發者 A + B</div>
+        </div>
+        <div class="time-block">
+          <div class="time">100-115分</div>
+          <div class="label">階段五<br>審查與整合<br>全員參與</div>
+        </div>
+        <div class="time-block">
+          <div class="time">115-120分</div>
+          <div class="label">階段六<br>成果展示<br>PPT 成員主講</div>
+        </div>
+      </div>
+
+      <div class="warning-box" style="margin-top: 24px;">
+        <h4>📋 各階段詳細分工</h4>
+        
+        <p style="margin-bottom: 12px;"><strong>階段一：專案分析與規劃（20 分鐘）</strong></p>
+        <ul style="margin-left: 24px; margin-bottom: 16px;">
+          <li><strong>全員參與</strong>：使用 Bob Ask Mode 分析專案結構</li>
+          <li>理解現有 API 設計與資料庫結構</li>
+          <li>規劃 Feedback 功能整合方式</li>
+          <li><strong>PPT 成員</strong>：開始準備簡報架構與封面</li>
+        </ul>
+
+        <p style="margin-bottom: 12px;"><strong>階段二：後端實作（30 分鐘）</strong></p>
+        <ul style="margin-left: 24px; margin-bottom: 16px;">
+          <li><strong>開發者 A + B</strong>：
+            <ul style="margin-left: 20px; margin-top: 8px;">
+              <li>建立 Feedback Entity 與 Repository</li>
+              <li>實作 Service 層業務邏輯</li>
+              <li>實作 Controller REST API</li>
+              <li>與 Station 建立關聯</li>
+            </ul>
+          </li>
+          <li><strong>PPT 成員</strong>：製作技術架構與 API 設計投影片</li>
+        </ul>
+
+        <p style="margin-bottom: 12px;"><strong>階段三：前端整合（30 分鐘）</strong></p>
+        <ul style="margin-left: 24px; margin-bottom: 16px;">
+          <li><strong>開發者 C</strong>：
+            <ul style="margin-left: 20px; margin-top: 8px;">
+              <li>在現有 UI 中加入回饋功能</li>
+              <li>實作回饋提交表單</li>
+              <li>顯示回饋列表與統計</li>
+            </ul>
+          </li>
+          <li><strong>PPT 成員</strong>：製作功能展示與 UI 設計投影片</li>
+        </ul>
+
+        <p style="margin-bottom: 12px;"><strong>階段四：測試與 Bob 功能體驗（20 分鐘）</strong></p>
+        <ul style="margin-left: 24px; margin-bottom: 16px;">
+          <li><strong>開發者 A + B</strong>：
+            <ul style="margin-left: 20px; margin-top: 8px;">
+              <li>功能測試與 API 測試</li>
+              <li>建立 Slash Commands (<code>/deploy-check</code>)</li>
+              <li>建立 Custom Mode (Transit Security Expert)</li>
+            </ul>
+          </li>
+          <li><strong>開發者 C</strong>：協助 PPT 成員整理程式碼截圖</li>
+          <li><strong>PPT 成員</strong>：製作測試結果與 Bob 功能展示投影片</li>
+        </ul>
+
+        <p style="margin-bottom: 12px;"><strong>階段五：審查與整合（15 分鐘）</strong></p>
+        <ul style="margin-left: 24px; margin-bottom: 16px;">
+          <li><strong>全員參與</strong>：
+            <ul style="margin-left: 20px; margin-top: 8px;">
+              <li>Code Review</li>
+              <li>Security Review（使用自訂模式）</li>
+              <li>建立 Rules 檔案與 AGENTS.md</li>
+            </ul>
+          </li>
+          <li><strong>PPT 成員</strong>：完成簡報最終調整</li>
+        </ul>
+
+        <p style="margin-bottom: 12px;"><strong>階段六：成果展示（5 分鐘）</strong></p>
+        <ul style="margin-left: 24px;">
+          <li><strong>PPT 成員主講</strong>，開發者補充</li>
+          <li>簡報展示</li>
+          <li>Demo 系統功能</li>
+          <li>分享開發心得</li>
+        </ul>
+      </div>
+
+      <div class="success-box" style="margin-top: 24px;">
+        <h4>💡 協作建議</h4>
+        <ul style="margin-left: 24px;">
+          <li><strong>依賴關係</strong>：開發者 C 需等待 A + B 完成後端 API 才能開始前端整合</li>
+          <li><strong>並行工作</strong>：PPT 成員全程並行製作簡報，隨時與開發者同步進度</li>
+          <li><strong>溝通頻率</strong>：建議每 30 分鐘進行一次快速同步（2-3 分鐘）</li>
+          <li><strong>Bob 配置</strong>：階段五全員協作建立，確保文件反映實際開發實踐</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 完成檢查清單 -->
+    <div class="section">
+      <h2>✅ 完成檢查清單</h2>
+      <div class="evaluation-table">
+        <table>
+          <thead>
+            <tr>
+              <th>檢查項目</th>
+              <th>檢查重點</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>功能完整性</strong></td>
+              <td>
+                • Feedback Entity 正確實作<br>
+                • CRUD 功能正常運作<br>
+                • API 端點正常運作<br>
+                • 前端整合完成<br>
+                • 測試覆蓋充足
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Bob 功能應用</strong></td>
+              <td>
+                • 自訂 Slash Command 可用<br>
+                • Rules 完整且實用<br>
+                • AGENTS.md 清晰明確
+              </td>
+            </tr>
+            <tr>
+              <td><strong>程式碼品質</strong></td>
+              <td>
+                • 符合編碼規範<br>
+                • 適當的錯誤處理<br>
+                • 良好的程式碼結構<br>
+                • 資料驗證完整
+              </td>
+            </tr>
+            <tr>
+              <td><strong>文件與測試</strong></td>
+              <td>
+                • API 文件完整<br>
+                • 測試案例充足<br>
+                • 註解清楚易懂
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 技術環境 -->
+    <div class="section">
+      <h2>🛠️ 技術環境</h2>
+      <div class="requirements-grid">
+        <div class="requirement-card">
+          <h4>📦 技術棧</h4>
+          <ul>
+            <li>Spring Boot 3.2.0</li>
+            <li>Java 17</li>
+            <li>H2 記憶體資料庫</li>
+            <li>JPA/Hibernate</li>
+            <li>Bootstrap 5</li>
+          </ul>
+        </div>
+
+        <div class="requirement-card">
+          <h4>🎯 Sample Code</h4>
+          <ul>
+            <li>Station Entity 已提供</li>
+            <li>完整的 CRUD API 已建立</li>
+            <li>前端 UI 已完成</li>
+            <li>紅線與橘線車站資料已準備</li>
+            <li>需新增 Feedback 功能</li>
+          </ul>
+        </div>
+
+        <div class="requirement-card">
+          <h4>🔧 開發工具</h4>
+          <ul>
+            <li>IBM Bob IDE</li>
+            <li>Git 版本控制</li>
+            <li>Maven 建置工具</li>
+            <li>Postman/curl 測試</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <h2>🚀 準備好接受挑戰了嗎？</h2>
+      <p>這是一個使用者導向的實戰挑戰</p>
+      <p>發揮你的創意，善用 IBM Bob，打造優質的回饋系統！</p>
+      <a href="#" class="cta-button">開始挑戰 →</a>
+      
+      <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border);">
+        <p style="font-size: 0.9rem; color: var(--muted);">
+          💡 記住：沒有標準答案，只要達成學習目標並完成檢查清單即可！
+        </p>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,20 @@
+# Ignore files
+*.log
+.DS_Store
+
+# Ignore temp folders
+temp/
+design-docs/
+
+#quest-questions
+questions.json
+
+# VSCode settings
+.vscode/
+
+# Bob AI settings
+.bob/
+AGENTS.md
+
+# Maven build outputs
+topics/*/target/

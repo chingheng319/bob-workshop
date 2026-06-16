@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 1 章：什麼是 IBM Bob？ - IBM Bob 完整學習指南</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/workshop-theme.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>📖 第 1 章：什麼是 IBM Bob？</h1>
+      <p class="subtitle">認識你的 AI 開發助手</p>
+      <div class="challenge-badge">⏱️ 預估時間：30 分鐘 | 難度：⭐</div>
+    </header>
+
+    <!-- 章節導航 -->
+    <div class="section">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+        <span style="color: var(--muted);">第一章</span>
+        <a href="../bob-learning.html" style="color: var(--accent);">📚 回到目錄</a>
+        <a href="02-core-concepts.html" style="color: var(--accent);">第 2 章：核心概念 →</a>
+      </div>
+    </div>
+
+    <!-- 學習目標 -->
+    <div class="section">
+      <h2>🎯 學習目標</h2>
+      <div class="challenge-box">
+        <p>完成本章後，你將能夠：</p>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li>理解 IBM Bob 的定位與核心價值</li>
+          <li>說明 Bob 與傳統 AI 助手的差異</li>
+          <li>識別適合使用 Bob 的場景</li>
+          <li>了解 Bob 的核心優勢與特色</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 1.1 Bob 是什麼？ -->
+    <div class="section">
+      <h2>🤖 1.1 Bob 是什麼？</h2>
+      
+      <div class="challenge-box">
+        <h3>定義</h3>
+        <p><strong>IBM Bob</strong> 是一個專為軟體開發設計的 <strong>AI 開發助手</strong>，整合在 IDE 中，能夠理解你的程式碼、專案結構和開發需求，提供智慧化的開發協助。</p>
+        
+        <h4 style="margin-top: 24px;">核心特色</h4>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li><strong>🎯 專案感知</strong>：理解整個專案的結構與上下文</li>
+          <li><strong>🔧 工具整合</strong>：內建 12 個開發工具，直接操作檔案與程式碼</li>
+          <li><strong>📝 可客製化</strong>：透過 Rules、Skills、AGENTS.md 客製化行為</li>
+          <li><strong>💰 成本優化</strong>：提供 Token 管理與優化策略</li>
+          <li><strong>🔒 企業級</strong>：支援 SDLC 整合與安全控管</li>
+        </ul>
+      </div>
+
+      <div class="success-box" style="margin-top: 24px;">
+        <h4>💡 簡單來說</h4>
+        <p>Bob 就像是一位<strong>懂你專案的資深開發者</strong>，隨時在你身邊協助你：</p>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li>分析需求並提供設計建議</li>
+          <li>撰寫、修改、重構程式碼</li>
+          <li>執行測試與除錯</li>
+          <li>產生文件與註解</li>
+          <li>遵循你設定的開發規範</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 1.2 Bob 與傳統 AI 助手的差異 -->
+    <div class="section">
+      <h2>🔄 1.2 Bob 與傳統 AI 助手的差異</h2>
+      
+      <div class="evaluation-table">
+        <table>
+          <thead>
+            <tr>
+              <th>特性</th>
+              <th>傳統 AI 助手（如 ChatGPT）</th>
+              <th>IBM Bob</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>專案理解</strong></td>
+              <td>需要手動提供上下文</td>
+              <td>✅ 自動理解專案結構</td>
+            </tr>
+            <tr>
+              <td><strong>檔案操作</strong></td>
+              <td>只能提供程式碼建議</td>
+              <td>✅ 直接讀取、修改檔案</td>
+            </tr>
+            <tr>
+              <td><strong>工具整合</strong></td>
+              <td>無法執行命令</td>
+              <td>✅ 內建 12 個開發工具</td>
+            </tr>
+            <tr>
+              <td><strong>客製化</strong></td>
+              <td>有限的客製化選項</td>
+              <td>✅ Rules、Skills、AGENTS.md</td>
+            </tr>
+            <tr>
+              <td><strong>工作流程</strong></td>
+              <td>對話式互動</td>
+              <td>✅ 多模式（Plan/Code/Advanced）</td>
+            </tr>
+            <tr>
+              <td><strong>成本控制</strong></td>
+              <td>基本的使用限制</td>
+              <td>✅ Token 優化與管理策略</td>
+            </tr>
+            <tr>
+              <td><strong>企業整合</strong></td>
+              <td>較少企業級功能</td>
+              <td>✅ SDLC 整合、安全控管</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="warning-box" style="margin-top: 24px;">
+        <h4>🎯 關鍵差異</h4>
+        <p>傳統 AI 助手像是<strong>顧問</strong>，給你建議；Bob 像是<strong>協作開發者</strong>，直接幫你完成工作。</p>
+      </div>
+    </div>
+
+    <!-- 1.3 適用場景 -->
+    <div class="section">
+      <h2>🎯 1.3 適用場景</h2>
+      
+      <div class="requirements-grid">
+        <div class="requirement-card">
+          <h4>✅ 適合使用 Bob 的場景</h4>
+          <ul>
+            <li><strong>新功能開發</strong>：從需求分析到程式碼實作</li>
+            <li><strong>程式碼重構</strong>：改善程式碼結構與品質</li>
+            <li><strong>Bug 修復</strong>：分析問題並提供解決方案</li>
+            <li><strong>文件撰寫</strong>：產生 API 文件、註解</li>
+            <li><strong>測試撰寫</strong>：建立單元測試與整合測試</li>
+            <li><strong>程式碼審查</strong>：檢查程式碼品質與安全</li>
+            <li><strong>技術學習</strong>：理解新技術或既有程式碼</li>
+          </ul>
+        </div>
+
+        <div class="requirement-card">
+          <h4>⚠️ 不適合的場景</h4>
+          <ul>
+            <li><strong>完全自動化</strong>：Bob 是助手，不是替代品</li>
+            <li><strong>關鍵決策</strong>：架構決策仍需人工判斷</li>
+            <li><strong>敏感資料</strong>：避免處理機密資訊</li>
+            <li><strong>複雜演算法</strong>：需要深度數學推導的場景</li>
+            <li><strong>即時系統</strong>：需要極低延遲的應用</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="success-box" style="margin-top: 24px;">
+        <h4>💡 最佳實踐</h4>
+        <p>Bob 最適合用於<strong>重複性高、規則明確</strong>的開發任務，讓你專注在<strong>創意與決策</strong>上。</p>
+      </div>
+    </div>
+
+    <!-- 1.4 Bob 的核心優勢 -->
+    <div class="section">
+      <h2>⭐ 1.4 Bob 的核心優勢</h2>
+      
+      <div class="challenge-box">
+        <h3>1. 提升開發效率</h3>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li>自動化重複性任務</li>
+          <li>快速產生樣板程式碼</li>
+          <li>即時程式碼建議與補全</li>
+          <li>減少手動操作時間</li>
+        </ul>
+        <p style="margin-top: 12px; padding: 12px; background: rgba(0, 102, 204, 0.05); border-radius: 6px;">
+          <strong>實際效益</strong>：開發速度可提升 30-50%
+        </p>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>2. 提高程式碼品質</h3>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li>遵循最佳實踐與編碼規範</li>
+          <li>自動檢測潛在問題</li>
+          <li>提供重構建議</li>
+          <li>確保一致性</li>
+        </ul>
+        <p style="margin-top: 12px; padding: 12px; background: rgba(0, 102, 204, 0.05); border-radius: 6px;">
+          <strong>實際效益</strong>：減少 Bug 數量，提升可維護性
+        </p>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>3. 降低學習曲線</h3>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li>快速理解新專案或技術</li>
+          <li>提供即時的技術指導</li>
+          <li>解釋複雜的程式碼邏輯</li>
+          <li>協助新手快速上手</li>
+        </ul>
+        <p style="margin-top: 12px; padding: 12px; background: rgba(0, 102, 204, 0.05); border-radius: 6px;">
+          <strong>實際效益</strong>：新成員上手時間縮短 50%
+        </p>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>4. 支援團隊協作</h3>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li>統一的開發規範（透過 Rules）</li>
+          <li>知識共享（透過 AGENTS.md）</li>
+          <li>一致的程式碼風格</li>
+          <li>減少溝通成本</li>
+        </ul>
+        <p style="margin-top: 12px; padding: 12px; background: rgba(0, 102, 204, 0.05); border-radius: 6px;">
+          <strong>實際效益</strong>：團隊協作效率提升 40%
+        </p>
+      </div>
+    </div>
+
+    <!-- 1.5 實際案例 -->
+    <div class="section">
+      <h2>📊 1.5 實際案例</h2>
+      
+      <div class="challenge-box">
+        <h3>案例 1：新功能開發</h3>
+        <p><strong>情境</strong>：需要為電商系統新增「購物車」功能</p>
+        
+        <h4 style="margin-top: 16px;">傳統開發流程</h4>
+        <ol style="margin-left: 24px; margin-top: 8px;">
+          <li>手動分析需求（30 分鐘）</li>
+          <li>設計資料庫結構（45 分鐘）</li>
+          <li>撰寫 Entity、Repository、Service、Controller（3 小時）</li>
+          <li>撰寫測試（1 小時）</li>
+          <li>撰寫文件（30 分鐘）</li>
+        </ol>
+        <p style="margin-top: 12px;"><strong>總時間：約 5.5 小時</strong></p>
+
+        <h4 style="margin-top: 24px;">使用 Bob 的流程</h4>
+        <ol style="margin-left: 24px; margin-top: 8px;">
+          <li>用 Plan 模式分析需求與設計（15 分鐘）</li>
+          <li>切換到 Code 模式，讓 Bob 產生程式碼（1 小時）</li>
+          <li>審查與調整（30 分鐘）</li>
+          <li>Bob 自動產生測試與文件（30 分鐘）</li>
+        </ol>
+        <p style="margin-top: 12px;"><strong>總時間：約 2 小時</strong></p>
+        
+        <p style="margin-top: 16px; padding: 12px; background: rgba(0, 168, 150, 0.1); border-radius: 6px; border-left: 3px solid var(--accent2);">
+          <strong>效率提升：63%</strong> 🚀
+        </p>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>案例 2：程式碼重構</h3>
+        <p><strong>情境</strong>：重構一個 2000 行的舊程式碼檔案</p>
+        
+        <h4 style="margin-top: 16px;">使用 Bob 的優勢</h4>
+        <ul style="margin-left: 24px; margin-top: 8px;">
+          <li>快速理解程式碼結構與邏輯</li>
+          <li>識別重複程式碼與壞味道</li>
+          <li>自動套用重構模式</li>
+          <li>確保重構後功能不變</li>
+        </ul>
+        
+        <p style="margin-top: 16px; padding: 12px; background: rgba(0, 168, 150, 0.1); border-radius: 6px; border-left: 3px solid var(--accent2);">
+          <strong>效率提升：70%</strong> 🎯
+        </p>
+      </div>
+    </div>
+
+    <!-- 動手練習 -->
+    <div class="section">
+      <h2>✏️ 動手練習</h2>
+      
+      <div class="warning-box">
+        <h4>練習 1：思考你的使用場景</h4>
+        <p>請思考並寫下：</p>
+        <ol style="margin-left: 24px; margin-top: 12px;">
+          <li>你目前的開發工作中，哪些任務最耗時？</li>
+          <li>這些任務中，哪些適合使用 Bob 協助？</li>
+          <li>你預期 Bob 能為你帶來什麼幫助？</li>
+        </ol>
+      </div>
+
+      <div class="warning-box" style="margin-top: 24px;">
+        <h4>練習 2：比較分析</h4>
+        <p>請列出：</p>
+        <ol style="margin-left: 24px; margin-top: 12px;">
+          <li>你使用過的其他 AI 工具（如 ChatGPT、GitHub Copilot）</li>
+          <li>它們的優點與限制</li>
+          <li>Bob 可能帶來的額外價值</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- 重點回顧 -->
+    <div class="section">
+      <h2>📝 重點回顧</h2>
+      
+      <div class="success-box">
+        <h4>本章重點</h4>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li>✅ Bob 是專為軟體開發設計的 AI 助手</li>
+          <li>✅ Bob 能直接操作檔案與程式碼，不只是提供建議</li>
+          <li>✅ Bob 適合重複性高、規則明確的開發任務</li>
+          <li>✅ Bob 可提升 30-70% 的開發效率</li>
+          <li>✅ Bob 支援客製化（Rules、Skills、AGENTS.md）</li>
+        </ul>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h4>✅ 完成檢查清單</h4>
+        <p>確認你已經：</p>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li>□ 理解 Bob 的定位與核心價值</li>
+          <li>□ 了解 Bob 與傳統 AI 助手的差異</li>
+          <li>□ 識別適合使用 Bob 的場景</li>
+          <li>□ 認識 Bob 的核心優勢</li>
+          <li>□ 完成動手練習</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 延伸閱讀 -->
+    <div class="section">
+      <h2>📚 延伸閱讀</h2>
+      
+      <div class="success-box">
+        <h4>推薦資源</h4>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li><a href="https://owhc.github.io/bob-cheatsheet/" target="_blank" style="color: var(--accent);">📖 Bob Cheatsheet</a> - 完整功能速查表</li>
+          <li><a href="https://github.com/owhc/bob-workshop" target="_blank" style="color: var(--accent);">💻 Bob Workshop</a> - 實戰範例與專案</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 章節導航 -->
+    <div class="section">
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px; background: rgba(0, 102, 204, 0.05); border-radius: 8px;">
+        <a href="../bob-learning.html" style="color: var(--accent); text-decoration: none;">← 回到課程總覽</a>
+        <a href="02-core-concepts.html" class="cta-button" style="display: inline-block; padding: 12px 24px;">下一章：核心概念 →</a>
+      </div>
+    </div>
+
+    <footer>
+      <div style="display: flex; justify-content: space-between; margin-top: 32px;">
+        <span style="color: var(--muted);">第一章</span>
+        <a href="../bob-learning.html" class="cta-button">回到目錄</a>
+        <a href="02-core-concepts.html" class="cta-button">下一章 →</a>
+      </div>
+      
+      <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); text-align: center;">
+        <p style="color: var(--muted);">
+          🎉 恭喜完成第 1 章！繼續前往下一章學習 Bob 的核心概念
+        </p>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

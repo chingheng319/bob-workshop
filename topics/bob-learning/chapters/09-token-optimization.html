@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 9 章：Token 優化策略 - IBM Bob 學習教材</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/workshop-theme.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>💰 第 9 章：Token 優化策略</h1>
+      <p class="subtitle">降低成本，提升效率</p>
+      <div class="challenge-badge">⏱️ 時長：40 分鐘 | 難度：⭐⭐⭐⭐</div>
+    </header>
+
+    <!-- 章節導航 -->
+    <div class="section">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+        <a href="08-builtin-tools.html" style="color: var(--accent);">← 第 8 章：12 個內建工具</a>
+        <a href="../bob-learning.html" style="color: var(--accent);">📚 回到目錄</a>
+        <a href="10-sdlc-security.html" style="color: var(--accent);">第 10 章：SDLC 整合 →</a>
+      </div>
+    </div>
+
+    <!-- 學習目標 -->
+    <div class="section">
+      <h2>🎯 學習目標</h2>
+      <div class="objectives-list">
+        <ul>
+          <li>理解 Bobcoin 與 Token 的計費關係</li>
+          <li>掌握檔案讀取的 Token 優化技巧</li>
+          <li>學會程式碼編輯的成本控制策略</li>
+          <li>了解回應簡潔性的重要性</li>
+          <li>實踐批次操作以減少互動輪次</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bobcoin 計費機制 -->
+    <div class="section">
+      <h2>💵 Bobcoin 計費機制</h2>
+      
+      <div class="challenge-box">
+        <h3>Token 與 Bobcoin 的關係</h3>
+        <p style="margin-bottom: 16px;">Bob 使用 <strong>Bobcoin</strong> 作為計費單位，與 Token 消耗直接相關：</p>
+        
+        <div class="evaluation-table">
+          <table>
+            <thead>
+              <tr>
+                <th>項目</th>
+                <th>Token 消耗</th>
+                <th>Bobcoin 成本</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>輸入 Token</strong></td>
+                <td>使用者訊息 + 系統提示 + 上下文</td>
+                <td>較低</td>
+              </tr>
+              <tr>
+                <td><strong>輸出 Token</strong></td>
+                <td>Bob 的回應內容</td>
+                <td>較高（約 3-5 倍）</td>
+              </tr>
+              <tr>
+                <td><strong>檔案讀取</strong></td>
+                <td>檔案內容載入上下文</td>
+                <td>依檔案大小</td>
+              </tr>
+              <tr>
+                <td><strong>工具呼叫</strong></td>
+                <td>工具參數 + 執行結果</td>
+                <td>依複雜度</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="warning-box" style="margin-top: 16px;">
+          <h4>⚠️ 關鍵認知</h4>
+          <p><strong>輸出 Token 成本最高</strong>：Bob 的回應越長，成本越高。因此簡潔回應是節省成本的關鍵！</p>
+        </div>
+      </div>
+
+      <div class="success-box" style="margin-top: 24px;">
+        <h4>💡 成本優化原則</h4>
+        <ul>
+          <li><strong>優先級 1</strong>：減少輸出 Token（簡潔回應）</li>
+          <li><strong>優先級 2</strong>：減少檔案讀取 Token（使用行範圍）</li>
+          <li><strong>優先級 3</strong>：減少互動輪次（批次操作）</li>
+          <li><strong>優先級 4</strong>：避免重複載入（善用上下文）</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 檔案讀取優化 -->
+    <div class="section">
+      <h2>📖 檔案讀取優化</h2>
+      
+      <div class="challenge-box">
+        <h3>策略 1：使用行範圍讀取</h3>
+        <p style="margin-bottom: 16px;"><strong>節省效果</strong>：80-95% Token 減少</p>
+        
+        <p><strong>❌ 低效方式</strong>：</p>
+        <pre style="background: #2d2d2d; color: #ff5555; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;">讀取整個 5000 行的檔案
+→ 消耗 ~5000 Token</pre>
+
+        <p style="margin-top: 16px;"><strong>✅ 高效方式</strong>：</p>
+        <pre style="background: #2d2d2d; color: #50fa7b; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;">只讀取目標函數所在的 234-267 行
+→ 消耗 ~34 Token
+→ 節省 99.3% Token！</pre>
+
+        <div class="success-box" style="margin-top: 16px;">
+          <h4>💡 實作步驟</h4>
+          <ol style="margin-left: 24px;">
+            <li>使用 <code>list_code_definition_names</code> 定位目標</li>
+            <li>使用 <code>read_file</code> 搭配 <code><line_range></code></li>
+            <li>合併相近的行範圍（間隔 <10 行）</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>策略 2：批次讀取檔案</h3>
+        <p style="margin-bottom: 16px;"><strong>節省效果</strong>：減少 50% 互動輪次</p>
+        
+        <p><strong>❌ 低效方式</strong>：</p>
+        <pre style="background: #2d2d2d; color: #ff5555; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;">read_file(file1) → 等待確認
+read_file(file2) → 等待確認
+read_file(file3) → 等待確認
+→ 3 次互動輪次</pre>
+
+        <p style="margin-top: 16px;"><strong>✅ 高效方式</strong>：</p>
+        <pre style="background: #2d2d2d; color: #50fa7b; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;">read_file(file1, file2, file3) → 一次完成
+→ 1 次互動輪次
+→ 節省 66% 輪次！</pre>
+
+        <div class="success-box" style="margin-top: 16px;">
+          <h4>💡 批次讀取範例</h4>
+          <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;"><read_file>
+<args>
+  <file><path>src/app.ts</path></file>
+  <file>
+    <path>src/utils.ts</path>
+    <line_range>1-50</line_range>
+  </file>
+  <file><path>src/config.ts</path></file>
+</args>
+</read_file></pre>
+        </div>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>策略 3：避免重複讀取</h3>
+        <p style="margin-bottom: 16px;"><strong>節省效果</strong>：100% 避免浪費</p>
+        
+        <div class="warning-box">
+          <h4>⚠️ 常見錯誤</h4>
+          <ul>
+            <li>❌ 重複讀取已在上下文中的檔案</li>
+            <li>❌ 修改後立即重新讀取整個檔案</li>
+            <li>❌ 不確定是否已讀取就再讀一次</li>
+          </ul>
+        </div>
+
+        <div class="success-box" style="margin-top: 16px;">
+          <h4>✅ 正確做法</h4>
+          <ul>
+            <li>記住已讀取的檔案內容</li>
+            <li>使用 Memory Import 儲存重要資訊</li>
+            <li>修改後直接進行下一步，不重讀</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 程式碼編輯優化 -->
+    <div class="section">
+      <h2>✏️ 程式碼編輯優化</h2>
+      
+      <div class="challenge-box">
+        <h3>策略 4：優先使用 apply_diff</h3>
+        <p style="margin-bottom: 16px;"><strong>節省效果</strong>：90%+ Token 減少（大檔案）</p>
+        
+        <p><strong>❌ 低效方式</strong>：</p>
+        <pre style="background: #2d2d2d; color: #ff5555; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;">使用 write_to_file 重寫 1000 行檔案
+只為了修改其中 10 行
+→ 消耗 ~1000 Token</pre>
+
+        <p style="margin-top: 16px;"><strong>✅ 高效方式</strong>：</p>
+        <pre style="background: #2d2d2d; color: #50fa7b; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;">使用 apply_diff 只修改目標 10 行
+→ 消耗 ~20 Token
+→ 節省 98% Token！</pre>
+
+        <div class="evaluation-table" style="margin-top: 16px;">
+          <table>
+            <thead>
+              <tr>
+                <th>檔案大小</th>
+                <th>write_to_file</th>
+                <th>apply_diff</th>
+                <th>節省比例</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>100 行</td>
+                <td>~100 Token</td>
+                <td>~20 Token</td>
+                <td>80%</td>
+              </tr>
+              <tr>
+                <td>500 行</td>
+                <td>~500 Token</td>
+                <td>~20 Token</td>
+                <td>96%</td>
+              </tr>
+              <tr>
+                <td>1000 行</td>
+                <td>~1000 Token</td>
+                <td>~20 Token</td>
+                <td>98%</td>
+              </tr>
+              <tr>
+                <td>5000 行</td>
+                <td>~5000 Token</td>
+                <td>~20 Token</td>
+                <td>99.6%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>策略 5：批次修改</h3>
+        <p style="margin-bottom: 16px;"><strong>節省效果</strong>：減少互動輪次</p>
+        
+        <p><strong>❌ 低效方式</strong>：</p>
+        <pre style="background: #2d2d2d; color: #ff5555; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;">apply_diff 修改函數 A → 等待
+apply_diff 修改函數 B → 等待
+apply_diff 修改函數 C → 等待
+→ 3 次互動</pre>
+
+        <p style="margin-top: 16px;"><strong>✅ 高效方式</strong>：</p>
+        <pre style="background: #2d2d2d; color: #50fa7b; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;">apply_diff 包含 3 個 SEARCH/REPLACE 區塊
+→ 1 次互動完成所有修改
+→ 節省 66% 輪次！</pre>
+
+        <div class="success-box" style="margin-top: 16px;">
+          <h4>💡 批次修改範例</h4>
+          <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;"><apply_diff>
+<path>src/app.py</path>
+<diff>
+<<<<<<< SEARCH
+:start_line:10
+-------
+def func_a():
+    pass
+=======
+def func_a():
+    return "updated"
+>>>>>>> REPLACE
+
+<<<<<<< SEARCH
+:start_line:20
+-------
+def func_b():
+    pass
+=======
+def func_b():
+    return "updated"
+>>>>>>> REPLACE
+</diff>
+</apply_diff></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- 回應簡潔性優化 -->
+    <div class="section">
+      <h2>💬 回應簡潔性優化</h2>
+      
+      <div class="challenge-box">
+        <h3>策略 6：極簡回應</h3>
+        <p style="margin-bottom: 16px;"><strong>節省效果</strong>：50-70% 輸出 Token 減少</p>
+        
+        <p><strong>❌ 冗長回應</strong>（~150 Token）：</p>
+        <pre style="background: #2d2d2d; color: #ff5555; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;">太好了！我很樂意幫助你更新這個配置檔案。
+讓我先讀取檔案來了解目前的設定...
+
+我已經讀取了檔案，現在我會將 API 端點從
+http://old-api.com 更新為 http://new-api.com。
+這個變更會影響應用程式連接後端服務的方式...
+
+更新完成！我已經成功修改了配置檔案。</pre>
+
+        <p style="margin-top: 16px;"><strong>✅ 簡潔回應</strong>（~10 Token）：</p>
+        <pre style="background: #2d2d2d; color: #50fa7b; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;">[直接使用 read_file 工具]
+[直接使用 apply_diff 工具]
+已更新 API 端點</pre>
+
+        <div class="warning-box" style="margin-top: 16px;">
+          <h4>⚠️ 要避免的冗詞</h4>
+          <ul>
+            <li>❌ "太好了！"、"當然！"、"我很樂意..."</li>
+            <li>❌ "讓我先..."、"現在我會..."</li>
+            <li>❌ 重複使用者的問題</li>
+            <li>❌ 解釋明顯的步驟</li>
+            <li>❌ 不必要的總結</li>
+          </ul>
+        </div>
+
+        <div class="success-box" style="margin-top: 16px;">
+          <h4>✅ 簡潔原則</h4>
+          <ul>
+            <li>直接執行，不預告</li>
+            <li>用工具說話，少用文字</li>
+            <li>結果導向，不解釋過程</li>
+            <li>使用項目符號，不用段落</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>策略 7：讓程式碼自己說話</h3>
+        <p style="margin-bottom: 16px;"><strong>節省效果</strong>：避免重複說明</p>
+        
+        <p><strong>❌ 過度說明</strong>：</p>
+        <pre style="background: #2d2d2d; color: #ff5555; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;">我已經新增了一個新的函數 calculateTotal，
+這個函數接收一個 items 陣列作為參數，
+然後使用 reduce 方法來計算總和，
+最後回傳計算結果。這樣可以讓程式碼更簡潔...</pre>
+
+        <p style="margin-top: 16px;"><strong>✅ 簡潔說明</strong>：</p>
+        <pre style="background: #2d2d2d; color: #50fa7b; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;">新增 calculateTotal 函數</pre>
+
+        <p style="margin-top: 16px; color: var(--muted); font-size: 0.95rem;">
+          <strong>原則</strong>：程式碼本身就是最好的說明，不需要重複解釋明顯的邏輯。
+        </p>
+      </div>
+    </div>
+
+    <!-- 批次操作策略 -->
+    <div class="section">
+      <h2>🔄 批次操作策略</h2>
+      
+      <div class="challenge-box">
+        <h3>策略 8：規劃後執行</h3>
+        <p style="margin-bottom: 16px;"><strong>節省效果</strong>：減少 40-60% 互動輪次</p>
+        
+        <p><strong>❌ 逐步執行</strong>：</p>
+        <pre style="background: #2d2d2d; color: #ff5555; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;">1. 讀取 file1 → 等待確認
+2. 修改 file1 → 等待確認
+3. 讀取 file2 → 等待確認
+4. 修改 file2 → 等待確認
+5. 執行測試 → 等待確認
+→ 5 次互動輪次</pre>
+
+        <p style="margin-top: 16px;"><strong>✅ 批次執行</strong>：</p>
+        <pre style="background: #2d2d2d; color: #50fa7b; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;">1. 批次讀取 file1, file2 → 等待確認
+2. 批次修改 file1, file2 → 等待確認
+3. 執行測試 → 完成
+→ 3 次互動輪次
+→ 節省 40% 輪次！</pre>
+
+        <div class="success-box" style="margin-top: 16px;">
+          <h4>💡 批次操作清單</h4>
+          <ul>
+            <li>✅ 一次讀取多個檔案（最多 10 個）</li>
+            <li>✅ 一次 apply_diff 包含多個修改</li>
+            <li>✅ 規劃完整後再執行</li>
+            <li>✅ 避免來回確認</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 上下文管理 -->
+    <div class="section">
+      <h2>🧠 上下文管理</h2>
+      
+      <div class="challenge-box">
+        <h3>策略 9：善用 Memory Import</h3>
+        <p style="margin-bottom: 16px;"><strong>節省效果</strong>：避免重複載入常用資訊</p>
+        
+        <div class="success-box">
+          <h4>💡 適合 Memory Import 的內容</h4>
+          <ul>
+            <li>專案架構說明</li>
+            <li>API 規格文件</li>
+            <li>編碼規範</li>
+            <li>常用程式碼片段</li>
+            <li>資料庫 Schema</li>
+          </ul>
+        </div>
+
+        <div class="warning-box" style="margin-top: 16px;">
+          <h4>⚠️ 不適合 Memory Import 的內容</h4>
+          <ul>
+            <li>❌ 完整的程式碼檔案（用 read_file）</li>
+            <li>❌ 會頻繁變動的內容</li>
+            <li>❌ 過於龐大的文件</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>策略 10：清理不需要的上下文</h3>
+        <p style="margin-bottom: 16px;"><strong>節省效果</strong>：降低每次互動的基礎成本</p>
+        
+        <div class="success-box">
+          <h4>💡 上下文清理時機</h4>
+          <ul>
+            <li>完成一個大任務後</li>
+            <li>切換到不相關的任務時</li>
+            <li>上下文累積過多時</li>
+            <li>開始新的開發階段時</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 實際案例比較 -->
+    <div class="section">
+      <h2>📊 實際案例比較</h2>
+      
+      <div class="challenge-box">
+        <h3>案例：修改大型檔案中的單一函數</h3>
+        
+        <div class="evaluation-table">
+          <table>
+            <thead>
+              <tr>
+                <th>方法</th>
+                <th>步驟</th>
+                <th>Token 消耗</th>
+                <th>互動次數</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>❌ 低效方式</strong></td>
+                <td>
+                  1. 讀取整個 5000 行檔案<br>
+                  2. 使用 write_to_file 重寫<br>
+                  3. 重新讀取確認
+                </td>
+                <td>~15,000</td>
+                <td>3 次</td>
+              </tr>
+              <tr>
+                <td><strong>✅ 高效方式</strong></td>
+                <td>
+                  1. list_code_definition_names<br>
+                  2. read_file (行 234-267)<br>
+                  3. apply_diff 修改
+                </td>
+                <td>~100</td>
+                <td>1 次</td>
+              </tr>
+              <tr>
+                <td><strong>節省效果</strong></td>
+                <td colspan="3">
+                  <span style="color: var(--accent); font-weight: bold;">
+                    節省 99.3% Token，減少 66% 互動次數
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>案例：批次更新多個檔案</h3>
+        
+        <div class="evaluation-table">
+          <table>
+            <thead>
+              <tr>
+                <th>方法</th>
+                <th>步驟</th>
+                <th>Token 消耗</th>
+                <th>互動次數</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>❌ 低效方式</strong></td>
+                <td>
+                  逐個檔案讀取、修改、確認<br>
+                  (5 個檔案 × 3 步驟)
+                </td>
+                <td>~8,000</td>
+                <td>15 次</td>
+              </tr>
+              <tr>
+                <td><strong>✅ 高效方式</strong></td>
+                <td>
+                  1. 批次讀取 5 個檔案<br>
+                  2. 批次修改 5 個檔案<br>
+                  3. 執行測試
+                </td>
+                <td>~2,000</td>
+                <td>3 次</td>
+              </tr>
+              <tr>
+                <td><strong>節省效果</strong></td>
+                <td colspan="3">
+                  <span style="color: var(--accent); font-weight: bold;">
+                    節省 75% Token，減少 80% 互動次數
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 優化檢查清單 -->
+    <div class="section">
+      <h2>✅ Token 優化檢查清單</h2>
+      
+      <div class="challenge-box">
+        <h3>每次使用 Bob 前檢查</h3>
+        <ul style="list-style: none; padding-left: 0;">
+          <li>☐ 是否使用行範圍讀取大檔案？</li>
+          <li>☐ 是否批次讀取多個檔案？</li>
+          <li>☐ 是否使用 apply_diff 而非 write_to_file？</li>
+          <li>☐ 是否在一次 diff 中包含多個修改？</li>
+          <li>☐ 回應是否足夠簡潔？</li>
+          <li>☐ 是否避免重複讀取已載入的檔案？</li>
+          <li>☐ 是否規劃好再執行，減少互動輪次？</li>
+          <li>☐ 是否善用 Memory Import 儲存常用資訊？</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 實作練習 -->
+    <div class="section">
+      <h2>💪 實作練習</h2>
+      
+      <div class="challenge-box">
+        <h3>練習 1：Token 消耗比較</h3>
+        <p style="margin-bottom: 12px;"><strong>任務</strong>：修改一個 2000 行檔案中的單一函數</p>
+        <ol style="margin-left: 24px;">
+          <li>計算使用 write_to_file 的 Token 消耗</li>
+          <li>計算使用 apply_diff + 行範圍的 Token 消耗</li>
+          <li>比較兩種方法的成本差異</li>
+        </ol>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>練習 2：批次操作規劃</h3>
+        <p style="margin-bottom: 12px;"><strong>任務</strong>：更新 5 個檔案的 API 端點</p>
+        <ol style="margin-left: 24px;">
+          <li>設計低效的逐步執行方案</li>
+          <li>設計高效的批次執行方案</li>
+          <li>計算互動次數差異</li>
+        </ol>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>練習 3：回應簡潔性改善</h3>
+        <p style="margin-bottom: 12px;"><strong>任務</strong>：改寫冗長的 Bob 回應</p>
+        <ol style="margin-left: 24px;">
+          <li>找出一個冗長的回應範例</li>
+          <li>移除所有不必要的文字</li>
+          <li>計算 Token 節省比例</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- 最佳實踐總結 -->
+    <div class="section">
+      <h2>✨ 最佳實踐總結</h2>
+      
+      <div class="success-box">
+        <h4>🎯 Token 優化黃金法則</h4>
+        <ol style="margin-left: 24px;">
+          <li><strong>簡潔至上</strong>：輸出 Token 成本最高，極簡回應是關鍵</li>
+          <li><strong>精確讀取</strong>：大檔案必用行範圍，可節省 80-95% Token</li>
+          <li><strong>批次操作</strong>：一次完成多個操作，減少互動輪次</li>
+          <li><strong>工具優先</strong>：apply_diff 優於 write_to_file</li>
+          <li><strong>避免重複</strong>：不重讀已載入的檔案</li>
+          <li><strong>規劃執行</strong>：先規劃完整方案，再批次執行</li>
+          <li><strong>善用記憶</strong>：常用資訊存入 Memory Import</li>
+          <li><strong>定期清理</strong>：清理不需要的上下文</li>
+        </ol>
+      </div>
+
+      <div class="warning-box" style="margin-top: 24px;">
+        <h4>⚠️ 成本陷阱</h4>
+        <ul>
+          <li>❌ 冗長的回應（輸出 Token 成本高）</li>
+          <li>❌ 讀取整個大檔案</li>
+          <li>❌ 用 write_to_file 修改大檔案</li>
+          <li>❌ 重複讀取相同檔案</li>
+          <li>❌ 逐步執行可批次的操作</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 重點回顧 -->
+    <div class="section">
+      <h2>📝 重點回顧</h2>
+      <div class="evaluation-table">
+        <table>
+          <thead>
+            <tr>
+              <th>優化策略</th>
+              <th>節省效果</th>
+              <th>實施難度</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>簡潔回應</td>
+              <td>50-70%</td>
+              <td>⭐</td>
+            </tr>
+            <tr>
+              <td>行範圍讀取</td>
+              <td>80-95%</td>
+              <td>⭐⭐</td>
+            </tr>
+            <tr>
+              <td>使用 apply_diff</td>
+              <td>90%+</td>
+              <td>⭐⭐</td>
+            </tr>
+            <tr>
+              <td>批次操作</td>
+              <td>40-60%</td>
+              <td>⭐⭐⭐</td>
+            </tr>
+            <tr>
+              <td>避免重複讀取</td>
+              <td>100%</td>
+              <td>⭐</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 完成檢查 -->
+    <div class="section">
+      <h2>✅ 完成檢查清單</h2>
+      <div class="challenge-box">
+        <ul style="list-style: none; padding-left: 0;">
+          <li>☐ 理解 Bobcoin 與 Token 的計費關係</li>
+          <li>☐ 掌握檔案讀取的行範圍技巧</li>
+          <li>☐ 了解 apply_diff vs write_to_file 的成本差異</li>
+          <li>☐ 能夠撰寫簡潔的回應</li>
+          <li>☐ 會規劃批次操作流程</li>
+          <li>☐ 完成至少 2 個實作練習</li>
+          <li>☐ 能夠評估不同方案的 Token 消耗</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 延伸閱讀 -->
+    <div class="section">
+      <h2>📚 延伸閱讀</h2>
+      <div class="requirements-grid">
+        <div class="requirement-card">
+          <h4>📖 相關章節</h4>
+          <ul>
+            <li><a href="08-builtin-tools.html">第 8 章：12 個內建工具</a></li>
+            <li><a href="07-memory-import.html">第 7 章：Memory Import</a></li>
+          </ul>
+        </div>
+
+        <div class="requirement-card">
+          <h4>🔗 參考資源</h4>
+          <ul>
+            <li><a href="../bob-learning.html">Bob Cheatsheet</a></li>
+            <li>Token 優化最佳實踐文件</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div style="display: flex; justify-content: space-between; margin-top: 32px;">
+        <a href="08-builtin-tools.html" class="cta-button">← 上一章</a>
+        <a href="../bob-learning.html" class="cta-button">回到目錄</a>
+        <a href="10-sdlc-security.html" class="cta-button">下一章 →</a>
+      </div>
+      
+      <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); text-align: center;">
+        <p style="color: var(--muted);">
+          每個 Token 都是成本，優化從現在開始！💰
+        </p>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

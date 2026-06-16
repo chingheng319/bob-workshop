@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 4 章：Custom Rules - IBM Bob 完整學習指南</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/workshop-theme.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>📝 第 4 章：Custom Rules</h1>
+      <p class="subtitle">自訂規則讓 Bob 遵循你的開發規範</p>
+      <div class="challenge-badge">⏱️ 預估時間：1 小時 | 難度：⭐⭐⭐</div>
+    </header>
+
+    <!-- 章節導航 -->
+    <div class="section">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+        <a href="03-slash-commands.html" style="color: var(--accent);">← 第 3 章：Slash Commands</a>
+        <a href="../bob-learning.html" style="color: var(--accent);">📚 回到目錄</a>
+        <a href="05-skills.html" style="color: var(--accent);">第 5 章：Skills 系統 →</a>
+      </div>
+    </div>
+
+    <!-- 學習目標 -->
+    <div class="section">
+      <h2>🎯 學習目標</h2>
+      <div class="challenge-box">
+        <p>完成本章後，你將能夠：</p>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li>理解 Custom Rules 的作用與重要性</li>
+          <li>掌握規則檔案的結構與語法</li>
+          <li>撰寫有效的專案規則</li>
+          <li>在實際專案中應用 Custom Rules</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 4.1 什麼是 Custom Rules -->
+    <div class="section">
+      <h2>📋 4.1 什麼是 Custom Rules？</h2>
+      
+      <div class="challenge-box">
+        <h3>定義</h3>
+        <p><strong>Custom Rules（自訂規則）</strong>是你為專案建立的規範文件，告訴 Bob 在開發時應該遵循哪些規則、慣例和最佳實踐。</p>
+        
+        <h4 style="margin-top: 24px;">為什麼需要 Custom Rules？</h4>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li><strong>統一規範</strong>：確保團隊成員遵循相同的編碼標準</li>
+          <li><strong>提升品質</strong>：讓 Bob 產生符合專案要求的程式碼</li>
+          <li><strong>減少審查</strong>：自動遵循規則，減少人工審查時間</li>
+          <li><strong>知識傳承</strong>：將團隊經驗固化為規則文件</li>
+        </ul>
+      </div>
+
+      <div class="success-box" style="margin-top: 24px;">
+        <h4>💡 實際效益</h4>
+        <p>有了 Custom Rules，Bob 會：</p>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li>使用專案指定的命名慣例</li>
+          <li>遵循特定的程式碼風格</li>
+          <li>套用安全最佳實踐</li>
+          <li>符合效能優化要求</li>
+          <li>產生符合規範的文件與註解</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 4.2 Rules 檔案結構 -->
+    <div class="section">
+      <h2>📁 4.2 Rules 檔案結構</h2>
+      
+      <div class="challenge-box">
+        <h3>檔案位置</h3>
+        <p>Custom Rules 檔案放在專案根目錄的 <code>.bob/rules/</code> 目錄下：</p>
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; margin-top: 12px; font-family: 'IBM Plex Mono', monospace;">專案根目錄/
+├── .bob/
+│   └── rules/
+│       ├── coding-standards.md
+│       ├── security-rules.md
+│       ├── naming-conventions.md
+│       └── performance-guidelines.md
+└── src/</pre>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>檔案格式</h3>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li><strong>格式</strong>：Markdown (.md)</li>
+          <li><strong>編碼</strong>：UTF-8</li>
+          <li><strong>命名</strong>：使用描述性名稱，小寫加連字符</li>
+          <li><strong>組織</strong>：可依主題分成多個檔案</li>
+        </ul>
+      </div>
+
+      <div class="success-box" style="margin-top: 24px;">
+        <h4>💡 建議的規則分類</h4>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li><code>coding-standards.md</code> - 編碼規範</li>
+          <li><code>security-rules.md</code> - 安全規則</li>
+          <li><code>naming-conventions.md</code> - 命名慣例</li>
+          <li><code>api-design.md</code> - API 設計原則</li>
+          <li><code>testing-guidelines.md</code> - 測試指南</li>
+          <li><code>documentation-standards.md</code> - 文件標準</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 4.3 撰寫有效的 Rules -->
+    <div class="section">
+      <h2>✍️ 4.3 撰寫有效的 Rules</h2>
+      
+      <div class="challenge-box">
+        <h3>規則撰寫原則</h3>
+        <ol style="margin-left: 24px; margin-top: 12px;">
+          <li style="margin-bottom: 12px;"><strong>明確具體</strong>
+            <p style="margin-left: 20px; margin-top: 4px; color: var(--muted);">
+              ❌ "程式碼要寫得好"<br>
+              ✅ "類別名稱使用 PascalCase，方法名稱使用 camelCase"
+            </p>
+          </li>
+          <li style="margin-bottom: 12px;"><strong>提供範例</strong>
+            <p style="margin-left: 20px; margin-top: 4px; color: var(--muted);">
+              包含正確與錯誤的程式碼範例
+            </p>
+          </li>
+          <li style="margin-bottom: 12px;"><strong>說明原因</strong>
+            <p style="margin-left: 20px; margin-top: 4px; color: var(--muted);">
+              解釋為什麼要遵循這個規則
+            </p>
+          </li>
+          <li style="margin-bottom: 12px;"><strong>可執行性</strong>
+            <p style="margin-left: 20px; margin-top: 4px; color: var(--muted);">
+              規則要能被 Bob 理解並執行
+            </p>
+          </li>
+        </ol>
+      </div>
+
+      <div class="success-box" style="margin-top: 24px;">
+        <h4>📝 規則文件範本</h4>
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; margin-top: 12px; font-family: 'IBM Plex Mono', monospace; overflow-x: auto;"># 規則標題
+
+## 目的
+說明這個規則的目的與重要性
+
+## 規則內容
+具體的規則描述
+
+## 正確範例
+```java
+// 正確的寫法
+public class UserService {
+    private final UserRepository userRepository;
+    
+    public User findById(Long id) {
+        return userRepository.findById(id)
+            .orElseThrow(() -> new UserNotFoundException(id));
+    }
+}
+```
+
+## 錯誤範例
+```java
+// 錯誤的寫法
+public class userservice {
+    public User FindById(long ID) {
+        return repo.find(ID);
+    }
+}
+```
+
+## 例外情況
+說明何時可以不遵循此規則</pre>
+      </div>
+    </div>
+
+    <!-- 4.4 實戰範例 -->
+    <div class="section">
+      <h2>🎯 4.4 實戰範例：建立編碼規範</h2>
+      
+      <div class="challenge-box">
+        <h3>範例：coding-standards.md</h3>
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; margin-top: 12px; font-family: 'IBM Plex Mono', monospace; overflow-x: auto; font-size: 0.85rem;"># 編碼規範
+
+## 命名慣例
+
+### 類別命名
+- 使用 PascalCase
+- 名稱應該是名詞
+- 避免縮寫（除非是廣為人知的）
+
+**正確範例**：
+```java
+public class UserService { }
+public class OrderRepository { }
+```
+
+**錯誤範例**：
+```java
+public class userService { }  // 應使用 PascalCase
+public class UsrSvc { }       // 避免縮寫
+```
+
+### 方法命名
+- 使用 camelCase
+- 名稱應該是動詞或動詞片語
+- Boolean 方法使用 is/has/can 開頭
+
+**正確範例**：
+```java
+public User findById(Long id) { }
+public boolean isActive() { }
+public boolean hasPermission() { }
+```
+
+### 變數命名
+- 使用 camelCase
+- 名稱應該有意義且描述性
+- 避免單字母變數（除了迴圈計數器）
+
+**正確範例**：
+```java
+String userName = "John";
+int totalCount = 0;
+List<User> activeUsers = new ArrayList<>();
+```
+
+## 程式碼組織
+
+### 類別結構順序
+1. 靜態變數
+2. 實例變數
+3. 建構子
+4. 公開方法
+5. 私有方法
+
+### 方法長度
+- 單一方法不超過 50 行
+- 如果超過，考慮拆分成多個小方法
+
+## 註解規範
+
+### JavaDoc
+- 所有公開類別和方法都要有 JavaDoc
+- 說明參數、回傳值、可能的例外
+
+**範例**：
+```java
+/**
+ * 根據 ID 查找使用者
+ * 
+ * @param id 使用者 ID
+ * @return 使用者物件
+ * @throws UserNotFoundException 當使用者不存在時
+ */
+public User findById(Long id) {
+    // 實作
+}
+```
+
+## 錯誤處理
+
+### 例外處理原則
+- 不要捕捉通用的 Exception
+- 使用特定的例外類型
+- 記錄例外資訊
+
+**正確範例**：
+```java
+try {
+    // 操作
+} catch (IOException e) {
+    log.error("檔案讀取失敗", e);
+    throw new FileProcessingException("無法處理檔案", e);
+}
+```
+
+**錯誤範例**：
+```java
+try {
+    // 操作
+} catch (Exception e) {  // 太廣泛
+    // 空的 catch block
+}
+```</pre>
+      </div>
+    </div>
+
+    <!-- 4.5 安全規則範例 -->
+    <div class="section">
+      <h2>🔒 4.5 實戰範例：安全規則</h2>
+      
+      <div class="challenge-box">
+        <h3>範例：security-rules.md</h3>
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; margin-top: 12px; font-family: 'IBM Plex Mono', monospace; overflow-x: auto; font-size: 0.85rem;"># 安全規則
+
+## SQL Injection 防護
+
+### 規則
+永遠使用參數化查詢，不要拼接 SQL 字串
+
+**正確範例**：
+```java
+String sql = "SELECT * FROM users WHERE id = ?";
+PreparedStatement stmt = conn.prepareStatement(sql);
+stmt.setLong(1, userId);
+```
+
+**錯誤範例**：
+```java
+String sql = "SELECT * FROM users WHERE id = " + userId;  // 危險！
+```
+
+## 密碼處理
+
+### 規則
+- 使用 BCrypt 或 Argon2 加密密碼
+- 不要在日誌中記錄密碼
+- 密碼長度至少 8 個字元
+
+**正確範例**：
+```java
+String hashedPassword = BCrypt.hashpw(plainPassword, BCrypt.gensalt());
+```
+
+## 輸入驗證
+
+### 規則
+所有使用者輸入都必須驗證
+
+**正確範例**：
+```java
+@PostMapping("/users")
+public User createUser(@Valid @RequestBody UserDto userDto) {
+    // @Valid 會自動驗證
+}
+```
+
+## 敏感資料
+
+### 規則
+- 不要在程式碼中硬編碼密鑰、密碼
+- 使用環境變數或密鑰管理服務
+- 敏感資料要加密儲存
+
+**正確範例**：
+```java
+String apiKey = System.getenv("API_KEY");
+```
+
+**錯誤範例**：
+```java
+String apiKey = "sk-1234567890";  // 不要硬編碼！
+```</pre>
+      </div>
+    </div>
+
+    <!-- 4.6 實戰練習 -->
+    <div class="section">
+      <h2>✏️ 4.6 實戰練習</h2>
+      
+      <div class="warning-box">
+        <h4>練習 1：建立基本規則檔案</h4>
+        <p>為你的專案建立第一個規則檔案：</p>
+        <ol style="margin-left: 24px; margin-top: 12px;">
+          <li>建立 <code>.bob/rules/</code> 目錄</li>
+          <li>建立 <code>coding-standards.md</code></li>
+          <li>撰寫至少 3 條編碼規範</li>
+          <li>包含正確與錯誤範例</li>
+        </ol>
+      </div>
+
+      <div class="warning-box" style="margin-top: 24px;">
+        <h4>練習 2：測試規則效果</h4>
+        <p>驗證 Bob 是否遵循你的規則：</p>
+        <ol style="margin-left: 24px; margin-top: 12px;">
+          <li>請 Bob 建立一個新的類別</li>
+          <li>檢查是否符合你定義的命名慣例</li>
+          <li>檢查程式碼結構是否符合規範</li>
+          <li>如果不符合，調整規則描述使其更明確</li>
+        </ol>
+      </div>
+
+      <div class="warning-box" style="margin-top: 24px;">
+        <h4>練習 3：建立安全規則</h4>
+        <p>為專案建立安全規則：</p>
+        <ol style="margin-left: 24px; margin-top: 12px;">
+          <li>建立 <code>security-rules.md</code></li>
+          <li>定義 SQL Injection 防護規則</li>
+          <li>定義密碼處理規則</li>
+          <li>定義輸入驗證規則</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- 4.7 最佳實踐 -->
+    <div class="section">
+      <h2>💡 4.7 Custom Rules 最佳實踐</h2>
+      
+      <div class="success-box">
+        <h4>規則撰寫技巧</h4>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li><strong>從簡單開始</strong>：先建立核心規則，逐步擴充</li>
+          <li><strong>保持更新</strong>：隨專案演進更新規則</li>
+          <li><strong>團隊共識</strong>：規則應該是團隊討論的結果</li>
+          <li><strong>定期審查</strong>：檢查規則是否仍然適用</li>
+          <li><strong>提供範例</strong>：每條規則都要有程式碼範例</li>
+        </ul>
+      </div>
+
+      <div class="success-box" style="margin-top: 24px;">
+        <h4>規則組織建議</h4>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li><strong>分類清楚</strong>：依主題分成不同檔案</li>
+          <li><strong>優先順序</strong>：重要規則放在前面</li>
+          <li><strong>交叉引用</strong>：相關規則互相連結</li>
+          <li><strong>版本控制</strong>：規則檔案加入 Git</li>
+        </ul>
+      </div>
+
+      <div class="warning-box" style="margin-top: 24px;">
+        <h4>⚠️ 常見錯誤</h4>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li>❌ 規則太模糊，Bob 無法理解</li>
+          <li>❌ 規則太多太複雜，難以遵循</li>
+          <li>❌ 沒有提供範例，只有文字描述</li>
+          <li>❌ 規則互相矛盾</li>
+          <li>❌ 從不更新規則檔案</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 重點回顧 -->
+    <div class="section">
+      <h2>📝 重點回顧</h2>
+      
+      <div class="success-box">
+        <h4>本章重點</h4>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li>✅ Custom Rules 讓 Bob 遵循專案規範</li>
+          <li>✅ 規則檔案放在 .bob/rules/ 目錄</li>
+          <li>✅ 使用 Markdown 格式撰寫</li>
+          <li>✅ 規則要明確、具體、有範例</li>
+          <li>✅ 可依主題分成多個檔案</li>
+          <li>✅ 定期更新與審查規則</li>
+        </ul>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h4>✅ 完成檢查清單</h4>
+        <p>確認你已經：</p>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li>□ 理解 Custom Rules 的作用</li>
+          <li>□ 了解規則檔案結構</li>
+          <li>□ 學會撰寫有效的規則</li>
+          <li>□ 建立至少一個規則檔案</li>
+          <li>□ 測試規則是否生效</li>
+          <li>□ 完成實戰練習</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 延伸閱讀 -->
+    <div class="section">
+      <h2>📚 延伸閱讀</h2>
+      
+      <div class="success-box">
+        <h4>推薦資源</h4>
+        <ul style="margin-left: 24px; margin-top: 12px;">
+          <li><a href="https://owhc.github.io/bob-cheatsheet/" target="_blank" style="color: var(--accent);">📖 Bob Cheatsheet - Custom Rules 章節</a></li>
+          <li>參考其他專案的規則檔案範例</li>
+          <li>閱讀團隊的編碼規範文件</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 章節導航 -->
+    <div class="section">
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px; background: rgba(0, 102, 204, 0.05); border-radius: 8px;">
+        <a href="03-slash-commands.html" style="color: var(--accent); text-decoration: none;">← 上一章：Slash Commands</a>
+        <a href="05-skills.html" class="cta-button" style="display: inline-block; padding: 12px 24px;">下一章：Skills 系統 →</a>
+      </div>
+    </div>
+
+    <footer>
+      <div style="display: flex; justify-content: space-between; margin-top: 32px;">
+        <a href="03-slash-commands.html" class="cta-button">← 上一章</a>
+        <a href="../bob-learning.html" class="cta-button">回到目錄</a>
+        <a href="05-skills.html" class="cta-button">下一章 →</a>
+      </div>
+      
+      <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); text-align: center;">
+        <p style="color: var(--muted);">
+          🎉 恭喜完成第 4 章！接下來學習 Skills 系統
+        </p>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

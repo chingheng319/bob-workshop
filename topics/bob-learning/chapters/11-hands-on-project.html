@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 11 章：實戰專案 - IBM Bob 學習教材</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../assets/workshop-theme.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🚀 第 11 章：實戰專案</h1>
+      <p class="subtitle">整合所有 Bob 技能的完整專案</p>
+      <div class="challenge-badge">⏱️ 時長：90 分鐘 | 難度：⭐⭐⭐⭐⭐</div>
+    </header>
+
+    <!-- 章節導航 -->
+    <div class="section">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+        <a href="10-sdlc-security.html" style="color: var(--accent);">← 第 10 章：SDLC 整合</a>
+        <a href="../bob-learning.html" style="color: var(--accent);">📚 回到目錄</a>
+        <a href="12-faq-troubleshooting.html" style="color: var(--accent);">第 12 章：FAQ →</a>
+      </div>
+    </div>
+
+    <!-- 專案概述 -->
+    <div class="section">
+      <h2>🎯 專案概述</h2>
+      
+      <div class="challenge-box">
+        <h3>任務書管理系統</h3>
+        <p style="margin-bottom: 16px;">
+          建立一個完整的 RESTful API 任務書管理系統，整合所有學到的 Bob 技能。
+        </p>
+
+        <div class="success-box">
+          <h4>💡 專案目標</h4>
+          <ul>
+            <li>實踐 Bob 的 Plan 與 Code 模式切換</li>
+            <li>應用 Custom Rules 確保程式碼品質</li>
+            <li>使用 Slash Commands 提升效率</li>
+            <li>建立 AGENTS.md 指導開發</li>
+            <li>優化 Token 使用成本</li>
+            <li>實施安全最佳實踐</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>功能需求</h3>
+        
+        <div class="evaluation-table">
+          <table>
+            <thead>
+              <tr>
+                <th>功能模組</th>
+                <th>API 端點</th>
+                <th>說明</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>任務管理</strong></td>
+                <td>
+                  GET /api/tasks<br>
+                  POST /api/tasks<br>
+                  PUT /api/tasks/{id}<br>
+                  DELETE /api/tasks/{id}
+                </td>
+                <td>CRUD 操作</td>
+              </tr>
+              <tr>
+                <td><strong>任務搜尋</strong></td>
+                <td>
+                  GET /api/tasks/search?keyword=<br>
+                  GET /api/tasks/status/{status}
+                </td>
+                <td>搜尋與篩選</td>
+              </tr>
+              <tr>
+                <td><strong>統計分析</strong></td>
+                <td>
+                  GET /api/tasks/statistics<br>
+                  GET /api/tasks/completion-rate
+                </td>
+                <td>資料分析</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>技術棧</h3>
+        <ul style="margin-left: 24px;">
+          <li><strong>後端</strong>：Spring Boot 3.x + JPA</li>
+          <li><strong>資料庫</strong>：H2 (開發) / PostgreSQL (生產)</li>
+          <li><strong>測試</strong>：JUnit 5 + Mockito</li>
+          <li><strong>文件</strong>：OpenAPI/Swagger</li>
+          <li><strong>建置</strong>：Maven</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 專案階段 -->
+    <div class="section">
+      <h2>📋 專案實施階段</h2>
+      
+      <div class="challenge-box">
+        <h3>階段 1：專案規劃（Plan 模式）</h3>
+        <p style="margin-bottom: 16px;"><strong>時間</strong>：15 分鐘</p>
+        
+        <div class="success-box">
+          <h4>✅ 任務清單</h4>
+          <ol style="margin-left: 24px;">
+            <li style="margin-bottom: 12px;">
+              <strong>建立專案結構</strong>
+              <ul style="margin-left: 20px; margin-top: 8px;">
+                <li>使用 Bob 產生 Maven 專案結構</li>
+                <li>設定 pom.xml 依賴</li>
+                <li>建立基本目錄結構</li>
+              </ul>
+            </li>
+            
+            <li style="margin-bottom: 12px;">
+              <strong>設計資料模型</strong>
+              <ul style="margin-left: 20px; margin-top: 8px;">
+                <li>定義 Task Entity 欄位</li>
+                <li>設計資料庫 Schema</li>
+                <li>規劃關聯關係</li>
+              </ul>
+            </li>
+            
+            <li style="margin-bottom: 12px;">
+              <strong>規劃 API 架構</strong>
+              <ul style="margin-left: 20px; margin-top: 8px;">
+                <li>設計 RESTful API 端點</li>
+                <li>定義請求/回應格式</li>
+                <li>規劃錯誤處理機制</li>
+              </ul>
+            </li>
+            
+            <li>
+              <strong>建立開發文件</strong>
+              <ul style="margin-left: 20px; margin-top: 8px;">
+                <li>撰寫 AGENTS.md</li>
+                <li>建立 Custom Rules</li>
+                <li>設定 .bobignore</li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+
+        <div class="warning-box" style="margin-top: 16px;">
+          <h4>💡 Bob 使用技巧</h4>
+          <pre style="background: #2d2d2d; color: #f8f8f2; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 8px 0;">請使用 Plan 模式協助我設計一個任務管理系統：
+1. 設計 Task Entity 的欄位結構
+2. 規劃 RESTful API 端點
+3. 產生系統架構圖
+4. 建議最佳實踐</pre>
+        </div>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>階段 2：建立 Bob 配置（Code 模式）</h3>
+        <p style="margin-bottom: 16px;"><strong>時間</strong>：20 分鐘</p>
+        
+        <div class="success-box">
+          <h4>✅ 任務清單</h4>
+          <ol style="margin-left: 24px;">
+            <li style="margin-bottom: 12px;">
+              <strong>建立 .bobignore</strong>
+              <pre style="background: #2d2d2d; color: #f8f8f2; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 8px 0;"># .bobignore
+target/
+.mvn/
+*.log
+application-prod.yml
+.env</pre>
+            </li>
+            
+            <li style="margin-bottom: 12px;">
+              <strong>撰寫 AGENTS.md</strong>
+              <pre style="background: #2d2d2d; color: #f8f8f2; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 8px 0;"># Task Management System
+
+## 專案架構
+- Spring Boot 3.x REST API
+- JPA + H2 Database
+- 三層架構：Controller → Service → Repository
+
+## 開發規範
+- 使用 DTO 模式
+- 統一錯誤處理
+- RESTful API 設計原則
+- 測試覆蓋率 >80%
+
+## 安全要求
+- 輸入驗證
+- SQL Injection 防護
+- 適當的錯誤訊息</pre>
+            </li>
+            
+            <li style="margin-bottom: 12px;">
+              <strong>建立 Custom Rules</strong>
+              <p style="margin-top: 8px; color: var(--muted); font-size: 0.95rem;">
+                檔案：<code>.bob/rules/coding-standards.md</code>
+              </p>
+            </li>
+            
+            <li>
+              <strong>建立 Slash Commands</strong>
+              <ul style="margin-left: 20px; margin-top: 8px;">
+                <li><code>/test-coverage</code> - 檢查測試覆蓋率</li>
+                <li><code>/api-doc</code> - 產生 API 文件</li>
+                <li><code>/security-scan</code> - 安全掃描</li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>階段 3：實作核心功能（Code 模式）</h3>
+        <p style="margin-bottom: 16px;"><strong>時間</strong>：35 分鐘</p>
+        
+        <div class="success-box">
+          <h4>✅ 任務清單</h4>
+          <ol style="margin-left: 24px;">
+            <li style="margin-bottom: 12px;">
+              <strong>建立 Entity 層</strong>
+              <pre style="background: #2d2d2d; color: #f8f8f2; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 8px 0;">請建立 Task Entity，包含以下欄位：
+- id (Long)
+- title (String, 必填, max 100)
+- description (String, max 500)
+- status (Enum: TODO, IN_PROGRESS, DONE)
+- priority (Enum: LOW, MEDIUM, HIGH)
+- createdAt (LocalDateTime)
+- updatedAt (LocalDateTime)</pre>
+            </li>
+            
+            <li style="margin-bottom: 12px;">
+              <strong>建立 Repository 層</strong>
+              <ul style="margin-left: 20px; margin-top: 8px;">
+                <li>TaskRepository 介面</li>
+                <li>自訂查詢方法</li>
+                <li>分頁支援</li>
+              </ul>
+            </li>
+            
+            <li style="margin-bottom: 12px;">
+              <strong>建立 Service 層</strong>
+              <ul style="margin-left: 20px; margin-top: 8px;">
+                <li>TaskService 介面</li>
+                <li>TaskServiceImpl 實作</li>
+                <li>業務邏輯處理</li>
+                <li>例外處理</li>
+              </ul>
+            </li>
+            
+            <li>
+              <strong>建立 Controller 層</strong>
+              <ul style="margin-left: 20px; margin-top: 8px;">
+                <li>TaskController</li>
+                <li>RESTful API 端點</li>
+                <li>請求驗證</li>
+                <li>回應格式化</li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+
+        <div class="warning-box" style="margin-top: 16px;">
+          <h4>💡 Token 優化技巧</h4>
+          <ul>
+            <li>使用 <code>list_code_definition_names</code> 了解結構</li>
+            <li>批次建立多個檔案</li>
+            <li>使用 <code>apply_diff</code> 修改現有程式碼</li>
+            <li>避免重複讀取檔案</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>階段 4：測試與驗證（Code 模式）</h3>
+        <p style="margin-bottom: 16px;"><strong>時間</strong>：15 分鐘</p>
+        
+        <div class="success-box">
+          <h4>✅ 任務清單</h4>
+          <ol style="margin-left: 24px;">
+            <li style="margin-bottom: 12px;">
+              <strong>撰寫單元測試</strong>
+              <ul style="margin-left: 20px; margin-top: 8px;">
+                <li>Service 層測試</li>
+                <li>Repository 層測試</li>
+                <li>使用 Mockito</li>
+              </ul>
+            </li>
+            
+            <li style="margin-bottom: 12px;">
+              <strong>撰寫整合測試</strong>
+              <ul style="margin-left: 20px; margin-top: 8px;">
+                <li>Controller 層測試</li>
+                <li>API 端點測試</li>
+                <li>使用 MockMvc</li>
+              </ul>
+            </li>
+            
+            <li>
+              <strong>執行測試</strong>
+              <pre style="background: #2d2d2d; color: #f8f8f2; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 8px 0;">mvn test
+mvn verify</pre>
+            </li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>階段 5：文件與審查</h3>
+        <p style="margin-bottom: 16px;"><strong>時間</strong>：5 分鐘</p>
+        
+        <div class="success-box">
+          <h4>✅ 任務清單</h4>
+          <ol style="margin-left: 24px;">
+            <li>使用 <code>/api-doc</code> 產生 API 文件</li>
+            <li>使用 <code>/review</code> 審查程式碼</li>
+            <li>使用 <code>/security-scan</code> 檢查安全性</li>
+            <li>更新 README.md</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <!-- 實作範例 -->
+    <div class="section">
+      <h2>💻 實作範例</h2>
+      
+      <div class="challenge-box">
+        <h3>Task Entity 範例</h3>
+        
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;">@Entity
+@Table(name = "tasks")
+public class Task {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotBlank(message = "Title is required")
+    @Size(max = 100, message = "Title must be less than 100 characters")
+    private String title;
+
+    @Size(max = 500, message = "Description must be less than 500 characters")
+    private String description;
+
+    @Enumerated(EnumType.STRING)
+    @NotNull(message = "Status is required")
+    private TaskStatus status;
+
+    @Enumerated(EnumType.STRING)
+    @NotNull(message = "Priority is required")
+    private TaskPriority priority;
+
+    @CreatedDate
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
+
+    // Getters, Setters, Constructors
+}</pre>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>TaskController 範例</h3>
+        
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;">@RestController
+@RequestMapping("/api/tasks")
+public class TaskController {
+    
+    @Autowired
+    private TaskService taskService;
+
+    @GetMapping
+    public ResponseEntity<List<TaskDto>> getAllTasks() {
+        return ResponseEntity.ok(taskService.findAll());
+    }
+
+    @PostMapping
+    public ResponseEntity<TaskDto> createTask(@Valid @RequestBody TaskDto taskDto) {
+        TaskDto created = taskService.create(taskDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(created);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<TaskDto> updateTask(
+            @PathVariable Long id, 
+            @Valid @RequestBody TaskDto taskDto) {
+        TaskDto updated = taskService.update(id, taskDto);
+        return ResponseEntity.ok(updated);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
+        taskService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/statistics")
+    public ResponseEntity<TaskStatistics> getStatistics() {
+        return ResponseEntity.ok(taskService.getStatistics());
+    }
+}</pre>
+      </div>
+    </div>
+
+    <!-- Bob 使用技巧 -->
+    <div class="section">
+      <h2>🎯 專案中的 Bob 使用技巧</h2>
+      
+      <div class="challenge-box">
+        <h3>1. 模式切換策略</h3>
+        
+        <div class="evaluation-table">
+          <table>
+            <thead>
+              <tr>
+                <th>情境</th>
+                <th>使用模式</th>
+                <th>原因</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>設計系統架構</td>
+                <td>Plan 模式</td>
+                <td>需要高層次思考和規劃</td>
+              </tr>
+              <tr>
+                <td>實作程式碼</td>
+                <td>Code 模式</td>
+                <td>需要精確的程式碼操作</td>
+              </tr>
+              <tr>
+                <td>重構設計</td>
+                <td>Plan 模式</td>
+                <td>需要重新思考架構</td>
+              </tr>
+              <tr>
+                <td>修復 Bug</td>
+                <td>Code 模式</td>
+                <td>需要精確修改程式碼</td>
+              </tr>
+              <tr>
+                <td>產生文件</td>
+                <td>Plan 模式</td>
+                <td>需要整體性描述</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>2. 批次操作範例</h3>
+        
+        <p><strong>情境</strong>：建立完整的 Service 層</p>
+        
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 16px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 12px 0;">請批次建立以下檔案：
+
+1. TaskService.java (介面)
+   - findAll()
+   - findById(Long id)
+   - create(TaskDto dto)
+   - update(Long id, TaskDto dto)
+   - delete(Long id)
+   - getStatistics()
+
+2. TaskServiceImpl.java (實作)
+   - 實作所有介面方法
+   - 加入錯誤處理
+   - 使用 @Transactional
+
+3. TaskDto.java (DTO)
+   - 對應 Task Entity 欄位
+   - 加入驗證註解
+
+請一次產生這三個檔案的完整程式碼。</pre>
+
+        <div class="success-box" style="margin-top: 16px;">
+          <h4>💡 優勢</h4>
+          <ul>
+            <li>減少互動輪次</li>
+            <li>確保檔案間的一致性</li>
+            <li>節省 Token 成本</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>3. 使用 Slash Commands</h3>
+        
+        <p><strong>/test-coverage</strong> - 檢查測試覆蓋率</p>
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 8px 0;">/test-coverage src/main/java/com/example/task/service/</pre>
+
+        <p style="margin-top: 16px;"><strong>/api-doc</strong> - 產生 API 文件</p>
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 8px 0;">/api-doc src/main/java/com/example/task/controller/</pre>
+
+        <p style="margin-top: 16px;"><strong>/security-scan</strong> - 安全掃描</p>
+        <pre style="background: #2d2d2d; color: #f8f8f2; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; margin: 8px 0;">/security-scan src/</pre>
+      </div>
+    </div>
+
+    <!-- 評估標準 -->
+    <div class="section">
+      <h2>📊 專案評估標準</h2>
+      
+      <div class="evaluation-table">
+        <table>
+          <thead>
+            <tr>
+              <th>評估項目</th>
+              <th>標準</th>
+              <th>權重</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>功能完整性</strong></td>
+              <td>
+                • 所有 API 端點正常運作<br>
+                • CRUD 功能完整<br>
+                • 搜尋與統計功能正確
+              </td>
+              <td>30%</td>
+            </tr>
+            <tr>
+              <td><strong>程式碼品質</strong></td>
+              <td>
+                • 符合 Custom Rules<br>
+                • 良好的程式碼結構<br>
+                • 適當的註解
+              </td>
+              <td>25%</td>
+            </tr>
+            <tr>
+              <td><strong>測試覆蓋率</strong></td>
+              <td>
+                • 單元測試 >80%<br>
+                • 整合測試完整<br>
+                • 測試案例充足
+              </td>
+              <td>20%</td>
+            </tr>
+            <tr>
+              <td><strong>Bob 技能應用</strong></td>
+              <td>
+                • 有效使用 AGENTS.md<br>
+                • Custom Rules 實用<br>
+                • Slash Commands 完整
+              </td>
+              <td>15%</td>
+            </tr>
+            <tr>
+              <td><strong>安全性</strong></td>
+              <td>
+                • .bobignore 完整<br>
+                • 輸入驗證正確<br>
+                • 無安全漏洞
+              </td>
+              <td>10%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 常見問題 -->
+    <div class="section">
+      <h2>❓ 常見問題與解決</h2>
+      
+      <div class="challenge-box">
+        <h3>問題 1：Bob 產生的程式碼有錯誤</h3>
+        <p style="margin-bottom: 12px;"><strong>解決方案</strong>：</p>
+        <ul style="margin-left: 24px;">
+          <li>使用 <code>apply_diff</code> 精確修正</li>
+          <li>提供更詳細的需求描述</li>
+          <li>參考 AGENTS.md 中的規範</li>
+          <li>使用 <code>/review</code> 檢查問題</li>
+        </ul>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>問題 2：Token 消耗過快</h3>
+        <p style="margin-bottom: 12px;"><strong>解決方案</strong>：</p>
+        <ul style="margin-left: 24px;">
+          <li>使用行範圍讀取大檔案</li>
+          <li>批次操作減少互動</li>
+          <li>避免重複讀取檔案</li>
+          <li>保持回應簡潔</li>
+        </ul>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>問題 3：不確定該用哪個模式</h3>
+        <p style="margin-bottom: 12px;"><strong>解決方案</strong>：</p>
+        <ul style="margin-left: 24px;">
+          <li><strong>Plan 模式</strong>：需要思考、設計、規劃時</li>
+          <li><strong>Code 模式</strong>：需要實作、修改、測試時</li>
+          <li>可以隨時切換，不用擔心</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 進階挑戰 -->
+    <div class="section">
+      <h2>🚀 進階挑戰</h2>
+      
+      <div class="challenge-box">
+        <h3>挑戰 1：新增使用者認證</h3>
+        <ul style="margin-left: 24px;">
+          <li>整合 Spring Security</li>
+          <li>實作 JWT 認證</li>
+          <li>新增使用者管理功能</li>
+          <li>任務與使用者關聯</li>
+        </ul>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>挑戰 2：新增標籤系統</h3>
+        <ul style="margin-left: 24px;">
+          <li>建立 Tag Entity</li>
+          <li>實作多對多關聯</li>
+          <li>新增標籤搜尋功能</li>
+          <li>標籤統計分析</li>
+        </ul>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>挑戰 3：效能優化</h3>
+        <ul style="margin-left: 24px;">
+          <li>新增 Redis 快取</li>
+          <li>實作分頁查詢</li>
+          <li>優化資料庫查詢</li>
+          <li>新增效能監控</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 完成檢查 -->
+    <div class="section">
+      <h2>✅ 專案完成檢查清單</h2>
+      
+      <div class="challenge-box">
+        <h3>功能檢查</h3>
+        <ul style="list-style: none; padding-left: 0;">
+          <li>☐ 所有 CRUD API 正常運作</li>
+          <li>☐ 搜尋功能正確</li>
+          <li>☐ 統計分析功能完整</li>
+          <li>☐ 錯誤處理適當</li>
+          <li>☐ 輸入驗證完整</li>
+        </ul>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>Bob 配置檢查</h3>
+        <ul style="list-style: none; padding-left: 0;">
+          <li>☐ AGENTS.md 完整且實用</li>
+          <li>☐ Custom Rules 已建立</li>
+          <li>☐ .bobignore 配置正確</li>
+          <li>☐ Slash Commands 可用</li>
+          <li>☐ Memory Import 適當使用</li>
+        </ul>
+      </div>
+
+      <div class="challenge-box" style="margin-top: 24px;">
+        <h3>品質檢查</h3>
+        <ul style="list-style: none; padding-left: 0;">
+          <li>☐ 測試覆蓋率 >80%</li>
+          <li>☐ 程式碼符合規範</li>
+          <li>☐ 無安全漏洞</li>
+          <li>☐ API 文件完整</li>
+          <li>☐ README 清楚明確</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 學習反思 -->
+    <div class="section">
+      <h2>💭 學習反思</h2>
+      
+      <div class="success-box">
+        <h4>完成專案後，思考以下問題：</h4>
+        <ol style="margin-left: 24px;">
+          <li style="margin-bottom: 12px;">
+            <strong>Bob 如何提升你的開發效率？</strong>
+            <p style="margin-top: 8px; color: var(--muted); font-size: 0.95rem;">
+              記錄具體的時間節省和效率提升
+            </p>
+          </li>
+          
+          <li style="margin-bottom: 12px;">
+            <strong>哪些 Bob 功能最有用？</strong>
+            <p style="margin-top: 8px; color: var(--muted); font-size: 0.95rem;">
+              識別最常用和最有價值的功能
+            </p>
+          </li>
+          
+          <li style="margin-bottom: 12px;">
+            <strong>遇到了哪些挑戰？如何解決？</strong>
+            <p style="margin-top: 8px; color: var(--muted); font-size: 0.95rem;">
+              記錄問題和解決方案，累積經驗
+            </p>
+          </li>
+          
+          <li style="margin-bottom: 12px;">
+            <strong>Token 優化效果如何？</strong>
+            <p style="margin-top: 8px; color: var(--muted); font-size: 0.95rem;">
+              評估成本控制策略的效果
+            </p>
+          </li>
+          
+          <li>
+            <strong>下次可以如何改進？</strong>
+            <p style="margin-top: 8px; color: var(--muted); font-size: 0.95rem;">
+              規劃未來的改進方向
+            </p>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- 延伸閱讀 -->
+    <div class="section">
+      <h2>📚 延伸閱讀</h2>
+      <div class="requirements-grid">
+        <div class="requirement-card">
+          <h4>📖 複習章節</h4>
+          <ul>
+            <li><a href="02-core-concepts.html">第 2 章：核心概念</a></li>
+            <li><a href="08-builtin-tools.html">第 8 章：內建工具</a></li>
+            <li><a href="09-token-optimization.html">第 9 章：Token 優化</a></li>
+          </ul>
+        </div>
+
+        <div class="requirement-card">
+          <h4>🔗 參考資源</h4>
+          <ul>
+            <li><a href="../bob-learning.html">Bob Cheatsheet</a></li>
+            <li>Spring Boot 官方文件</li>
+            <li>RESTful API 設計指南</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div style="display: flex; justify-content: space-between; margin-top: 32px;">
+        <a href="10-sdlc-security.html" class="cta-button">← 上一章</a>
+        <a href="../bob-learning.html" class="cta-button">回到目錄</a>
+        <a href="12-faq-troubleshooting.html" class="cta-button">下一章 →</a>
+      </div>
+      
+      <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); text-align: center;">
+        <p style="color: var(--muted);">
+          實戰是最好的學習！完成這個專案，你就掌握了 Bob 的核心技能！🚀
+        </p>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
