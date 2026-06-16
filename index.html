@@ -277,8 +277,77 @@ sudo yum install java-17-openjdk-devel -y</code></pre>
 javac -version</code></pre>
                         <p style="margin-top: 8px;">預期輸出：<code>openjdk version "17.x.x"</code></p>
                         
+                        <h4 style="margin-top: 24px;">步驟 3：安裝 Maven（選擇性安裝）</h4>
+                        <p>Workshop 專案已內建 Maven Wrapper (<code>mvnw</code>)，但<strong>「帶著動手做」模式需要手動安裝 Maven</strong>。</p>
+                        
+                        <div style="border: 2px solid rgba(255, 0, 0, 0.4); background-color: rgba(255, 0, 0, 0.05); padding: 16px; border-radius: 8px; margin: 8px 0 16px 0;">
+                            <h4 style="margin-top: 0; background: transparent; padding: 0; border: none; cursor: pointer; user-select: none;" onclick="toggleContent(this)">
+                                <span style="display: inline-block; width: 20px;">▶</span> 🍎 macOS 安裝 Maven：
+                            </h4>
+                            <ul style="margin-left: 24px; display: none;" class="toggle-content">
+                                <li><strong>使用 Homebrew（推薦）</strong>
+                                    <pre style="margin-top: 8px;"><code># 安裝 Maven
+brew install maven
+
+# 驗證安裝
+mvn -version</code></pre>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div style="border: 2px solid rgba(0, 0, 255, 0.4); background-color: rgba(0, 0, 255, 0.05); padding: 16px; border-radius: 8px; margin: 8px 0 16px 0;">
+                            <h4 style="margin-top: 0; background: transparent; padding: 0; border: none; cursor: pointer; user-select: none;" onclick="toggleContent(this)">
+                                <span style="display: inline-block; width: 20px;">▶</span> 🪟 Windows 安裝 Maven：
+                            </h4>
+                            <ol style="margin-left: 24px; display: none;" class="toggle-content">
+                                <li>前往 <code>https://maven.apache.org/download.cgi</code></li>
+                                <li>下載 Binary zip archive（例如：<code>apache-maven-3.9.x-bin.zip</code>）</li>
+                                <li>解壓縮到 <code>C:\Program Files\Apache\maven</code></li>
+                                <li>設定環境變數：
+                                    <ul style="margin-top: 8px;">
+                                        <li>新增系統變數 <code>MAVEN_HOME</code>：<code>C:\Program Files\Apache\maven</code></li>
+                                        <li>在 <code>Path</code> 變數中新增：<code>%MAVEN_HOME%\bin</code></li>
+                                    </ul>
+                                </li>
+                                <li>重新啟動命令提示字元並驗證：
+                                    <pre style="margin-top: 8px;"><code>mvn -version</code></pre>
+                                </li>
+                            </ol>
+                        </div>
+                        
+                        <div style="border: 2px solid rgba(255, 193, 7, 0.4); background-color: rgba(255, 193, 7, 0.05); padding: 16px; border-radius: 8px; margin: 8px 0 16px 0;">
+                            <h4 style="margin-top: 0; background: transparent; padding: 0; border: none; cursor: pointer; user-select: none;" onclick="toggleContent(this)">
+                                <span style="display: inline-block; width: 20px;">▶</span> 🐧 Linux 安裝 Maven：
+                            </h4>
+                            <ul style="margin-left: 24px; display: none;" class="toggle-content">
+                                <li><strong>Ubuntu/Debian</strong>
+                                    <pre style="margin-top: 8px;"><code># 安裝 Maven
+sudo apt update
+sudo apt install maven -y
+
+# 驗證安裝
+mvn -version</code></pre>
+                                </li>
+                                <li style="margin-top: 12px;"><strong>Red Hat/Fedora</strong>
+                                    <pre style="margin-top: 8px;"><code># 安裝 Maven
+sudo yum install maven -y
+
+# 驗證安裝
+mvn -version</code></pre>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <p style="margin-top: 16px;"><strong>驗證 Maven 安裝：</strong></p>
+                        <pre><code>mvn -version</code></pre>
+                        <p style="margin-top: 8px;">預期輸出：<code>Apache Maven 3.x.x</code> 及 Java 版本資訊</p>
+                        
                         <div class="note">
-                            <strong>💡 關於 Maven</strong>：專案已內建 Maven Wrapper (<code>mvnw</code>)，無需另外安裝 Maven。Maven Wrapper 會自動下載並使用正確的 Maven 版本，確保團隊開發環境一致。
+                            <strong>💡 何時需要安裝 Maven？</strong>
+                            <ul style="margin-top: 8px;">
+                                <li><strong>完整版 Workshop</strong>：使用專案內建的 Maven Wrapper (<code>mvnw</code>)，<strong>無需安裝</strong></li>
+                                <li><strong>帶著動手做</strong>：需要從零建立專案，<strong>必須安裝 Maven</strong></li>
+                            </ul>
                         </div>
                     </div>
 
